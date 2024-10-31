@@ -9,25 +9,31 @@
 </head>
 <body>
     <header>
-        <h1>Login</h1>
+        <div class="box-logo">
+            <img class="img-logo" src="img/logo.png" alt="logo">
+        </div>
+       
     </header>
 
     <section id="login">
-        <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+        <div class="box-login">
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input class="entrada-email" type="email" id="email" required>
 
-            <label for="password">Senha:</label>
-            <input type="password" id="password" required>
-
-            <button class="botao-login">
-                <img src="img/login.png" alt="Descrição da Imagem">
-            </button>
-            
-            <button class="botao-registrar" type="button" id="register-btn">
-                <img src="img/register.png" alt="Cadastrar">
-            </button>
-        </form>
+                <label for="password">Senha:</label>
+                <input class="entrada-senha" type="password" id="password" required>
+        <div class="botoes-container">
+                <button class="botao-login" type="submit">
+                    <img src="img/bt-login.png" alt="Descrição da Imagem">
+                </button>
+                
+                <button class="botao-registrar" type="button" id="register-btn">
+                    <img src="img/bt-registrar.png" alt="Cadastrar">
+                </button>
+        </div>
+            </form>
+        </div>
     </section>
 
     <footer>
