@@ -1,0 +1,11 @@
+* {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+.bg-img{
+  background-image: url("../img/pexels-cmrcn-29132447.jpg");
+  background-size: cover;
+  background-position: center;
+}
