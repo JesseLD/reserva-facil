@@ -20,6 +20,7 @@
     <title>
       Seu lugar garantido para momentos inesquecíveis | Reserva Fácil
     </title>
+    <script src="js/cookies.js"></script>
   </head>
 
 
@@ -47,14 +48,14 @@
           <nav class="hidden md:block">
 
 
-            <ul class="flex gap-4 text-white items-center">
+            <ul class="flex gap-4 text-white items-center transition">
               <a href="#" class="hover:underline transition">
                 <li>Como Funciona</li>
               </a>
               <a href="#" class="hover:underline transition">
                 <li>Sobre</li>
               </a>
-              <button class="bg-white text-black py-2 px-4 rounded-md">
+              <button class="bg-white text-black py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition">
                 Entrar
               </button>
             </ul>
@@ -148,7 +149,7 @@
                 ></ion-icon>
               </div>
               <h2 class="text-slate-700 md:text-xl">
-                Pronto! É só chegar no horário e aproveitar sua experiência de
+                Pronto! É só chegar no horário e aproveitar sua reserva de
                 primeira 😋
               </h2>
             </div>
@@ -319,19 +320,19 @@
           <div>
             <nav>
               <ul class="flex flex-col items-center md:flex-row gap-2 md:gap-4 text-sm md:text-md uppercase text-slate-500">
-                <li>Como Funciona</li>
-                <li>Fale Conosco</li>
-                <li>Política de Privacidade</li>
+                <li class="hover:underline hover:cursor-pointer transition">Como Funciona</li>
+                <li class="hover:underline hover:cursor-pointer transition">Fale Conosco</li>
+                <li class="hover:underline hover:cursor-pointer transition">Política de Privacidade</li>
               </ul>
             </nav>
           </div>
           <div class="text-2xl text-orange-600 text-center md:text-start">
-            <ion-icon name="logo-youtube"></ion-icon>
-            <ion-icon name="logo-instagram"></ion-icon>
-            <ion-icon name="logo-facebook"></ion-icon>
+            <ion-icon name="logo-youtube" class="hover:cursor-pointer"></ion-icon>
+            <ion-icon name="logo-instagram" class="hover:cursor-pointer"></ion-icon>
+            <ion-icon name="logo-facebook" class="hover:cursor-pointer"></ion-icon>
           </div>
         </div>
-        <div class="text-center text-slate-400 text-[12px] md:text-sm mt-2">
+        <div class="text-center text-slate-400 text-[12px] md:text-sm mt-2" >
           <p>
             &copy;
             <a href="#" class="text-orange-600 font-bold">Reserva Fácil</a> 2024
@@ -339,6 +340,18 @@
           </p>
         </div>
       </footer>
+      <div class="fixed-center hidden w-[90%] md:w-[30%] top-[80%] md:top-[90%] z-10 justify-between p-4 rounded-lg bg-orange-950 text-white shadow-xl" id="cookie-popup">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+          <div class="md:max-w-[90%] text-center md:text-start">
+            Usamos cookies para personalizar conteúdos melhorar sua experiência. ao navegar nesse site você concorda com nossa <a href="#"><span class="font-bold text-orange-600 hover:underline transition hover:cursor-pointer">Política de privacidade</span></a>
+          </div>
+          <div>
+            <button class="bg-orange-600 px-4 py-2 rounded-lg cookie-popup__button">
+              Aceitar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.14/lib/index.min.js"></script>
