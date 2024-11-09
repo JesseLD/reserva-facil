@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Restaurantes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-card {
+            border: 2px solid #FFA500;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .restaurant-info {
+            text-align: left;
+        }
+
+        .restaurant-info h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-info p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-info .stars {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .status {
+            color: #32CD32;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .footer {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #ddd;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            background-color: #fff;
+        }
+
+        .footer-icon {
+            font-size: 24px;
+            color: #FFA500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurantes</h1>
+        
+        <!-- Card do restaurante -->
+        <div class="restaurant-card">
+            <div class="restaurant-info">
+                <h2>Restaurante Jivanete</h2>
+                <p>Rua da praia</p>
+                <p>(75) 90000-0000</p>
+                <p class="stars">★★★★★</p>
+            </div>
+            <p class="status">Aberto Agora</p>
+        </div>
+
+        <!-- Repita os cards de restaurante conforme necessário -->
+        <div class="restaurant-card">
+            <div class="restaurant-info">
+                <h2>Restaurante Jivanete</h2>
+                <p>Rua da praia</p>
+                <p>(75) 90000-0000</p>
+                <p class="stars">★★★★★</p>
+            </div>
+            <p class="status">Aberto Agora</p>
+        </div>
+
+        <!-- Adicione mais cards se necessário -->
+    </div>
+
+    <!-- Rodapé com ícones de navegação -->
+    <div class="footer">
+        <span class="footer-icon">🏠</span>
+        <span class="footer-icon">🔍</span>
+        <span class="footer-icon">👤</span>
+    </div>
+</body>
+</html>
