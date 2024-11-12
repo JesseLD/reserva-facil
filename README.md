@@ -2,6 +2,13 @@
 
 **ReservaFácil** é um sistema de reservas para restaurantes, permitindo aos usuários realizarem reservas, visualizarem menus, horários de funcionamento e avaliações dos restaurantes, tudo em uma plataforma prática e intuitiva.
 
+## Endereços
+
+- **[Web Site](https://reservafacil.site/)**:
+- **[Aplicativo](https://app.reservafacil.site/)**:
+- **[Painel Gestor](https://painel.reservafacil.site/)**:
+- **[Api](https://api.reservafacil.site/)**:
+
 ## Funcionalidades
 
 - **Reservas de Mesas**: Permite aos usuários fazer reservas em restaurantes selecionando data, horário e número de pessoas.
