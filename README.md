@@ -4,10 +4,10 @@
 
 ## Endereços
 
-- **[Web Site](https://reservafacil.site/)**:
-- **[Aplicativo](https://app.reservafacil.site/)**:
-- **[Painel Gestor](https://painel.reservafacil.site/)**:
-- **[Api](https://api.reservafacil.site/)**:
+- **[Web Site](https://reservafacil.site/)** - Site Principal do APP
+- **[Aplicativo](https://app.reservafacil.site/)** - Endereço Web do App
+- **[Painel Gestor](https://painel.reservafacil.site/)** - Acesso Painel Gestor
+- **[Api](https://api.reservafacil.site/)** - Endereço da Api Principal
 
 ## Funcionalidades
 
