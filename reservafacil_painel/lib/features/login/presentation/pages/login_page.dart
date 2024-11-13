@@ -9,17 +9,26 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.orange[50],
       body: Center(
         child: Form(
           child: Container(
             width: width > 767 ? 500 : 275,
             height: width > 767 ? 500 : 400,
             decoration: BoxDecoration(
+              color: Colors.white,
               border: Border.all(
                 color: CustomColors.lightOrange,
-                width: 2,
+                width: 1,
               ),
               borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: width > 767 ? 32 : 16),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: "Email",
@@ -71,7 +80,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: width > 767 ? 20 : 12),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: "Senha",
@@ -103,7 +112,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: width > 767 ? 40 : 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Row(
                     children: [
                       Expanded(
