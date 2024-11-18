@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Faça Login | Reserva Fácil",
+  title: "Seu lugar garantido | Reserva Fácil",
   description:
     "Seu lugar garantido para momentos inesquecíveis | Reserva Fácil",
 };
@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
       </head>
-      <body className={`${inter.className}`}>{children}  </body>
+      <body className={`${inter.className}`}>{children} <input type="hidden" name="app-version" value={"1.0.0"} /></body>
     </html>
   );
 }
