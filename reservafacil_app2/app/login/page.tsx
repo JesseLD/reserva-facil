@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import TextInput from "@/components/ui/Inputs/TextInput";
@@ -83,7 +84,7 @@ export default function Page() {
 
       <section className="block lg:hidden w-full h-dvh">
         <form action="#" method="post">
-          <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-4">
+          <div className="w-full h-dvh flex items-center justify-center flex-col gap-2 p-4">
             <div className="w-full flex flex-col items-center gap-2 p-2 rounded-lg ">
               <Image
                 src={`/logo_center.png`}

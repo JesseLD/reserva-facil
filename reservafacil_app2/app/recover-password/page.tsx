@@ -16,7 +16,7 @@ export default function Page() {
     <>
       <section className="hidden lg:block w-full h-dvh ">
         <form action="#" method="post">
-          <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
+          <div className="w-full h-dvh flex items-center justify-center flex-col gap-2 p-8">
             <div className="w-[500px] flex flex-col items-center gap-4 shadow-lg p-8 rounded-lg ">
               <Image
                 src={`/logo_center.png`}
@@ -72,7 +72,7 @@ export default function Page() {
 
       <section className="block lg:hidden w-full h-dvh ">
         <form action="#" method="post">
-          <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
+          <div className="w-full h-dvh flex items-center justify-center flex-col gap-2 p-8">
             <div className="w-full flex flex-col items-center gap-2 p-2 rounded-lg ">
               <Image
                 src={`/logo_center.png`}
