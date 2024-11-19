@@ -59,8 +59,15 @@ export default function Home() {
             className="mt-8 pointer-events-none"
           />
           <div className="w-full flex flex-col gap-4 px-4 py-6 rounded-t-lg bg-white">
-            <Button text="Sou cliente" variant="primary" className="" />
-            <Button text="Criar Conta" variant="secondary" />
+            <p className="mb-2 font-bold text-xl text-center">
+              Faça sua primeira reserva hoje!
+            </p>
+            <Link href={"/login"}>
+              <Button text="Sou cliente" variant="primary" className="" />
+            </Link>
+            <Link href={"/register"}>
+              <Button text="Criar Conta" variant="secondary" />
+            </Link>
           </div>
         </div>
       </section>

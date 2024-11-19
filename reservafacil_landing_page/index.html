@@ -6,23 +6,20 @@
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
+    
     <link rel="stylesheet" href="css/style.css" />
     <title>
       Seu lugar garantido para momentos inesquecíveis | Reserva Fácil
     </title>
     <script src="js/cookies.js"></script>
   </head>
-
 
   <body class="bg-slate-200 relative">
     <div class="w-full h-screen flex flex-col">
@@ -39,41 +36,59 @@
             />
           </div>
 
-          <nav class="md:hidden">
+          <nav class="md:hidden relative">
             <ion-icon
               name="menu-outline"
               class="text-4xl text-white"
+             id="mobile-menu-button"
             ></ion-icon>
+
+            <div class="hidden" id="mobile-menu" data-aos="fade-up">
+              <div class="flex flex-col bg-white shadow-xl rounded-lg p-4 min-w-[160px] absolute right-0">
+                <ul class="flex flex-col gap-4 items-end transition">
+                  <a href="#how-it-works" class="hover:underline transition">
+                    <li>Como Funciona</li>
+                  </a>
+                  <a href="#" class="hover:underline transition">
+                    <li>Sobre</li>
+                  </a>
+                  <a href="https://app.reservafacil.site" target="_self" rel="next">
+                    <button
+                      class="bg-orange-600 text-white font-bold py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition"
+                    >
+                      Entrar
+                    </button>
+                  </a>
+                </ul>
+              </div>
+            </div>
           </nav>
           <nav class="hidden md:block">
-
-
             <ul class="flex gap-4 text-white items-center transition">
-              <a href="#" class="hover:underline transition">
+              <a href="#how-it-works" class="hover:underline transition">
                 <li>Como Funciona</li>
               </a>
               <a href="#" class="hover:underline transition">
                 <li>Sobre</li>
               </a>
-              <button class="bg-white text-black py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition">
-                Entrar
-              </button>
+              <a href="https://app.reservafacil.site" target="_self" rel="next">
+                <button
+                  class="bg-white text-black py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition"
+                >
+                  Entrar
+                </button>
+              </a>
             </ul>
           </nav>
         </header>
 
         <div class="text-center mt-10">
-
           <h1 class="text-3xl md:text-5xl text-white font-bold">
-
             Descubra os melhores restaurantes em todo o Brasil.
           </h1>
         </div>
         <div class="text-center mt-4">
-
           <h2 class="text-white text-lg md:text-2xl">
-
-
             Mais de 1 milhão de pessoas já aproveitaram experiências de primeira
             em mais de 5 mil restaurantes espalhados por todo o Brasil!
           </h2>
@@ -98,7 +113,12 @@
                   para você!
                 </p>
               </div>
-              <a href="#" class="my-4 px-2">
+              <a
+                href="https://app.reservafacil.site"
+                target="_self"
+                rel="next"
+                class="my-4 px-2"
+              >
                 <button
                   class="bg-orange-600 py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold md:text-xl uppercase"
                 >
@@ -109,7 +129,13 @@
           </div>
         </div>
       </section>
-      <section class="my-4 flex flex-col items-center" data-aos="fade-up" data-aos-duration="500">
+      <span id="how-it-works"></span>
+      <section
+        class="my-4 flex flex-col items-center"
+        data-aos="fade-up"
+        data-aos-duration="500"
+       
+      >
         <div class="text-center my-8">
           <h1 class="text-xl md:text-2xl font-bold text-orange-600">
             Como Funciona o Reserva Fácil?
@@ -118,7 +144,9 @@
 
         <div class="flex gap-8">
           <div class="flex justify-evenly gap-4 md:gap-0 flex-col items-center">
-            <div class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4">
+            <div
+              class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4"
+            >
               <div class="w-[100px]">
                 <ion-icon
                   name="search-outline"
@@ -130,7 +158,9 @@
                 2, 4 ou 6 pessoas.
               </h2>
             </div>
-            <div class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4">
+            <div
+              class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4"
+            >
               <div class="w-[100px]">
                 <ion-icon
                   name="trail-sign-outline"
@@ -141,12 +171,15 @@
                 Todos os integrantes pagam 50% no cardápio, exceto bebidas.
               </h2>
             </div>
-            <div class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4">
+            <div
+              class="p-4 bg-white rounded-lg flex max-w-[360px] md:max-w-[400px] gap-4"
+            >
               <div class="w-[100px]">
                 <ion-icon
                   name="beer-outline"
                   class="text-orange-600 text-[48px] md:text-[64px]"
                 ></ion-icon>
+                
               </div>
               <h2 class="text-slate-700 md:text-xl">
                 Pronto! É só chegar no horário e aproveitar sua reserva de
@@ -162,7 +195,12 @@
             />
           </div>
         </div>
-        <a href="#" class="my-4">
+        <a
+          href="https://app.reservafacil.site"
+          target="_self"
+          rel="next"
+          class="my-4"
+        >
           <button
             class="bg-orange-600 py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase"
           >
@@ -174,8 +212,8 @@
       <section
         class="w-full h-[600px] pl-[10vw] bg-slate-400 bg-cover md:bg-center"
         style="background-image: url('./img/restaurant1.jpg')"
-
-        data-aos="fade-up" data-aos-duration="750"
+        data-aos="fade-up"
+        data-aos-duration="750"
       >
         <div class="h-[600px] flex flex-col justify-center gap-4">
           <div class="max-w-[600px] flex items-center gap-4 text-white">
@@ -192,11 +230,13 @@
             </p>
           </div>
           <div>
-            <button
-              class="bg-orange-600 py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase"
-            >
-              Cadastrar Restaurante
-            </button>
+            <a href="https://app.reservafacil.site" target="_self" rel="next">
+              <button
+                class="bg-orange-600 py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase"
+              >
+                Cadastrar Restaurante
+              </button>
+            </a>
           </div>
         </div>
       </section>
@@ -204,7 +244,8 @@
       <section
         class="w-full h-[600px] px-[10vw] bg-slate-400 bg-cover bg-center justify-end"
         style="background-image: url('./img/restaurant2.jpg')"
-        data-aos="fade-up" data-aos-duration="1000"
+        data-aos="fade-up"
+        data-aos-duration="1000"
       >
         <div class="flex justify-end">
           <div class="h-[600px] flex flex-col justify-center gap-2">
@@ -223,11 +264,13 @@
               </p>
             </div>
             <div class="max-w-[450px] flex w-full">
-              <button
-                class="bg-orange-600 w-full py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase"
-              >
-                Seja Licenciado
-              </button>
+              <a href="https://app.reservafacil.site" target="_self" rel="next">
+                <button
+                  class="bg-orange-600 w-full py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase"
+                >
+                  Seja Licenciado
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -235,7 +278,8 @@
 
       <section
         class="w-full md:h-[800px] bg-gradient-to-b from-orange-600 to-yellow-500 px-[10vw] py-8"
-        data-aos="fade-up" data-aos-duration="1000"
+        data-aos="fade-up"
+        data-aos-duration="1000"
       >
         <div class="md:h-[800px] flex flex-col justify-center">
           <div
@@ -300,17 +344,34 @@
               Baixe agora o app e faça sua primeira reserva!
             </h1>
           </div>
-          <div class="flex justify-center mt-6">
+          <!-- <div class="flex justify-center mt-6">
             <a href="#"><img src="img/gplay.png" alt="" width="200px" /></a>
-          </div>
+          </div> -->
+
           <div class="w-full mt-2 text-center">
-            <h1 class="text-white text-xl">Baixe agora mesmo!</h1>
+            <h1 class="text-white text-xl">Acesse agora mesmo!</h1>
+          </div>
+          <div class="w-full flex justify-center mt-4">
+            <a
+              href="https://app.reservafacil.site"
+              target="_self"
+              rel="next"
+              class=""
+            >
+              <button
+                class="bg-orange-600 w-full py-4 px-4 rounded-lg text-white hover:brightness-90 transition font-bold text-xl uppercase]"
+              >
+                Acesse Aqui
+              </button>
+            </a>
           </div>
         </div>
       </section>
 
       <footer class="py-8 px-[2vw] md:px-[10vw] bg-slate-100">
-        <div class="flex flex-col gap-4 items-center md:items-start md:gap-0 md:flex-row justify-between">
+        <div
+          class="flex flex-col gap-4 items-center md:items-start md:gap-0 md:flex-row justify-between"
+        >
           <img
             src="img/logo_mid.png"
             alt=""
@@ -319,20 +380,37 @@
           />
           <div>
             <nav>
-              <ul class="flex flex-col items-center md:flex-row gap-2 md:gap-4 text-sm md:text-md uppercase text-slate-500">
-                <li class="hover:underline hover:cursor-pointer transition">Como Funciona</li>
-                <li class="hover:underline hover:cursor-pointer transition">Fale Conosco</li>
-                <li class="hover:underline hover:cursor-pointer transition">Política de Privacidade</li>
+              <ul
+                class="flex flex-col items-center md:flex-row gap-2 md:gap-4 text-sm md:text-md uppercase text-slate-500"
+              >
+                <li class="hover:underline hover:cursor-pointer transition">
+                  Como Funciona
+                </li>
+                <li class="hover:underline hover:cursor-pointer transition">
+                  Fale Conosco
+                </li>
+                <li class="hover:underline hover:cursor-pointer transition">
+                  Política de Privacidade
+                </li>
               </ul>
             </nav>
           </div>
           <div class="text-2xl text-orange-600 text-center md:text-start">
-            <ion-icon name="logo-youtube" class="hover:cursor-pointer"></ion-icon>
-            <ion-icon name="logo-instagram" class="hover:cursor-pointer"></ion-icon>
-            <ion-icon name="logo-facebook" class="hover:cursor-pointer"></ion-icon>
+            <ion-icon
+              name="logo-youtube"
+              class="hover:cursor-pointer"
+            ></ion-icon>
+            <ion-icon
+              name="logo-instagram"
+              class="hover:cursor-pointer"
+            ></ion-icon>
+            <ion-icon
+              name="logo-facebook"
+              class="hover:cursor-pointer"
+            ></ion-icon>
           </div>
         </div>
-        <div class="text-center text-slate-400 text-[12px] md:text-sm mt-2" >
+        <div class="text-center text-slate-400 text-[12px] md:text-sm mt-2">
           <p>
             &copy;
             <a href="#" class="text-orange-600 font-bold">Reserva Fácil</a> 2024
@@ -340,21 +418,35 @@
           </p>
         </div>
       </footer>
-      <div class="fixed-center hidden w-[90%] md:w-[30%] top-[80%] md:top-[90%] z-10 justify-between p-4 rounded-lg bg-orange-950 text-white shadow-xl" id="cookie-popup">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+      <div
+        class="fixed-center hidden w-[90%] md:w-[30%] top-[80%] md:top-[90%] z-10 justify-between p-4 rounded-lg bg-orange-950 text-white shadow-xl"
+        id="cookie-popup"
+      >
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0"
+        >
           <div class="md:max-w-[90%] text-center md:text-start">
-            Usamos cookies para personalizar conteúdos melhorar sua experiência. ao navegar nesse site você concorda com nossa <a href="#"><span class="font-bold text-orange-600 hover:underline transition hover:cursor-pointer">Política de privacidade</span></a>
+            Usamos cookies para personalizar conteúdos melhorar sua experiência.
+            ao navegar nesse site você concorda com nossa
+            <a href="#"
+              ><span
+                class="font-bold text-orange-600 hover:underline transition hover:cursor-pointer"
+                >Política de privacidade</span
+              ></a
+            >
           </div>
           <div>
-            <button class="bg-orange-600 px-4 py-2 rounded-lg cookie-popup__button">
+            <button
+              class="bg-orange-600 px-4 py-2 rounded-lg cookie-popup__button"
+            >
               Aceitar
             </button>
           </div>
         </div>
       </div>
     </div>
+    <script src="js/menu.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.14/lib/index.min.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
