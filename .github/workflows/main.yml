@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main # Escutar apenas alterações na branch 'Main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Checkout do código
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      # Passo 2: Conectar ao servidor remoto via SSH e executar o script
+      - name: Deploy para o Servidor
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}        # Endereço do servidor
+          username: ${{ secrets.SERVER_USER }}    # Usuário SSH
+          password: ${{ secrets.SERVER_PASSWORD }} # Senha SSH
+          port: 4113                               # Porta SSH 
+          script: |
+            /home/jesse/update.sh
