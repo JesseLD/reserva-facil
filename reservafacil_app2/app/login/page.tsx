@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="hidden md:block w-full h-dvh ">
+      <section className="hidden lg:block w-full h-dvh ">
         <form action="#" method="post">
           <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
             <div className="w-[500px] flex flex-col items-center gap-4 shadow-lg p-8 rounded-lg ">
@@ -33,19 +33,21 @@ export default function Page() {
                 type="email"
                 name="email"
                 className=""
+                required
               />
               <TextInput
                 placeholder="Sua Senha"
-                type="email"
-                name="email"
+                type="password"
+                name="password"
                 className=""
+                required
               />
               <div className="flex justify-between w-full my-4 ">
                 <div>
                   <input
                     type="checkbox"
                     name=""
-                    id=""
+                    // id=""
                     className="cursor-pointer"
                   />
                   <span className="text-orange-500 font-bold hover:underline cursor-pointer transition-all ml-2">
@@ -55,7 +57,7 @@ export default function Page() {
 
                 <div>
                   <a
-                    href="#"
+                    href="/recover-password"
                     className="text-orange-500 font-bold hover:underline transition-all"
                   >
                     Recuperar senha
@@ -79,7 +81,7 @@ export default function Page() {
         </form>
       </section>
 
-      <section className="block md:hidden w-full h-dvh ">
+      <section className="block lg:hidden w-full h-dvh ">
         <form action="#" method="post">
           <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
             <div className="w-full flex flex-col items-center gap-2 p-2 rounded-lg ">
@@ -103,19 +105,22 @@ export default function Page() {
                 type="email"
                 name="email"
                 className=""
+                required
               />
               <TextInput
                 placeholder="Sua Senha"
                 type="email"
                 name="email"
                 className=""
+                required
+                min={6}
               />
               <div className="flex justify-between w-full my-2 ">
                 <div>
                   <input
                     type="checkbox"
                     name=""
-                    id=""
+                    // id=""
                     className="cursor-pointer"
                   />
                   <span className="text-orange-500 font-bold hover:underline cursor-pointer transition-all ml-2">
@@ -148,8 +153,6 @@ export default function Page() {
           </div>
         </form>
       </section>
-
- 
     </>
   );
 }
