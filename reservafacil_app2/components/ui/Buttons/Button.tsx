@@ -34,8 +34,8 @@ export default function Button({
         variant === "primary"
           ? "bg-orange-500 text-white "
           : variant === "secondary"
-          ? "bg-transparent border-2 border-orange-500 text-orange-500"
-          : "bg-white text-black"
+            ? "bg-transparent border-2 border-orange-500 text-orange-500"
+            : "bg-white text-black"
       }`}
     >
       {text}

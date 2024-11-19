@@ -24,7 +24,8 @@ export default function TextInput({
   required,
   readonly,
   onChange,
-  min,max
+  min,
+  max,
 }: TextInputProps) {
   return (
     <input

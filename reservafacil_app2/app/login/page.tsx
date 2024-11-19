@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="hidden lg:block w-full h-dvh ">
+      <section className="hidden lg:block w-full h-dvh">
         <form action="#" method="post">
           <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
             <div className="w-[500px] flex flex-col items-center gap-4 shadow-lg p-8 rounded-lg ">
@@ -56,12 +56,12 @@ export default function Page() {
                 </div>
 
                 <div>
-                  <a
+                  <Link
                     href="/recover-password"
                     className="text-orange-500 font-bold hover:underline transition-all"
                   >
                     Recuperar senha
-                  </a>
+                  </Link>
                 </div>
               </div>
               <Button text="Entrar" variant="primary" className="my-2" />
@@ -81,9 +81,9 @@ export default function Page() {
         </form>
       </section>
 
-      <section className="block lg:hidden w-full h-dvh ">
+      <section className="block lg:hidden w-full h-dvh">
         <form action="#" method="post">
-          <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-8">
+          <div className="w-full h-screen flex items-center justify-center flex-col gap-2 p-4">
             <div className="w-full flex flex-col items-center gap-2 p-2 rounded-lg ">
               <Image
                 src={`/logo_center.png`}
@@ -129,12 +129,12 @@ export default function Page() {
                 </div>
 
                 <div>
-                  <a
-                    href="#"
+                  <Link
+                    href="/recover-password"
                     className="text-orange-500 font-bold hover:underline transition-all"
                   >
                     Recuperar senha
-                  </a>
+                  </Link>
                 </div>
               </div>
               <Button text="Entrar" variant="primary" className="my-2" />
@@ -142,12 +142,12 @@ export default function Page() {
               <p className="text-slate-400 my-2 font-bold cursor-pointer">Ou</p>
               <p className="text-slate-400 font-bold cursor-pointer text-md text-center">
                 Não tem uma conta?{" "}
-                <a
-                  href="#"
+                <Link
+                  href={"/register"}
                   className="text-orange-500 font-bold hover:underline transition-all"
                 >
                   Cadastro Gratuito
-                </a>
+                </Link>
               </p>
             </div>
           </div>
