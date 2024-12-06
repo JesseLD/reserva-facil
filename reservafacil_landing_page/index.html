@@ -28,12 +28,14 @@
       >
         <header class="w-full flex justify-between mt-4 items-center">
           <div>
-            <img
-              src="img/logo_ex.png"
-              alt=""
-              width="220px"
-              class="w-[160px] md:w-[220px]"
-            />
+            <a href="/">
+              <img
+                src="img/logo_ex.png"
+                alt=""
+                width="220px"
+                class="w-[160px] md:w-[220px] pointer-events-none"
+              />
+            </a>
           </div>
 
           <nav class="md:hidden relative">
@@ -54,7 +56,7 @@
                   </a>
                   <a href="https://app.reservafacil.site" target="_self" rel="next">
                     <button
-                      class="bg-orange-600 text-white font-bold py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition"
+                      class="bg-orange-600 text-white font-bold py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90  transition"
                     >
                       Entrar
                     </button>
@@ -73,7 +75,7 @@
               </a>
               <a href="https://app.reservafacil.site" target="_self" rel="next">
                 <button
-                  class="bg-white text-black py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 transition"
+                  class="bg-white text-black py-2 px-4 rounded-md hover:cursor-pointer hover:brightness-90 hover:scale-[105%] transition"
                 >
                   Entrar
                 </button>
@@ -392,6 +394,11 @@
                 <li class="hover:underline hover:cursor-pointer transition">
                   Política de Privacidade
                 </li>
+                <a href="/our-team">
+                  <li class="hover:underline hover:cursor-pointer transition">
+                    Nossa Equipe
+                  </li>
+                </a>
               </ul>
             </nav>
           </div>
