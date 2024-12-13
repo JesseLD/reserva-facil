@@ -1,3 +1,5 @@
+# version: "3.8"
+
 services:
   go-app:
     build:
@@ -5,8 +7,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    networks:
-      - app-network
-
-networks:
-  app-network:
+    restart: unless-stopped
