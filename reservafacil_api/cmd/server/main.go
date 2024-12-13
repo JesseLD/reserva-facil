@@ -25,6 +25,8 @@ func main() {
 
 	// log.Println("Gin Mode:", gin.Mode())
 
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 
 	routes.SetupRoutes(router)
