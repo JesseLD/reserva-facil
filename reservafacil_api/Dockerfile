@@ -1,22 +1,26 @@
-# Dockerfile
-FROM golang:1.21 as builder
+# Etapa de build
+FROM golang:1.23 AS builder
 
 WORKDIR /app
 
-# Copia os arquivos para o container
-COPY ./go-app /app
+# Cache de dependências
+COPY go.mod go.sum ./
+RUN go mod download
 
-# Compila o código
-RUN go build -o app .
+# Copia o código-fonte e compila
+COPY . .
+RUN go build -o app ./cmd/server
 
-# Define uma imagem mínima para execução
-FROM debian:bullseye-slim
+# Etapa de runtime com imagem compatível
+FROM debian:bookworm-slim
 
 WORKDIR /app
 
-# Copia o binário da fase de build
+# Copia apenas o binário
 COPY --from=builder /app/app .
 
-# Define a porta e o comando de inicialização
+# Certifica-se de que o binário seja executável
+RUN chmod +x ./app
+
 EXPOSE 8080
 CMD ["./app"]
