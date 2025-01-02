@@ -2,14 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/common/constants/app_sizing.dart';
 
+// ignore: must_be_immutable
 class AppResponsive extends StatefulWidget {
-  final Widget mobile;
-  final Widget desktop;
-  
-  const AppResponsive({
+  Widget mobile;
+  Widget? desktop;
+  bool enableScrollView;
+
+  AppResponsive({
     super.key,
     required this.mobile,
-    required this.desktop,
+    this.desktop,
+    this.enableScrollView = false,
   });
 
   @override
@@ -20,17 +23,28 @@ class _AppResponsiveState extends State<AppResponsive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: LayoutBuilder(
-          builder: (_, constraints) {
-            if (constraints.maxWidth < AppSizing.breakpointLarge) {
-              return widget.mobile;
-            } else {
-              return widget.desktop;
-            }
-          },
-        ),
-      ),
+      body: widget.enableScrollView
+          ? SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  if (constraints.maxWidth < AppSizing.breakpointLarge) {
+                    return widget.mobile;
+                  } else {
+                    return widget.desktop ?? widget.mobile;
+                  }
+                },
+              ),
+            )
+          : LayoutBuilder(
+              builder: (_, constraints) {
+                if (constraints.maxWidth < AppSizing.breakpointLarge) {
+                  return widget.mobile;
+                } else {
+                  return widget.desktop ?? widget.mobile;
+                }
+              },
+            ),
     );
   }
 }

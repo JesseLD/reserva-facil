@@ -36,7 +36,7 @@ class _AppState extends State<App> {
       initialRoute: '/',
       onGenerateRoute: AppRouter.onGenerateRoute,
       debugShowCheckedModeBanner: false,
-      home: OnboardingPage(),
+      home: const OnboardingPage(),
     );
   }
 }

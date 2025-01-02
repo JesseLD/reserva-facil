@@ -34,7 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  intl: ^0.20.1
+  intl: ^0.19.0
   dio: ^5.7.0
   lottie: ^3.1.3
   shimmer: ^3.0.0
@@ -46,6 +46,7 @@ dependencies:
   provider: ^6.1.2
   flutter_launcher_icons: ^0.14.2
   google_fonts: ^6.2.1
+  brasil_fields: ^1.15.0
 
 # The following section is specific to Flutter.
 flutter_launcher_icons:
@@ -247,6 +248,7 @@ flutter:
     - assets/logo_mid.png
     - assets/food.png
     - assets/logo_mid_up_w.png
+    - assets/logo_mid_up.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

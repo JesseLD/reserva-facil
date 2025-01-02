@@ -3,5 +3,5 @@ import 'package:reservafacil_app/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  runApp(const App());
 }
