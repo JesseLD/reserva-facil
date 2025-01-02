@@ -3,9 +3,25 @@ import 'package:reservafacil_app/common/constants/app_colors.dart';
 
 class AppButtonStyles {
   static final ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.symmetric(vertical: 16),
     elevation: 0,
     backgroundColor: AppColors.primaryAlternative,
     shape: RoundedRectangleBorder(
+      borderRadius:
+          BorderRadius.circular(8), // Corrigido: Não pode ser const aqui
+    ),
+  );
+
+  static final ButtonStyle secondaryButtonStyle = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.symmetric(vertical: 16),
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    
+    shape: RoundedRectangleBorder(
+      side: BorderSide(
+        color: AppColors.primaryAlternative,
+        width: 2,
+      ),
       borderRadius:
           BorderRadius.circular(8), // Corrigido: Não pode ser const aqui
     ),
