@@ -1,26 +1,23 @@
-# Etapa de build
-FROM golang:1.23 AS builder
+from node:22-alpine3.20
 
-WORKDIR /app
+# Create app directory
 
-# Cache de dependências
-COPY go.mod go.sum ./
-RUN go mod download
+WORKDIR /usr/app
 
-# Copia o código-fonte e compila
+# Install app dependencies
+
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source
+
 COPY . .
-RUN go build -o app ./cmd/server
 
-# Etapa de runtime com imagem compatível
-FROM debian:bookworm-slim
+# Build and run the app
 
-WORKDIR /app
+RUN npm run build
 
-# Copia apenas o binário
-COPY --from=builder /app/app .
+EXPOSE 3030
 
-# Certifica-se de que o binário seja executável
-RUN chmod +x ./app
-
-EXPOSE 8080
-CMD ["./app"]
+CMD ["npm", "start"]

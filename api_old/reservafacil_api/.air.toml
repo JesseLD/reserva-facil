@@ -1,0 +1,13 @@
+# Configuração padrão do Air
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  bin = "tmp/main"
+  cmd = "go run cmd/server/main.go"   # Ou "go build", dependendo da sua necessidade
+  include = []
+  exclude = []
+
+[log]
+  time = true  # Exibe os logs com timestamp
+  level = "debug"  # Nível de log (debug, info, etc.)
