@@ -1,4 +1,3 @@
-// import { DataSource } from "typeorm";
 import { DataSource } from "typeorm";
 import config from "../../Config/config";
 import { Users } from "../Modules/Users/Entities/Users";
