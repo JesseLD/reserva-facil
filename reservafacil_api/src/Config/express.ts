@@ -6,7 +6,7 @@ import express, {
 } from "express";
 import "express-async-errors";
 import cors from "cors";
-
+import { indexRouter } from "../App/Routes/index.routes";
 export const app = express();
 
 app.use(cors());
@@ -26,5 +26,8 @@ const errorHandler: ErrorRequestHandler = (
   }
   next();
 };
+
+
+app.use(indexRouter);
 
 app.use(errorHandler);

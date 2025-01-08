@@ -1,4 +1,10 @@
-export const ApiExceptions = {
+export interface ApiException {
+  status: number;
+  message: string;
+  exception: string;
+}
+
+export const ApiExceptions: { [key: string]: ApiException } = {
   BAD_REQUEST: {
     status: 400,
     message: "Bad Request",
@@ -48,5 +54,15 @@ export const ApiExceptions = {
     status: 400,
     message: "Invalid Password",
     exception: "InvalidPasswordException",
+  },
+  USER_NOT_FOUND: {
+    status: 400,
+    message: "User Not Found",
+    exception: "UserNotFoundException",
+  },
+  USER_ALREADY_EXISTS: {
+    status: 400,
+    message: "User Already Exists",
+    exception: "UserAlreadyExistsException",
   },
 };
