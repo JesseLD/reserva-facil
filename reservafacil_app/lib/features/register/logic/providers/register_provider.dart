@@ -4,7 +4,10 @@ import '../../data/repositories/register_repository.dart';
 import '../../data/models/register_model.dart';
 
 class RegisterProvider with ChangeNotifier {
+  
   final RegisterRepository _repository = RegisterRepository();
+
+  bool cameFromLogin = false;
 
   List<RegisterModel> get items => _repository.getAll();
 

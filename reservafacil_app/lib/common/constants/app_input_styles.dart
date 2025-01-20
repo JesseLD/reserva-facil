@@ -34,7 +34,7 @@ class AppInputStyles {
         ),
       ),
       borderSide: BorderSide(
-        color: Colors.black38,
+        color: AppColors.primary,
         width: 1.2,
       ),
     ),

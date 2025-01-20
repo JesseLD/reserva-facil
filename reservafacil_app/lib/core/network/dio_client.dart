@@ -14,6 +14,25 @@ class DioClient {
             headers: _getHeaders(),
           ),
         ) {
+    _dio.interceptors.add(InterceptorsWrapper(
+      onResponse: (response, handler) {
+        // Apenas continue com a resposta se for bem-sucedida
+        return handler.next(response);
+      },
+      onError: (DioError error, handler) {
+        // Verifica se o erro está na faixa 400–499
+        if (error.response != null &&
+            error.response!.statusCode != null &&
+            error.response!.statusCode! >= 400 &&
+            error.response!.statusCode! < 500) {
+          // Simplesmente trata o erro como uma resposta "normal"
+          return handler.resolve(error.response!);
+        }
+
+        // Para outros erros (500+), deixe o Dio lançar a exceção
+        return handler.next(error);
+      },
+    ));
     // _dio.interceptors.add(LogInterceptor(responseBody: true));
     // _disableSSLCertificateVerification();
   }
@@ -28,12 +47,14 @@ class DioClient {
   static _getBaseURL() {
     // Change the return value to the URL of your API
 
-    // return "http://172.20.73.96:3000/"; // URL Casa
-    return "https://api.reservafacil.site/"; // URL Produção
+    // return "http://localhost:3030/"; // URL Casa
+    return "http://192.168.1.232:3030/"; // URL Casa
+    // return "http://172.20.73.96:3030/"; // URL Casa
+    // return "https://api.reservafacil.site/"; // URL Produção
   }
 
   static _getApiKey() {
-    return "MDA_APP2";
+    return "RFAPP_012025_DEV";
   }
 
   Dio get dio => _dio;
@@ -81,11 +102,9 @@ class DioClient {
 
   void _handleError(Object error) {
     if (error is DioException) {
-      log(
-          'DioError: ${error.response?.statusCode} - ${error.response?.data}');
+      log('DioError: ${error.response?.statusCode} - ${error.response?.data}');
     } else {
       log('Error: $error');
     }
   }
-
 }

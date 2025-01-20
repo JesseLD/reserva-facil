@@ -1,7 +1,6 @@
 // import { Sequelize } from "sequelize";
 // import config from "../../Config/config";
 
-
 // export const sequelize = new Sequelize({
 //   database: config.database.database,
 //   host: config.database.host,
@@ -10,7 +9,6 @@
 //   password: config.database.password,
 //   dialect: "postgres",
 // });
-
 
 // export const databaseConnect = async () => {
 //   try {

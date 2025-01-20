@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/common/constants/app_colors.dart';
+import 'package:reservafacil_app/common/constants/app_text_styles.dart';
 
 void showErrorPopup(
   BuildContext context, {
@@ -12,11 +14,22 @@ void showErrorPopup(
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(title),
-        content: Text(message),
+        title: Text(
+          title,
+          style: AppTextStyles.subtitle,
+        ),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
         actions: <Widget>[
           TextButton(
-            child: Text(buttonText),
+            child: Text(
+              buttonText,
+              style: AppTextStyles.button.copyWith(
+                color: AppColors.primaryAlternative,
+              ),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
               if (onPressed != null) {
@@ -144,3 +157,48 @@ showConfirmationPopup(
 //     },
 //   );
 // }
+
+showFullScreenLoadingPopup(BuildContext context) {
+  // showDialog(
+  //   context: context,
+  //   barrierDismissible: false,
+  //   builder: (BuildContext context) {
+  //     return const AlertDialog(
+  //       content: Center(
+  //         child: CircularProgressIndicator(),
+  //       ),
+  //     );
+  //   },
+  // );
+
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false,
+    barrierLabel: 'Dismiss',
+    transitionDuration: Duration(milliseconds: 300),
+    pageBuilder: (context, animation1, animation2) {
+      return PopScope(
+        canPop: false,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text('Popup Tela Inteira'),
+                const CircularProgressIndicator.adaptive(),
+                // ElevatedButton(
+                //   onPressed: () => Navigator.of(context).pop(),
+                //   child: Text('Fechar'),
+                // ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}

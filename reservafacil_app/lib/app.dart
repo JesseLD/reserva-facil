@@ -3,7 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reservafacil_app/common/constants/app_themes.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/router/app_router.dart';
+import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 import 'package:reservafacil_app/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -15,28 +18,22 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    // return MultiProvider(
-    //   providers: [],
-    //   child: MaterialApp(
-    //     title: "Reserva Fácil",
-    //     theme: AppThemes.lightTheme.copyWith(
-    //       textTheme: GoogleFonts.interTextTheme(),
-    //     ),
-    //     initialRoute: '/',
-    //     onGenerateRoute: AppRouter.onGenerateRoute,
-    //     debugShowCheckedModeBanner: false,
-    //     // home: ,
-    //   ),
-    // );
-    return MaterialApp(
-      title: "Reserva Fácil",
-      theme: AppThemes.lightTheme.copyWith(
-        textTheme: GoogleFonts.interTextTheme(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterProvider()),
+        ChangeNotifierProvider(create: (_) => RecoverPasswordProvider()),
+      ],
+      child: MaterialApp(
+        title: "Reserva Fácil",
+        theme: AppThemes.lightTheme.copyWith(
+          textTheme: GoogleFonts.interTextTheme(),
+        ),
+        initialRoute: '/',
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        debugShowCheckedModeBanner: false,
+        home: const OnboardingPage(),
       ),
-      initialRoute: '/',
-      onGenerateRoute: AppRouter.onGenerateRoute,
-      debugShowCheckedModeBanner: false,
-      home: const OnboardingPage(),
     );
   }
 }

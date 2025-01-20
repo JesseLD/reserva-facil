@@ -17,7 +17,7 @@ const errorHandler: ErrorRequestHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (err) {
     console.error(err.stack);
@@ -26,7 +26,6 @@ const errorHandler: ErrorRequestHandler = (
   }
   next();
 };
-
 
 app.use(indexRouter);
 

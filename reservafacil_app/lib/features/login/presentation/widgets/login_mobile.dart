@@ -1,10 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:reservafacil_app/common/constants/app_button_styles.dart';
+import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
+import 'package:reservafacil_app/common/utils/logger.dart';
+import 'package:reservafacil_app/common/utils/popups.dart';
+import 'package:reservafacil_app/common/utils/toasts.dart';
+import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginMobile extends StatefulWidget {
-  const LoginMobile({super.key});
+  bool cameFromRegister;
+  LoginMobile({
+    super.key,
+    this.cameFromRegister = false,
+  });
 
   @override
   State<LoginMobile> createState() => _LoginMobileState();
@@ -14,9 +29,101 @@ class _LoginMobileState extends State<LoginMobile> {
   final _formKey = GlobalKey<FormState>();
 
   bool _saveLogin = false;
+  bool _obscureText = true;
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _handleLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (_saveLogin) {
+      prefs.setString("email", _emailController.text);
+      prefs.setString("password", _passwordController.text);
+    } else {
+      prefs.remove("email");
+      prefs.remove("password");
+    }
+
+    String? _localEmail = prefs.getString("email");
+    String? _localPassword = prefs.getString("password");
+
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+    if (_localEmail != null && _localPassword != null && _saveLogin) {
+      try {
+        await loginProvider.login(
+          email: _localEmail,
+          password: _localPassword,
+        );
+
+        showSuccessToast(context, message: "Login Efetuado com sucesso!");
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          "/home",
+          (route) => false,
+        );
+      } catch (e) {
+        Logger.log("Auto Login Error $e");
+      }
+    }
+
+    try {
+      await loginProvider.login(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      showSuccessToast(context, message: "Login Efetuado com sucesso!");
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        "/home",
+        (route) => false,
+      );
+    } catch (e) {
+      Logger.log("Login Error $e");
+
+      // showErrorToast(context, message: "Erro ao fazer login");
+
+      if (e.toString().contains("UserNotFoundException")) {
+        showErrorPopup(
+          context,
+          message: "Usuário não encontrado!",
+          title: "Erro ao realizar o login",
+        );
+      } else if (e.toString().contains("InvalidPasswordException")) {
+        showErrorPopup(
+          context,
+          message: "Email ou Senha Inválidos, Tente Novamente",
+          title: "Erro ao realizar o login",
+        );
+      }
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(e.toString()),
+      //   ),
+      // );
+    }
+  }
+
+  void _loadSaveLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    _saveLogin = prefs.getBool("saveLogin") ?? false;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _loadSaveLogin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context);
     return Form(
       key: _formKey,
       child: Center(
@@ -52,9 +159,13 @@ class _LoginMobileState extends State<LoginMobile> {
                   label: const Text("E-mail"),
                   hintText: "Digite seu e-mail",
                 ),
+                controller: _emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, digite seu e-mail';
+                  }
+                  if (!value.contains('@') || !value.contains('.')) {
+                    return 'Por favor, digite um e-mail válido';
                   }
                   return null;
                 },
@@ -66,11 +177,34 @@ class _LoginMobileState extends State<LoginMobile> {
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
                   label: const Text("Senha"),
                   hintText: "Sua Senha",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+
+                      prefs.setBool("saveLogin", _obscureText);
+
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
+                controller: _passwordController,
+                obscureText: _obscureText,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, digite sua senha';
                   }
+                  if (value.length < 6) {
+                    return 'Sua senha deve ter no mínimo 6 caracteres';
+                  }
+                  if (!value.contains(RegExp(r'[0-9]'))) {
+                    return 'Sua senha deve conter números';
+                  }
+
                   return null;
                 },
               ),
@@ -101,7 +235,7 @@ class _LoginMobileState extends State<LoginMobile> {
                           child: Icon(
                             Icons.check,
                             size: 12,
-                            color: _saveLogin ? Colors.white : Colors.black,
+                            color: _saveLogin ? Colors.black : Colors.white,
                           ),
                         ),
                       ),
@@ -118,12 +252,17 @@ class _LoginMobileState extends State<LoginMobile> {
                       ),
                     ],
                   ),
-                  const Text(
-                    "Recuperar Senha",
-                    style: TextStyle(
-                      color: Color(0xFFFF6900),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/recover-password');
+                    },
+                    child: const Text(
+                      "Recuperar Senha",
+                      style: TextStyle(
+                        color: Color(0xFFFF6900),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ],
@@ -137,22 +276,37 @@ class _LoginMobileState extends State<LoginMobile> {
                     child: ElevatedButton(
                       style: AppButtonStyles.primaryButtonStyle,
                       onPressed: () {
+                        if (loginProvider.isLoading) return;
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Processando...'),
-                            ),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //     content: Text('Processando...'),
+                          //   ),
+                          // );
+
+                          _handleLogin();
                         }
                       },
-                      child: const Text(
-                        "Entrar",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: loginProvider.isLoading
+                          ? SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator.adaptive(
+                                // value: ,
+                                backgroundColor: Colors.white,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.primary,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              "Entrar",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ],
@@ -173,7 +327,17 @@ class _LoginMobileState extends State<LoginMobile> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/register');
+                  final registerProvider =
+                      Provider.of<RegisterProvider>(context, listen: false);
+
+                  if (loginProvider.cameFromRegister) {
+                    registerProvider.cameFromLogin = false;
+                    Navigator.pop(context);
+                  } else {
+                    registerProvider.cameFromLogin = true;
+
+                    Navigator.pushNamed(context, '/register');
+                  }
                 },
                 child: RichText(
                   text: const TextSpan(

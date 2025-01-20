@@ -4,11 +4,11 @@ import { ApiException } from "../Exceptions/exceptions";
 export class ResponseService {
   public static sendResponse(
     res: Response,
-    status: number = 200,
+    // status: number = 200,
     message: string,
-    data: any = null
+    data: any = null,
   ) {
-    res.status(status).json({
+    res.status(200).json({
       message: message,
       data: data,
     });
@@ -23,5 +23,16 @@ export class ResponseService {
     });
     return;
   }
+  public static sendError(
+    res: Response,
+    message: string,
+    apiException: ApiException,
+  ) {
+    res.status(apiException.status).json({
+      message: message,
+      exception: apiException.exception,
+      data: [],
+    });
+    return;
+  }
 }
-

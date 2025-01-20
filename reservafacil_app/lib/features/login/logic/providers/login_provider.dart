@@ -1,29 +1,37 @@
-
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 import '../../data/repositories/login_repository.dart';
 import '../../data/models/login_model.dart';
 
 class LoginProvider with ChangeNotifier {
   final LoginRepository _repository = LoginRepository();
 
-  List<LoginModel> get items => _repository.getAll();
+  UserModel userModel = UserModel.empty();
 
-  void add(LoginModel item) {
-    _repository.create(item);
-    notifyListeners();
-  }
+  bool cameFromRegister = false;
 
-  LoginModel getById(String id) {
-    return _repository.getById(id);
-  }
+  bool isLoading = false;
 
-  void update(LoginModel item) {
-    _repository.update(item);
-    notifyListeners();
-  }
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      isLoading = true;
+      notifyListeners();
 
-  void delete(String id) {
-    _repository.delete(id);
-    notifyListeners();
+      final response = await _repository.login(
+        email: email,
+        password: password,
+      );
+
+      userModel = response;
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      rethrow;
+    }
   }
 }

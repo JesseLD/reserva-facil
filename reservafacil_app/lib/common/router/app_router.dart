@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/features/home/presentation/pages/home_page.dart';
 import 'package:reservafacil_app/features/login/presentation/pages/login_page.dart';
+import 'package:reservafacil_app/features/login/presentation/pages/recover_password.dart';
 import 'package:reservafacil_app/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:reservafacil_app/features/register/presentation/pages/register_page.dart';
 
@@ -12,11 +14,19 @@ class AppRouter {
         );
       case '/login':
         return MaterialPageRoute(
-          builder: (_) => const LoginPage(),
+          builder: (_) => LoginPage(),
         );
       case '/register':
         return MaterialPageRoute(
           builder: (_) => const RegisterPage(),
+        );
+      case '/recover-password':
+        return MaterialPageRoute(
+          builder: (_) => const RecoverPassword(),
+        );
+      case '/home':
+        return MaterialPageRoute(
+          builder: (_) => const HomePage(),
         );
       default:
         return MaterialPageRoute(

@@ -1,9 +1,13 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
+import 'package:reservafacil_app/common/utils/popups.dart';
+import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
 
 class RegisterMobile extends StatefulWidget {
   RegisterMobile({super.key});
@@ -17,6 +21,17 @@ class _RegisterMobileState extends State<RegisterMobile> {
 
   @override
   Widget build(BuildContext context) {
+    final registerProvider = Provider.of<RegisterProvider>(context);
+
+    TextEditingController _cpfController = TextEditingController();
+    final _passwordController = TextEditingController();
+    final _confirmPasswordController = TextEditingController();
+    final _emailController = TextEditingController();
+    final _nameController = TextEditingController();
+
+    bool _obscureText = true;
+
+
     return Form(
       key: _formKey,
       child: Center(
@@ -49,11 +64,12 @@ class _RegisterMobileState extends State<RegisterMobile> {
               ),
               TextFormField(
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
-                  label: const Text("Nome"),
-                  hintText: "Digite seu nome",
+                  label: const Text("Nome completo"),
+                  hintText: "Digite seu nome completo",
                 ),
+                controller: _nameController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null || value.isEmpty || value.length < 3) {
                     return 'Por favor, digite seu nome';
                   }
                   return null;
@@ -64,12 +80,16 @@ class _RegisterMobileState extends State<RegisterMobile> {
               ),
               TextFormField(
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
-                  label: const Text("E-mail"),
+                  label: const Text("E-mail "),
                   hintText: "Digite seu e-mail",
                 ),
+                controller: _emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, digite seu e-mail';
+                  }
+                  if (!value.contains('@') || !value.contains('.')) {
+                    return 'Por favor, digite um e-mail válido';
                   }
                   return null;
                 },
@@ -83,6 +103,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                   hintText: "Digite seu CPF",
                 ),
                 keyboardType: TextInputType.number,
+                controller: _cpfController,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   CpfInputFormatter(),
@@ -91,7 +112,24 @@ class _RegisterMobileState extends State<RegisterMobile> {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, digite seu CPF';
                   }
+                  if (value.replaceAll(RegExp(r'[^\d]'), '').length < 10) {
+                    return 'O CPF Deve ter 11 dígitos';
+                  }
                   return null;
+                },
+                onChanged: (value) {
+                  if (value.replaceAll(RegExp(r'[^\d]'), '').length > 10) {
+                    bool result = CPFValidator.isValid(value);
+
+                    if (!result) {
+                      _cpfController.clear();
+                      return showErrorPopup(
+                        context,
+                        message:
+                            "CPF inválido ou já cadastrado. Verifique os dados e tente novamente. Se o Seu CPF estiver correto, entre em contato conosco.",
+                      );
+                    }
+                  }
                 },
               ),
               const SizedBox(
@@ -99,13 +137,32 @@ class _RegisterMobileState extends State<RegisterMobile> {
               ),
               TextFormField(
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
-                  label: const Text("Senha"),
-                  hintText: "Sua Senha",
+                  label: const Text("Nova Senha"),
+                  hintText: "Digite sua senha",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
+                controller: _passwordController,
+                obscureText: _obscureText,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, digite sua senha';
                   }
+                  if (value.length < 6) {
+                    return 'Sua senha deve ter no mínimo 6 caracteres';
+                  }
+                  if (!value.contains(RegExp(r'[0-9]'))) {
+                    return 'Sua senha deve conter números';
+                  }
+
                   return null;
                 },
               ),
@@ -115,11 +172,33 @@ class _RegisterMobileState extends State<RegisterMobile> {
               TextFormField(
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
                   label: const Text("Confirmar Senha"),
-                  hintText: "Confirmar Senha",
+                  hintText: "Confirme sua senha",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
+                obscureText: _obscureText,
+                controller: _confirmPasswordController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, confirme sua senha';
+                    return 'Por favor, digite sua senha';
+                  }
+
+                  if (value.length < 6) {
+                    return 'Sua senha deve ter no mínimo 6 caracteres';
+                  }
+                  if (!value.contains(RegExp(r'[0-9]'))) {
+                    return 'Sua senha deve conter números';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'As senhas não são iguais';
                   }
                   return null;
                 },
@@ -169,7 +248,15 @@ class _RegisterMobileState extends State<RegisterMobile> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/login');
+                  final loginProvider =
+                      Provider.of<LoginProvider>(context, listen: false);
+                  if (registerProvider.cameFromLogin) {
+                    registerProvider.cameFromLogin = false;
+                    Navigator.pop(context);
+                  } else {
+                    loginProvider.cameFromRegister = true;
+                    Navigator.pushNamed(context, '/login');
+                  }
                 },
                 child: RichText(
                   text: const TextSpan(

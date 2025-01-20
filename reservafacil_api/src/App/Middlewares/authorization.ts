@@ -6,11 +6,13 @@ import { ApiExceptions } from "../Services/Exceptions/exceptions";
 export const authorization = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  const apiKey = req.headers["authorization"];
+  const apiKey = req.headers["authorization"] || req.headers["Authorization"];
+
 
   if (apiKey != config.api_key) {
+    // console.log(apiKey);
     ResponseService.sendException(res, ApiExceptions.UNAUTHORIZED);
 
     return;

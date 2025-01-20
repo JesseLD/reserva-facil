@@ -1,8 +1,6 @@
 import config from "../../../Config/config";
 import bcrypt from "bcryptjs";
 
-
-
 export class PasswordManager {
   private static instance: PasswordManager;
 
@@ -16,11 +14,11 @@ export class PasswordManager {
     return PasswordManager.instance;
   }
 
-  public generatePassword(password: string): string {
-    return bcrypt.hashSync(password,config.password.salt);
+  public hashPassword(password: string): string {
+    return bcrypt.hashSync(password, 12);
   }
 
-  public validatePassword(passwordHash: string, password: string): boolean {
-    return bcrypt.compareSync(passwordHash, password);
+  public comparePassword( password: string, passwordHash: string): boolean {
+    return bcrypt.compareSync(password, passwordHash);
   }
 }
