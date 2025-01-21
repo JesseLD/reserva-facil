@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,6 @@ import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toastification/toastification.dart';
 
 class LoginMobile extends StatefulWidget {
   bool cameFromRegister;
@@ -45,16 +44,16 @@ class _LoginMobileState extends State<LoginMobile> {
       prefs.remove("password");
     }
 
-    String? _localEmail = prefs.getString("email");
-    String? _localPassword = prefs.getString("password");
+    String? localEmail = prefs.getString("email");
+    String? localPassword = prefs.getString("password");
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 
-    if (_localEmail != null && _localPassword != null && _saveLogin) {
+    if (localEmail != null && localPassword != null && _saveLogin) {
       try {
         await loginProvider.login(
-          email: _localEmail,
-          password: _localPassword,
+          email: localEmail,
+          password: localPassword,
         );
 
         showSuccessToast(context, message: "Login Efetuado com sucesso!");
@@ -116,7 +115,6 @@ class _LoginMobileState extends State<LoginMobile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _loadSaveLogin();
     super.initState();
   }
@@ -288,7 +286,7 @@ class _LoginMobileState extends State<LoginMobile> {
                         }
                       },
                       child: loginProvider.isLoading
-                          ? SizedBox(
+                          ? const SizedBox(
                               width: 24,
                               height: 24,
                               child: CircularProgressIndicator.adaptive(
@@ -299,7 +297,7 @@ class _LoginMobileState extends State<LoginMobile> {
                                 ),
                               ),
                             )
-                          : Text(
+                          : const Text(
                               "Entrar",
                               style: TextStyle(
                                 color: Colors.white,

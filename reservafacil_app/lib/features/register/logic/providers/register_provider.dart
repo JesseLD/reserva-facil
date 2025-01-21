@@ -1,32 +1,26 @@
-
 import 'package:flutter/material.dart';
 import '../../data/repositories/register_repository.dart';
 import '../../data/models/register_model.dart';
 
 class RegisterProvider with ChangeNotifier {
-  
   final RegisterRepository _repository = RegisterRepository();
+
+  bool isLoading = false;
 
   bool cameFromLogin = false;
 
-  List<RegisterModel> get items => _repository.getAll();
-
-  void add(RegisterModel item) {
-    _repository.create(item);
+  Future<void> register(RegisterModel registerModel) async {
+    isLoading = true;
     notifyListeners();
-  }
 
-  RegisterModel getById(String id) {
-    return _repository.getById(id);
-  }
-
-  void update(RegisterModel item) {
-    _repository.update(item);
-    notifyListeners();
-  }
-
-  void delete(String id) {
-    _repository.delete(id);
-    notifyListeners();
+    try {
+      await _repository.register(registerModel);
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      rethrow;
+    }
   }
 }

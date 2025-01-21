@@ -4,6 +4,7 @@ import { ResponseService } from "../../../Services/Response/ResponseService";
 import { User } from "../Entities/User";
 import { ApiExceptions } from "../../../Services/Exceptions/exceptions";
 import { mailService } from "../../../Services/Mail/MailService";
+import { CodeGen } from "../../../Services/CodeGen/CodeGen";
 // import { PasswordManager } from "../../../Services/PasswordManager/PasswordManager";
 export class UserController {
 
@@ -32,9 +33,19 @@ export class UserController {
 
     try {
       await userModel.createUser(user);
+      
+      const code = CodeGen.generateCode();
+
+      await mailService.sendActivateAccountMail(
+        email,
+        code,
+        name,
+        "Verifique o seu email - Reserva Fácil",
+      )
+
       return ResponseService.sendResponse(res, "User Created Successfully!");
     }catch(e:any) {
-      console.log(e);
+      // console.log(e);
       if(e.message === ApiExceptions.USER_ALREADY_EXISTS.exception) {
         return ResponseService.sendException(res, ApiExceptions.USER_ALREADY_EXISTS);
       } 

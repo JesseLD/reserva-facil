@@ -1,15 +1,21 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_button_styles.dart';
+import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/utils/popups.dart';
+import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/register/data/models/register_model.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
 
 class RegisterMobile extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   RegisterMobile({super.key});
 
   @override
@@ -19,18 +25,60 @@ class RegisterMobile extends StatefulWidget {
 class _RegisterMobileState extends State<RegisterMobile> {
   final _formKey = GlobalKey<FormState>();
 
+  final _cpfController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
+
+  bool _obscureText = true;
+  void _handleRegister() async {
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+    RegisterModel registerModel = RegisterModel(
+      name: _nameController.text,
+      email: _emailController.text,
+      cpfCnpj: _cpfController.text.replaceAll(RegExp(r'[.\-]'), ""),
+      password: _passwordController.text,
+    );
+
+    try {
+      await registerProvider.register(registerModel);
+
+      showSuccessToast(context,
+          message:
+              "Um e-mail de confirmação foi enviado para ${_emailController.text}. Verifique sua caixa de entrada e siga as instruções para ativar sua conta.");
+
+      _nameController.clear();
+      _emailController.clear();
+      _cpfController.clear();
+      _passwordController.clear();
+      _confirmPasswordController.clear();
+
+      Navigator.pushNamed(context, '/login');
+    } catch (e) {
+      if (e.toString().contains("UserAlreadyExistsException")) {
+        showErrorPopup(
+          context,
+          message:
+              "O E-mail ou CPF informado já está cadastrado. Tente fazer login ou recuperar sua senha.",
+          title: "Erro ao realizar o registro",
+        );
+      } else {
+        showErrorPopup(
+          context,
+          message: "Erro ao realizar o registro. Tente novamente!",
+          title: "Erro ao realizar o registro",
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final registerProvider = Provider.of<RegisterProvider>(context);
-
-    TextEditingController _cpfController = TextEditingController();
-    final _passwordController = TextEditingController();
-    final _confirmPasswordController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _nameController = TextEditingController();
-
-    bool _obscureText = true;
-
 
     return Form(
       key: _formKey,
@@ -137,7 +185,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
               ),
               TextFormField(
                 decoration: AppInputStyles.primaryInputVariation.copyWith(
-                  label: const Text("Nova Senha"),
+                  label: const Text("Sua Senha"),
                   hintText: "Digite sua senha",
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -211,23 +259,36 @@ class _RegisterMobileState extends State<RegisterMobile> {
                   Expanded(
                     child: ElevatedButton(
                       style: AppButtonStyles.primaryButtonStyle,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Processando...'),
-                            ),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //     content: Text('Processando...'),
+                          //   ),
+                          // );
+                          _handleRegister();
                         }
                       },
-                      child: const Text(
-                        "Criar Conta",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: registerProvider.isLoading
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator.adaptive(
+                                // value: ,
+                                backgroundColor: Colors.white,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.primary,
+                                ),
+                              ),
+                            )
+                          : const Text(
+                              "Criar Conta",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ],

@@ -12,6 +12,6 @@ class RecoverPassword extends StatefulWidget {
 class _RecoverPasswordState extends State<RecoverPassword> {
   @override
   Widget build(BuildContext context) {
-    return AppResponsive(mobile: RecoverPasswordMobile());
+    return AppResponsive(mobile: const RecoverPasswordMobile());
   }
 }

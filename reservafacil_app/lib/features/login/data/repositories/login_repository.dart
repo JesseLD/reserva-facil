@@ -3,7 +3,7 @@ import 'package:reservafacil_app/core/network/dio_client.dart';
 import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 
 class LoginRepository {
-  DioClient _dioClient = DioClient();
+  final  _dioClient = DioClient();
 
   Future<UserModel> login({
     required String email,

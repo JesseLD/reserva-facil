@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 import '../../data/repositories/login_repository.dart';
-import '../../data/models/login_model.dart';
 
 class LoginProvider with ChangeNotifier {
   final LoginRepository _repository = LoginRepository();

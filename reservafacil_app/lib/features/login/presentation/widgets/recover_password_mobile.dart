@@ -16,9 +16,9 @@ class _RecoverPasswordMobileState extends State<RecoverPasswordMobile> {
   int index = 0;
 
   List<Widget> steps = [
-    SendEmail(),
-    ConfirmCode(),
-    ResetPassword(),
+    const SendEmail(),
+    const ConfirmCode(),
+    const ResetPassword(),
   ];
 
   @override

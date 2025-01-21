@@ -4,8 +4,6 @@ import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
-import 'package:reservafacil_app/common/utils/logger.dart';
-import 'package:reservafacil_app/common/utils/popups.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 
 class SendEmail extends StatefulWidget {
@@ -18,7 +16,7 @@ class SendEmail extends StatefulWidget {
 class _SendEmailState extends State<SendEmail> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
+  final  _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class _SendEmailState extends State<SendEmail> {
               const SizedBox(
                 height: 4,
               ),
-              Text("Digite seu e-mail para recuperar sua senha"),
+              const Text("Digite seu e-mail para recuperar sua senha"),
               const SizedBox(
                 height: 24,
               ),

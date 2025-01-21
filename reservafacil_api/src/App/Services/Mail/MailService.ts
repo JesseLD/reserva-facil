@@ -6,7 +6,7 @@ import {
 } from "./mailHtml";
 
 const transporter =
-  config.mail.service == ""
+  config.mail.useGmail == false
     ? nodemailer.createTransport({
         host: config.mail.host,
         port: Number.parseInt(config.mail.port.toString()),
@@ -80,6 +80,9 @@ class MailService {
       // text: "Este é um teste de envio de e-mail usando MailHog.",
       html: generateActivateAccountHTML(name, code),
     };
+
+    // console.log("USER" + config.mail.user);
+    // console.log("PASS" + config.mail.pass);
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {

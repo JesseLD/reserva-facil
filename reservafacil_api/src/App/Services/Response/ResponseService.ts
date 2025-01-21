@@ -14,6 +14,17 @@ export class ResponseService {
     });
     return;
   }
+  
+  public static sendSuccess(
+    res: Response,
+    { message, data = null }: { message: string; data?: any }
+  ) {
+    res.status(200).json({
+      message: message,
+      data: data,
+    });
+    return;
+  }
 
   public static sendException(res: Response, apiException: ApiException) {
     res.status(apiException.status).json({

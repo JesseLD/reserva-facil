@@ -43,6 +43,12 @@ find . -type f -name "*.ts" | while read -r file; do
   sed -i "s/baseModule/$lowercase_moduleName/g" "$file"
 done
 
+# Substituir o conteúdo dos arquivos em todos os subdiretórios
+find . -type f -name "*.ts" | while read -r file; do
+  sed -i "s/BaseModel/$moduleName/g" "$file"
+  sed -i "s/baseModel/$lowercase_moduleName/g" "$file"
+done
+
 # Renomear 'Entity.ts' para o nome do módulo (ex: 'MyModule.ts')
 find . -type f -name "Entity.ts" | while read -r file; do
   new_file=$(echo "$file" | sed "s/Entity/$moduleName/")

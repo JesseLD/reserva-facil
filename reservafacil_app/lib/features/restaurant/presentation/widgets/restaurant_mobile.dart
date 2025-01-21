@@ -12,8 +12,8 @@ class RestaurantMobile extends StatefulWidget {
 class _RestaurantMobileState extends State<RestaurantMobile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
       child: Center(
         child: Column(
           children: [

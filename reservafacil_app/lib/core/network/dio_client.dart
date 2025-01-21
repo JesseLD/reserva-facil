@@ -19,7 +19,7 @@ class DioClient {
         // Apenas continue com a resposta se for bem-sucedida
         return handler.next(response);
       },
-      onError: (DioError error, handler) {
+      onError: (DioException error, handler) {
         // Verifica se o erro está na faixa 400–499
         if (error.response != null &&
             error.response!.statusCode != null &&

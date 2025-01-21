@@ -22,11 +22,17 @@ const config = {
     host: process.env.MAIL_HOST || "",
     port: process.env.MAIL_PORT || 587,
     secure: process.env.MAIL_SECURE || false,
+    useGmail: process.env.MAIL_USE_GMAIL || false,
     service: process.env.MAIL_SERVICE || "",
-    user: process.env.MAIL_USER || "",
-    pass: process.env.MAIL_PASS || "",
+    user: process.env.MAIL_AUTH_USER || "",
+    pass: process.env.MAIL_AUTH_PASS || "",
     mailFrom: process.env.MAIL_FROM || "",
     mailFromName: process.env.MAIL_FROM_NAME || "",
+  },
+  redis: {
+    host: process.env.REDIS_HOST || "localhost",
+    port: process.env.REDIS_PORT || 6379,
+    password: process.env.REDIS_PASSWORD || "",
   }
 };
 

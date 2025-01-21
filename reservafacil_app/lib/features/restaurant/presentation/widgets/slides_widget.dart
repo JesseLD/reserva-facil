@@ -26,18 +26,17 @@ class _SlidesWidgetState extends State<SlidesWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _startAutoPlay();
   }
 
   void _startAutoPlay() {
-    _autoPlayTimer = Timer.periodic(Duration(seconds: 3), (timer) {
+    _autoPlayTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_pageController.hasClients) {
         int nextPage = (_currentPage + 1) % _images.length;
         _pageController.animateToPage(
           nextPage,
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
       }
@@ -46,7 +45,6 @@ class _SlidesWidgetState extends State<SlidesWidget> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     _autoPlayTimer?.cancel();
@@ -83,18 +81,18 @@ class _SlidesWidgetState extends State<SlidesWidget> {
             },
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         SmoothPageIndicator(
           controller: _pageController,
           count: _images.length,
-          effect: ExpandingDotsEffect(
+          effect: const ExpandingDotsEffect(
             activeDotColor: AppColors.primaryAlternative,
             dotColor: Colors.grey,
             dotHeight: 10,
             dotWidth: 10,
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
       ],
     );
   }

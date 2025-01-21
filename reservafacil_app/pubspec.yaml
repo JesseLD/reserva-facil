@@ -44,31 +44,47 @@ dependencies:
   html: ^0.15.5
   url_strategy: ^0.3.0
   provider: ^6.1.2
-  flutter_launcher_icons: ^0.14.2
+  flutter_launcher_icons: ^0.13.1
   google_fonts: ^6.2.1
   brasil_fields: ^1.15.0
   flutter_otp_text_field: ^1.4.0+2
   shared_preferences: ^2.3.3
   toastification: ^2.3.0
+  package_info_plus: ^8.1.3
 
 # The following section is specific to Flutter.
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^3.0.0
+
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/logo_min.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
-  web:
-    generate: true
-    image_path: "assets/logo_min.png"
-    background_color: "#FF9500"
-    theme_color: "#FF9500"
-  windows:
-    generate: true
-    # image_path: "path/to/image.png"
-    # icon_size: 48 # min:48, max:256, default: 48
-  macos:
-    generate: true
-    image_path: "assets/logo_min.png"
+  # web:
+  #   generate: true
+  #   image_path: "assets/logo_min.png"
+  #   background_color: "#FF9500"
+  #   theme_color: "#FF9500"
+  # windows:
+  #   generate: true
+  #   # image_path: "path/to/image.png"
+  #   # icon_size: 48 # min:48, max:256, default: 48
+  # macos:
+  #   generate: true
+  #   image_path: "assets/logo_min.png"
+
 
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
@@ -222,16 +238,7 @@ flutter_native_splash:
   #  - 'ios/Runner/Info-Debug.plist'
   #  - 'ios/Runner/Info-Release.plist'
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,26 +1,24 @@
 
+import 'package:reservafacil_app/core/network/dio_client.dart';
+
 import '../models/register_model.dart';
 
 class RegisterRepository {
-  final List<RegisterModel> _items = [];
+  final  _dioClient = DioClient();
 
-  List<RegisterModel> getAll() {
-    return _items;
-  }
 
-  RegisterModel getById(String id) {
-    return RegisterModel();
-  }
+  Future<void> register(RegisterModel registerModel) async {
+     final response = await _dioClient.post(
+        'v0/users/create',
+        data: registerModel.toMap(),
+      );
 
-  void create(RegisterModel item) {
-    _items.add(item);
-  }
 
-  void update(RegisterModel item) {
-    // Implement update logic here
-  }
+    if( response.statusCode == 400) {
+      final exception = response.data['exception'];
 
-  void delete(String id) {
-    // Implement delete logic here
+      throw Exception(exception);
+    }
+   
   }
 }

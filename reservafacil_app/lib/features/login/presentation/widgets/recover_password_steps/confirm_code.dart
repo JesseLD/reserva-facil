@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:provider/provider.dart';
-import 'package:reservafacil_app/app.dart';
-import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
-import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 
 class ConfirmCode extends StatefulWidget {
@@ -18,7 +15,6 @@ class ConfirmCode extends StatefulWidget {
 class _ConfirmCodeState extends State<ConfirmCode> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class _ConfirmCodeState extends State<ConfirmCode> {
               const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 "Digite o código de verificação enviado para o seu e-mail",
                 textAlign: TextAlign.center,
               ),

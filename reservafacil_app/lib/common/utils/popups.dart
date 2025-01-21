@@ -175,7 +175,7 @@ showFullScreenLoadingPopup(BuildContext context) {
     context: context,
     barrierDismissible: false,
     barrierLabel: 'Dismiss',
-    transitionDuration: Duration(milliseconds: 300),
+    transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, animation1, animation2) {
       return PopScope(
         canPop: false,
@@ -185,11 +185,11 @@ showFullScreenLoadingPopup(BuildContext context) {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Text('Popup Tela Inteira'),
-                const CircularProgressIndicator.adaptive(),
+                CircularProgressIndicator.adaptive(),
                 // ElevatedButton(
                 //   onPressed: () => Navigator.of(context).pop(),
                 //   child: Text('Fechar'),

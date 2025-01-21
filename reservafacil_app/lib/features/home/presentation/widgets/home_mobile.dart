@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/features/restaurant/presentation/widgets/restaurant_mobile.dart';
-import 'package:reservafacil_app/features/settings/presentation/pages/settings_page.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/settings_mobile.dart';
 
 class HomeMobile extends StatefulWidget {
@@ -12,10 +11,14 @@ class HomeMobile extends StatefulWidget {
 }
 
 class _HomeMobileState extends State<HomeMobile> {
-  List<Widget> _pages = [
+  final List<Widget> _pages = [
+    // ignore: prefer_const_constructors
     RestaurantMobile(),
+    // ignore: prefer_const_constructors
     Placeholder(),
+    // ignore: prefer_const_constructors
     Placeholder(),
+    // ignore: prefer_const_constructors
     SettingsMobile(),
   ];
 
@@ -34,7 +37,7 @@ class _HomeMobileState extends State<HomeMobile> {
             _index = value;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,

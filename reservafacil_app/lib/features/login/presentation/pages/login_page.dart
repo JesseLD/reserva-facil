@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/common/widgets/app_responsive.dart';
 import 'package:reservafacil_app/features/login/presentation/widgets/login_mobile.dart';
 

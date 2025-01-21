@@ -21,7 +21,6 @@ class _ResetPasswordState extends State<ResetPassword> {
   final _confirmPasswordController = TextEditingController();
 
   bool _obscureText = true;
-  bool _obscureText2 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 "Digite sua nova senha, ela deve ter no mínimo 6 caracteres, com letras e números",
                 textAlign: TextAlign.center,
               ),
