@@ -17,12 +17,19 @@ imageQueue.process(async (job) => {
 
   const outputPath = path.join(uploadDir, processedFilename);
 
-  await sharp(buffer)
-    .resize(300, 300, {
-      fit: "cover",
-    })
-    .jpeg({ quality: 80 })
-    .toFile(outputPath);
+  try {
+    console.log("Processing image:", filename);  // Log para verificar se o job chegou aqui
+    await sharp(buffer)
+      .resize(300, 300, {
+        fit: "cover",
+      })
+      .jpeg({ quality: 80 })
+      .toFile(outputPath);
 
-  return processedFilename;
+    console.log("Image processed and saved:", processedFilename);  // Log para confirmar que foi salvo
+    return processedFilename;
+  } catch (error) {
+    console.error("Error processing image:", error);  // Log para capturar o erro caso haja algum
+    throw error;
+  }
 });

@@ -8,12 +8,14 @@ class DrawerItem extends StatelessWidget {
   IconData icon;
   String title;
   Function() onTap;
+  int? notification;
 
   DrawerItem({
     super.key,
     required this.icon,
     required this.title,
     required this.onTap,
+    this.notification,
   });
 
   @override
@@ -23,7 +25,6 @@ class DrawerItem extends StatelessWidget {
         onTap();
       },
       child: ListTile(
-        
         iconColor: AppColors.gray,
         shape: Border(
           bottom: BorderSide(
@@ -48,6 +49,25 @@ class DrawerItem extends StatelessWidget {
                     color: AppColors.gray,
                   ),
                 ),
+                if (notification != null)
+                  const SizedBox(
+                    width: 4,
+                  ),
+                if (notification != null)
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: AppColors.dangerRed,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      notification.toString(),
+                      style: AppTextStyles.body.copyWith(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
               ],
             ),
             Icon(

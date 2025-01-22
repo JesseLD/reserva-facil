@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   validateCreateUser,
+  validateGetUserById,
   validateRecoverPassword,
 } from "../Validation/user-validate";
 import { userController } from "../Controllers/UserController";
@@ -14,6 +15,7 @@ export const userRouter = Router();
 // userRouter.get("/:id", (req, res) => {
 //   res.send("Hello, user with id: " + req.params.id);
 // });
+userRouter.get("/account/:id",validateGetUserById, userController.getUserById);
 
 userRouter.post("/create", validateCreateUser, userController.createUser);
 userRouter.post(

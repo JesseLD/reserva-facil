@@ -9,6 +9,7 @@ import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/common/utils/popups.dart';
 import 'package:reservafacil_app/common/utils/toasts.dart';
+import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,8 @@ class _LoginMobileState extends State<LoginMobile> {
   final _passwordController = TextEditingController();
 
   void _handleLogin() async {
+    showMessagePopup(context, message: "Save Login $_saveLogin");
+    return;
     final prefs = await SharedPreferences.getInstance();
 
     if (_saveLogin) {
@@ -48,6 +51,8 @@ class _LoginMobileState extends State<LoginMobile> {
     String? localPassword = prefs.getString("password");
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    final accountProvider =
+        Provider.of<AccountProvider>(context, listen: false);
 
     if (localEmail != null && localPassword != null && _saveLogin) {
       try {
@@ -55,6 +60,8 @@ class _LoginMobileState extends State<LoginMobile> {
           email: localEmail,
           password: localPassword,
         );
+
+        await accountProvider.getAccount(loginProvider.userModel.id);
 
         showSuccessToast(context, message: "Login Efetuado com sucesso!");
 
@@ -74,7 +81,7 @@ class _LoginMobileState extends State<LoginMobile> {
         password: _passwordController.text,
       );
 
-      showSuccessToast(context, message: "Login Efetuado com sucesso!");
+      // showSuccessToast(context, message: "Login Efetuado com sucesso!");
 
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -111,6 +118,16 @@ class _LoginMobileState extends State<LoginMobile> {
     final prefs = await SharedPreferences.getInstance();
 
     _saveLogin = prefs.getBool("saveLogin") ?? false;
+
+    if (_saveLogin) {
+      String? localEmail = prefs.getString("email");
+      String? localPassword = prefs.getString("password");
+
+      if (localEmail != null && localPassword != null) {
+        _emailController.text = localEmail;
+        _passwordController.text = localPassword;
+      }
+    }
   }
 
   @override
@@ -217,7 +234,13 @@ class _LoginMobileState extends State<LoginMobile> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _saveLogin = !_saveLogin;
+                            Logger.log("Save Login: $_saveLogin");
+                            if (_saveLogin) {
+                              _saveLogin = false;
+                            } else {
+                              _saveLogin = true;
+                            }
+                            // _saveLogin = !_saveLogin;
                           });
                         },
                         child: Container(

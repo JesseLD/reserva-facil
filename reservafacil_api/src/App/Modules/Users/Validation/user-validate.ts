@@ -38,3 +38,22 @@ export const validateRecoverPassword = (
   }
   next();
 };
+
+export const validateGetUserById = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id = req.params.id;
+
+
+
+  if (!id) {
+    return ResponseService.sendError(
+      res,
+      `Missing required items: id`,
+      ApiExceptions.BAD_REQUEST
+    );
+  }
+  next();
+};

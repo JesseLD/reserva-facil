@@ -53,6 +53,10 @@ class DioClient {
     // return "https://api.reservafacil.site/"; // URL Produção
   }
 
+  static getImageBaseURL() {
+    return _getBaseURL() + "uploads/";
+  }
+
   static _getApiKey() {
     return "RFAPP_012025_DEV";
   }

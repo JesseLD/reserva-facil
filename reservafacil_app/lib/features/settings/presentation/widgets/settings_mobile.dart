@@ -119,7 +119,8 @@ class _SettingsMobileState extends State<SettingsMobile> {
             children: [
               DrawerItem(
                 icon: Icons.person_2_outlined,
-                title: "Conta",
+                title: "Sua Conta",
+                notification: 1,
                 onTap: () {
                   Navigator.pushNamed(context, '/account');
                 },
@@ -135,7 +136,10 @@ class _SettingsMobileState extends State<SettingsMobile> {
                 icon: Icons.logout_outlined,
                 title: "Sair",
                 onTap: () {
-                  Navigator.pushNamed(context, '/account');
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/',
+                    (route) => false,
+                  );
                 },
               ),
               DrawerItem(

@@ -15,6 +15,22 @@ export class UserController {
   // }
 
 
+  async getUserById(req: Request, res: Response) {
+    const userModel = new UserModel();
+    const { id } = req.params;
+
+    try
+    {
+      const user = await userModel.getUserById(parseInt(id));
+      return ResponseService.sendResponse(res, "User Fetch Success!", user);
+    }
+    catch(e) {
+      return ResponseService.sendException(res, ApiExceptions.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+
+
 
 
   async createUser(req: Request, res: Response)  {
