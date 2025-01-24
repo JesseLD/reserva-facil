@@ -1,11 +1,12 @@
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/core/network/dio_client.dart';
+import 'package:reservafacil_app/features/login/data/models/login_model.dart';
 import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 
 class LoginRepository {
-  final  _dioClient = DioClient();
+  final _dioClient = DioClient();
 
-  Future<UserModel> login({
+  Future<LoginModel> login({
     required String email,
     required String password,
   }) async {
@@ -20,7 +21,7 @@ class LoginRepository {
     // Error de servidor
 
     if (response.statusCode == 200) {
-      return UserModel.fromMap(response.data["data"]);
+      return LoginModel.fromMap(response.data["data"]);
     } else if (response.statusCode == 400) {
       final exception = response.data["exception"];
 
@@ -32,6 +33,27 @@ class LoginRepository {
       // } else {
       //   throw Exception("Erro ao fazer login");
       // }
+    } else {
+      Logger.log(response.data);
+
+      throw Exception("Erro ao fazer login");
+    }
+  }
+
+  Future<LoginModel> refresh({
+    required String email,
+  }) async {
+    // Logger.log("Fazendo login ${_dioClient.dio.options.baseUrl}");
+    final response = await _dioClient.post("v0/users/refresh", data: {
+      "email": email,
+    });
+
+    if (response.statusCode == 200) {
+      return LoginModel.fromMap(response.data["data"]);
+    } else if (response.statusCode == 400) {
+      final exception = response.data["exception"];
+
+      throw Exception(exception);
     } else {
       Logger.log(response.data);
 

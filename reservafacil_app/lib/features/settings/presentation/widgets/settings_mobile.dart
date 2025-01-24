@@ -6,6 +6,7 @@ import 'package:reservafacil_app/features/login/logic/providers/login_provider.d
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_group.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/info_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsMobile extends StatefulWidget {
   const SettingsMobile({super.key});
@@ -46,7 +47,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                         radius: 30,
                         backgroundColor: Colors.white,
                         child: Text(
-                          loginProvider.userModel.name[0],
+                          loginProvider.loginModel.account.name[0],
                           style: AppTextStyles.title
                               .copyWith(color: AppColors.gray),
                         ),
@@ -63,7 +64,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                           ),
                         ),
                         Text(
-                          loginProvider.userModel.name,
+                          loginProvider.loginModel.account.name,
                           style: AppTextStyles.title.copyWith(
                             color: Colors.white,
                             fontSize: 20,
@@ -79,7 +80,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
               ],
             ),
           ),
-          if (!loginProvider.userModel.verified)
+          if (!loginProvider.loginModel.account.verified)
             InfoWidget(
               type: InfoType.warning,
               title: SizedBox(
@@ -90,7 +91,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                 ),
               ),
             ),
-          if (!loginProvider.userModel.verified)
+          if (!loginProvider.loginModel.account.verified)
             InfoWidget(
               type: InfoType.harmful,
               title: SizedBox(
@@ -135,7 +136,10 @@ class _SettingsMobileState extends State<SettingsMobile> {
               DrawerItem(
                 icon: Icons.logout_outlined,
                 title: "Sair",
-                onTap: () {
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+
+                  await prefs.clear();
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     '/',
                     (route) => false,

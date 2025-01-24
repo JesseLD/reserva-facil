@@ -86,18 +86,18 @@ class AccountModel {
 
   factory AccountModel.fromMap(Map<String, dynamic> map) {
     return AccountModel(
-      id: map['id'] as int,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      phone: map['phone'] != null ? map['phone'] as String : null,
-      cpf: map['cpf'] as String,
+      id: map['id'] ?? 0,
+      name: map['name'] ?? "",
+      email: map['email'] ?? "",
+      phone: map['phone'] != null ? map['phone'] ?? "" : null,
+      cpf: map['cpf'] ?? "",
       birthDate:
           map['birthDate'] != null ? DateTime.parse(map['birthDate']) : null,
-      storeId: map['storeId'] != null ? map['storeId'] as int : null,
+      storeId: map['storeId'] != null ? map['storeId'] ?? 0 : null,
       active: map['active'] == 1,
       verified: map['verified'] == 1,
       verifiedAt: DateTime.parse(map['verifiedAt']),
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
+      imageUrl: map['imageUrl'] != null ? map['imageUrl'] ?? "" : null,
     );
   }
 

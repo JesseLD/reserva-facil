@@ -4,11 +4,16 @@ import { ResponseService } from "../../../Services/Response/ResponseService";
 import { UserModel } from "../../Users/Model/UserModel";
 import { ApiExceptions } from "../../../Services/Exceptions/exceptions";
 import { PasswordManager } from "../../../Services/PasswordManager/PasswordManager";
+import config from "../../../../Config/config";
 
 export class LoginController {
   async login(req: Request, res: Response) {
     const userModel = new UserModel();
     const { email, password } = req.body;
+
+    const payload = {
+      account: null,
+    };
 
     try {
       const user = await userModel.getUserByEmail(email);
@@ -29,10 +34,14 @@ export class LoginController {
         );
       }
 
+      user[0].password = undefined;
+      user[0].imageUrl = config.api_url + "uploads/" + user[0].imageUrl;
+
+      payload.account = user[0];
       return ResponseService.sendResponse(
         res,
         "User Logged In Successfully!",
-        user[0]
+        payload
       );
     } catch (e) {
       return ResponseService.sendException(

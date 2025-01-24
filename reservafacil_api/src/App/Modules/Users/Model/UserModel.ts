@@ -44,4 +44,19 @@ export class UserModel {
       await queryRunner.release();
     }
   }
+
+  async updateUserImage(userId: number, imageUrl: string) { 
+    try{
+      await AppDataSource.query("UPDATE Users SET imageUrl = ? WHERE id = ?", [imageUrl, userId]);
+    }catch(e) {
+      throw e;
+    }
+  }
+  async removeUserImage(userId: number) { 
+    try{
+      await AppDataSource.query("UPDATE Users SET imageUrl = null WHERE id = ?", [userId]);
+    }catch(e) {
+      throw e;
+    }
+  }
 }

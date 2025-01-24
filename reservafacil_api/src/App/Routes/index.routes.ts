@@ -12,7 +12,8 @@ export const indexRouter = Router();
 
 indexRouter.use("/v0", authorization, v0Router);
 
-indexRouter.use("/uploads", authorization, express.static(path.join(__dirname,"..","..","..","uploads")));
+// indexRouter.use("/uploads", authorization, express.static(path.join(__dirname,"..","..","..","uploads")));
+indexRouter.use("/uploads", express.static(path.join(__dirname,"..","..","..","uploads")));
 
 
 indexRouter.use((req, res) => {

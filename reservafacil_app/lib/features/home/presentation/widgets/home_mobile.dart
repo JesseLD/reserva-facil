@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
+import 'package:reservafacil_app/common/utils/logger.dart';
+import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/restaurant/presentation/widgets/restaurant_mobile.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/settings_mobile.dart';
 
@@ -25,6 +28,10 @@ class _HomeMobileState extends State<HomeMobile> {
   int _index = 0;
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginProvider>(context);
+
+    Logger.log(loginProvider.loginModel);
+
     return Scaffold(
       body: _pages[_index],
       bottomNavigationBar: BottomNavigationBar(

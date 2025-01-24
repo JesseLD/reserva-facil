@@ -15,6 +15,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const OnboardingPage(),
         );
+      case '/onboarding':
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingPage(),
+        );
       case '/login':
         return MaterialPageRoute(
           builder: (_) => LoginPage(),

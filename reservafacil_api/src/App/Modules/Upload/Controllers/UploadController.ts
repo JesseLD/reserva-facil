@@ -6,6 +6,7 @@ import { ApiExceptions } from "../../../Services/Exceptions/exceptions";
 import sharp from "sharp";
 import path from "path";
 import fs from "fs";
+import { UploadService } from "../../../Services/Upload/UploadService";
 
 export class UploadController {
   async getUploadStatus(req: Request, res: Response) {
@@ -68,26 +69,8 @@ export class UploadController {
     }
 
     try {
-      // Log do buffer para garantir que a imagem está sendo recebida corretamente
-      console.log("Buffer size:", file.buffer.length);
-
-      // Definindo o caminho de saída para salvar a imagem processada
-      const uploadDir = path.join(__dirname, "..", "..","..","..","..","uploads");
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir);  // Garantir que o diretório existe
-      }
-
-      const processedFilename = `${file.originalname.split(".")[0]}-${Date.now()}.jpeg`;
-      const outputPath = path.join(uploadDir, processedFilename);
-
-      // Processando a imagem com sharp
-      await sharp(file.buffer)
-        .resize(300, 300, { fit: "cover" })
-        .jpeg({ quality: 80 })
-        .toFile(outputPath);
-
-      console.log("Image processed and saved:", processedFilename);
-
+      
+      const processedFilename = await UploadService.processImage(file);
       // Retornando a resposta de sucesso
       return ResponseService.sendSuccess(res, {
         message: "Image uploaded and processed successfully.",

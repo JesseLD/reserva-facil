@@ -8,8 +8,10 @@ import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
+import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/utils/popups.dart';
 import 'package:reservafacil_app/common/utils/toasts.dart';
+import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/register/data/models/register_model.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
@@ -33,6 +35,12 @@ class _RegisterMobileState extends State<RegisterMobile> {
 
   bool _obscureText = true;
   void _handleRegister() async {
+    final globalStateProvider =
+        Provider.of<GlobalStateProvider>(context, listen: false);
+    if (globalStateProvider.isLoading) return;
+
+    globalStateProvider.setLoading(true);
+
     final registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
     // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
@@ -45,7 +53,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
     );
 
     try {
-      await registerProvider.register(registerModel);
+      await registerProvider.register(registerModel, context);
 
       showSuccessToast(context,
           message:
@@ -56,9 +64,10 @@ class _RegisterMobileState extends State<RegisterMobile> {
       _cpfController.clear();
       _passwordController.clear();
       _confirmPasswordController.clear();
-
+      globalStateProvider.setLoading(false);
       Navigator.pushNamed(context, '/login');
     } catch (e) {
+      globalStateProvider.setLoading(false);
       if (e.toString().contains("UserAlreadyExistsException")) {
         showErrorPopup(
           context,
@@ -254,45 +263,59 @@ class _RegisterMobileState extends State<RegisterMobile> {
               const SizedBox(
                 height: 24,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: AppButtonStyles.primaryButtonStyle,
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(
-                          //     content: Text('Processando...'),
-                          //   ),
-                          // );
-                          _handleRegister();
-                        }
-                      },
-                      child: registerProvider.isLoading
-                          ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator.adaptive(
-                                // value: ,
-                                backgroundColor: Colors.white,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.primary,
-                                ),
-                              ),
-                            )
-                          : const Text(
-                              "Criar Conta",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: ElevatedButton(
+              //         style: AppButtonStyles.primaryButtonStyle,
+              //         onPressed: () async {
+              //           if (_formKey.currentState!.validate()) {
+              //             // ScaffoldMessenger.of(context).showSnackBar(
+              //             //   const SnackBar(
+              //             //     content: Text('Processando...'),
+              //             //   ),
+              //             // );
+              //             _handleRegister();
+              //           }
+              //         },
+              //         child: registerProvider.isLoading
+              //             ? const SizedBox(
+              //                 width: 24,
+              //                 height: 24,
+              //                 child: CircularProgressIndicator.adaptive(
+              //                   // value: ,
+              //                   backgroundColor: Colors.white,
+              //                   valueColor: AlwaysStoppedAnimation<Color>(
+              //                     AppColors.primary,
+              //                   ),
+              //                 ),
+              //               )
+              //             : const Text(
+              //                 "Criar Conta",
+              // style: TextStyle(
+              //   color: Colors.white,
+              //   fontSize: 16,
+              //   fontWeight: FontWeight.bold,
+              // ),
+              //               ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              ReactiveButton(
+                  child: const Text(
+                    "Criar Conta",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _handleRegister();
+                    }
+                  }),
               const SizedBox(
                 height: 16,
               ),

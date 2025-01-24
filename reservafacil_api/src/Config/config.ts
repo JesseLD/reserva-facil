@@ -7,6 +7,7 @@ const config = {
   env: process.env.NODE_ENV || "development",
   api_key: process.env.API_KEY || "123456",
   api_secret: process.env.API_SECRET || "123456",
+  api_url: process.env.API_URL || "http://localhost:3000",
   password: {
     salt: process.env.PASSWORD_SALT || "123",
     secret: process.env.PASSWORD_SECRET || "123",
