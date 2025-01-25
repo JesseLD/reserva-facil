@@ -1,0 +1,4 @@
+
+class RestaurantModel {
+  RestaurantModel();
+}

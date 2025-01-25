@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
+  font-family: Arial, Helvetica, sans-serif;
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 25 88% 47%; /* #ea580c */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 88% 92%; /* Um tom mais claro */
+    --secondary-foreground: 25 88% 30%;
+    --muted: 25 20% 95%; /* Laranja desaturado */
+    --muted-foreground: 25 88% 40%;
+    --accent: 25 88% 47%; /* #ea580c */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 20% 80%; /* Bordas laranjas suaves */
+    --input: 25 20% 80%;
+    --ring: 25 88% 47%; /* Destaque laranja */
+    --chart-1: 25 88% 47%; /* Laranja principal */
+    --chart-2: 25 78% 37%;
+    --chart-3: 25 68% 27%;
+    --chart-4: 25 58% 17%;
+    --chart-5: 25 48% 10%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 25 88% 5%; /* Laranja muito escuro */
+    --foreground: 25 88% 95%; /* Laranja muito claro */
+    --card: 25 88% 5%;
+    --card-foreground: 25 88% 95%;
+    --popover: 25 88% 5%;
+    --popover-foreground: 25 88% 95%;
+    --primary: 25 88% 47%; /* #ea580c */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 30% 20%;
+    --secondary-foreground: 25 88% 90%;
+    --muted: 25 20% 10%; /* Laranja desaturado escuro */
+    --muted-foreground: 25 88% 70%;
+    --accent: 25 88% 47%; /* #ea580c */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 20% 10%;
+    --input: 25 20% 10%;
+    --ring: 25 88% 47%; /* Destaque laranja */
+    --chart-1: 25 88% 47%;
+    --chart-2: 25 78% 37%;
+    --chart-3: 25 68% 27%;
+    --chart-4: 25 58% 17%;
+    --chart-5: 25 48% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
