@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/features/login/data/repositories/recover_password_repository.dart';
 
 class RecoverPasswordProvider with ChangeNotifier {
+  final _recoverPasswordRepository = RecoverPasswordRepository();
+  String email = "";
   int index = 0;
   int steps = 3;
+
+  int code = 0;
 
   void nextStep() {
     // index++;
@@ -27,6 +32,30 @@ class RecoverPasswordProvider with ChangeNotifier {
 
   void reset() {
     index = 0;
+    notifyListeners();
+  }
+
+  Future<void> recoverPassword({
+    required String email,
+  }) async {
+    final response = await _recoverPasswordRepository.recoverPassword(
+      email: email,
+    );
+
+    code = response;
+    // code = 123456;
+    notifyListeners();
+  }
+
+  Future<void> updatePassword({
+    required String email,
+    required String password,
+  }) async {
+    final response = await _recoverPasswordRepository.updatePassword(
+      email: email,
+      password: password,
+    );
+
     notifyListeners();
   }
 }

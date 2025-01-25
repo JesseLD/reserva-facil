@@ -4,7 +4,11 @@ import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
+import 'package:reservafacil_app/common/providers/global_state_provider.dart';
+import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/common/utils/popups.dart';
+import 'package:reservafacil_app/common/utils/toasts.dart';
+import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -25,6 +29,8 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RecoverPasswordProvider>(context);
+    final globalStateProvider =
+        Provider.of<GlobalStateProvider>(context, listen: false);
     return Form(
       key: _formKey,
       child: Padding(
@@ -120,38 +126,36 @@ class _ResetPasswordState extends State<ResetPassword> {
               const SizedBox(
                 height: 16,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: AppButtonStyles.primaryButtonStyle,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(
-                          //     content: Text('Processando...'),
-                          //   ),
-                          // );
-                          showMessagePopup(context,
-                              message: "Senha redefinida com sucesso",
-                              onPressed: () {
-                            provider.reset();
-                            Navigator.pop(context);
-                          });
-                        }
-                      },
-                      child: const Text(
-                        "Redefinir Senha",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+              ReactiveButton(
+                child: Text(
+                  "Redefinir Senha",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    try {
+                      await provider.updatePassword(
+                        email: provider.email,
+                        password: _passwordController.text,
+                      );
+                      showMessagePopup(context,
+                          message: "Senha redefinida com sucesso",
+                          onPressed: () {
+                        provider.reset();
+                        Navigator.pop(context);
+                      });
+                    } catch (e) {
+                      Logger.log(e);
+                      showErrorToast(context,
+                          message: "Erro ao redefinir senha");
+                    }
+                  }
+                },
+              )
             ],
           ),
         ),

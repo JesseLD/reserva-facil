@@ -25,7 +25,7 @@ export const validateRecoverPassword = (
   res: Response,
   next: NextFunction
 ) => {
-  const items = ["email" , "code", "name"];
+  const items = ["email"];
 
   const missingItems = items.filter((item) => !req.body[item]);
 
@@ -151,7 +151,7 @@ export const ValidateUpdatePass = (
   res: Response,
   next: NextFunction
 ) => {
-  const items = ["id","password"];
+  const items = ["email","password"];
 
   const missingItems = items.filter((item) => !req.body[item]);
 

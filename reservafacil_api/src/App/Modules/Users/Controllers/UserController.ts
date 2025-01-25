@@ -200,10 +200,10 @@ export class UserController {
 
   async updatePassword(req: Request, res: Response) {
     const userModel = new UserModel();
-    const { id, password } = req.body;
+    const { email, password } = req.body;
 
     try {
-      await userModel.updatePassword(id, password);
+      await userModel.updatePassword(email, password);
       return ResponseService.sendResponse(
         res,
         "Password Updated Successfully!"
@@ -216,6 +216,41 @@ export class UserController {
       );
     }
   }
+
+  async getRecoverPasswordCode(req: Request, res: Response) {
+
+    const { email } = req.body;
+
+    const userModel = new UserModel();
+
+    try {
+      const user = await userModel.getUserByEmail(email);
+
+      if (user.length === 0) {
+        return ResponseService.sendException(res, ApiExceptions.USER_NOT_FOUND);
+      }
+
+      const code = CodeGen.generateCode();
+
+      await mailService.sendPasswordVerifyMail(
+        email,
+        code,
+        user[0].name,
+        "Recuperação de senha"
+      );
+
+      return ResponseService.sendResponse(res, "Code Sent Successfully!", {
+        code,
+      });
+    } catch (e: any) {
+      console.log(e);
+      return ResponseService.sendException(
+        res,
+        ApiExceptions.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   async deleteUser(req: Request, res: Response) {
     const userModel = new UserModel();
     const { id } = req.params;

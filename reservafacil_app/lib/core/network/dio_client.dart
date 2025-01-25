@@ -48,7 +48,8 @@ class DioClient {
     // Change the return value to the URL of your API
 
     // return "http://localhost:3030/"; // URL Casa
-    return "http://192.168.1.232:3030/"; // URL Casa
+    // return "http://192.168.1.232:3030/"; // URL Casa
+    return "https://test-api.reservafacil.site/"; // URL Teste
     // return "http://172.20.73.96:3030/"; // URL Casa
     // return "https://api.reservafacil.site/"; // URL Produção
   }

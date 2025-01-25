@@ -37,7 +37,7 @@ userRouter.post("/create", validateCreateUser, userController.createUser);
 userRouter.post(
   "/recover-password",
   validateRecoverPassword,
-  userController.sendMail
+  userController.getRecoverPasswordCode
 );
 
 userRouter.post(

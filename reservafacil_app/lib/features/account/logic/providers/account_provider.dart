@@ -29,6 +29,11 @@ class AccountProvider with ChangeNotifier {
     // await getAccount(userId);
   }
 
+  Future<void> updateProfileImageWeb(int userId, XFile? image) async {
+    await _repository.updateProfileImageWeb(userId, image);
+    // await getAccount(userId);
+  }
+
   Future<void> removeProfileImage(int userId, String filename) async {
     await _repository.removeProfileImage(userId, filename);
     // await getAccount(userId);

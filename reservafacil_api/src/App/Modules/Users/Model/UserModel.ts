@@ -83,14 +83,14 @@ export class UserModel {
     }
   }
 
-  async updatePassword(userId: number, password: string) {
+  async updatePassword(email: string, password: string) {
     const passwordManager = PasswordManager.getInstance();
     const hashedPassword = passwordManager.hashPassword(password);
 
     try {
-      await AppDataSource.query("UPDATE Users SET password = ? WHERE id = ?", [
+      await AppDataSource.query("UPDATE Users SET password = ? WHERE email = ?", [
         hashedPassword,
-        userId,
+        email,
       ]);
     } catch (e) {
       throw e;

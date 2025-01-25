@@ -3,6 +3,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
+import 'package:reservafacil_app/common/utils/logger.dart';
+import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 
 class ConfirmCode extends StatefulWidget {
@@ -14,7 +16,6 @@ class ConfirmCode extends StatefulWidget {
 
 class _ConfirmCodeState extends State<ConfirmCode> {
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,16 +69,16 @@ class _ConfirmCodeState extends State<ConfirmCode> {
 
                 //runs when every textfield is filled
                 onSubmit: (String verificationCode) {
-                  // Logger.log("Code ${verificationCode}");
-                  provider.nextStep();
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (context) {
-                  //       return AlertDialog(
-                  //         title: Text("Verification Code"),
-                  //         content: Text('Code entered is $verificationCode'),
-                  //       );
-                  //     });
+                  Logger.log("Code ${verificationCode}");
+
+                  final intCode = int.parse(verificationCode);
+
+                  if (intCode == provider.code) {
+                    provider.nextStep();
+                  } else {
+                    showErrorToast(context,
+                        message: "Código inválido, tente novamente");
+                  }
                 }, // end onSubmit
               ),
               // const SizedBox(

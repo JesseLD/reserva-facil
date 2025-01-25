@@ -26,7 +26,7 @@ class _ReactiveButtonState extends State<ReactiveButton> {
   @override
   Widget build(BuildContext context) {
     final globalStateProvider =
-        Provider.of<GlobalStateProvider>(context, listen: false);
+        Provider.of<GlobalStateProvider>(context, listen: true);
     return Row(
       children: [
         Expanded(

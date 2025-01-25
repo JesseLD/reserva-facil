@@ -1,8 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/core/network/dio_client.dart';
-import 'package:universal_io/io.dart';
 import '../models/account_model.dart';
 
 class AccountRepository {
@@ -26,6 +27,31 @@ class AccountRepository {
     var formData = FormData.fromMap({
       'image': await MultipartFile.fromFile(image.path,
           contentType: DioMediaType.parse("image/*")),
+    });
+
+    final response = await _dioClient
+        .post('v0/users/upload-image/$userId', data: formData, headers: {
+      'Content-Type': 'multipart/form-data',
+    });
+
+    if (response.statusCode == 400) {
+      final exception = response.data['exception'];
+      // Logger.log(exception);
+      throw Exception(exception);
+    }
+    Logger.log(response.data);
+  }
+
+  Future<void> updateProfileImageWeb(int userId, XFile? image) async {
+    if (image == null) return;
+
+    Uint8List bytes = await image.readAsBytes();
+
+    MultipartFile multipartFile =
+        MultipartFile.fromBytes(bytes, filename: image.name);
+
+    var formData = FormData.fromMap({
+      'image': multipartFile,
     });
 
     final response = await _dioClient

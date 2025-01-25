@@ -1,7 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +13,13 @@ import 'package:reservafacil_app/common/converters/cpf_converter.dart';
 import 'package:reservafacil_app/common/converters/date_converter.dart';
 import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
-import 'package:reservafacil_app/common/utils/popups.dart';
 import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_app/common/widgets/custom_appbar.dart';
-import 'package:reservafacil_app/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
-import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
-import 'package:toastification/toastification.dart';
+import 'package:universal_io/io.dart';
 
 class AccountMobile extends StatefulWidget {
   const AccountMobile({super.key});
@@ -110,10 +107,24 @@ class _AccountMobileState extends State<AccountMobile> {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
     final accountProvider =
         Provider.of<AccountProvider>(context, listen: false);
-    await accountProvider.updateProfileImage(
-      loginProvider.loginModel.account.id,
-      _image,
-    );
+
+    try {
+      if (kIsWeb) {
+        await accountProvider.updateProfileImageWeb(
+          loginProvider.loginModel.account.id,
+          _image,
+        );
+      } else {
+        await accountProvider.updateProfileImage(
+          loginProvider.loginModel.account.id,
+          _image,
+        );
+      }
+      showSuccessToast(context, message: "Foto atualizada");
+    } catch (e) {
+      Logger.log(e);
+      showErrorToast(context, message: "Erro ao atualizar foto");
+    }
 
     loginProvider.refresh();
 
@@ -220,8 +231,14 @@ class _AccountMobileState extends State<AccountMobile> {
                   color: AppColors.dangerRed,
                 ),
                 onTap: () async {
-                  await _removeImage();
-                  showSuccessToast(context, message: "Foto removida");
+                  try {
+                    await _removeImage();
+                    showSuccessToast(context, message: "Foto removida");
+                    Navigator.pop(context);
+                  } catch (e) {
+                    showErrorToast(context, message: "Erro ao remover foto");
+                    Navigator.pop(context);
+                  }
                   // Navigator.pushNamed(context, '/account');
                 },
               ),
@@ -358,17 +375,24 @@ class _AccountMobileState extends State<AccountMobile> {
                               listen: false);
                       globalStateProvider.setLoading(true);
 
-                      await accountProvider.updatePassword(
-                        loginProvider.loginModel.account.id,
-                        _passwordController.text,
-                      );
+                      try {
+                        await accountProvider.updatePassword(
+                          loginProvider.loginModel.account.id,
+                          _passwordController.text,
+                        );
 
-                      await loginProvider.refresh();
+                        await loginProvider.refresh();
 
-                      globalStateProvider.setLoading(false);
-                      Navigator.of(context).pop();
+                        globalStateProvider.setLoading(false);
+                        Navigator.of(context).pop();
 
-                      showSuccessToast(context, message: "Senha atualizada");
+                        showSuccessToast(context, message: "Senha atualizada");
+                      } catch (e) {
+                        globalStateProvider.setLoading(false);
+                        showErrorToast(context,
+                            message: "Erro ao atualizar senha");
+                      }
+
                       // Implement password update logic here
                     }
                   },
@@ -540,24 +564,28 @@ class _AccountMobileState extends State<AccountMobile> {
                         Logger.log("Validated");
                         globalStateProvider.setLoading(true);
 
+                        try {
+                          await accountProvider.updateAccount(
+                            loginProvider.loginModel.account.copyWith(
+                              name: _nameController.text,
+                              phone: _phoneController.text,
+                              birthDate: DateFormat('dd/MM/yyyy')
+                                  .parse(_birthDateController.text),
+                            ),
+                          );
+
+                          globalStateProvider.setLoading(false);
+                          // Navigator.pop(context);
+
+                          await loginProvider.refresh();
+                        } catch (e) {
+                          globalStateProvider.setLoading(false);
+                          showErrorToast(context,
+                              message: "Erro ao atualizar dados");
+                        }
                         // showLoadingPopup(context);
 
-                        await accountProvider.updateAccount(
-                          loginProvider.loginModel.account.copyWith(
-                            name: _nameController.text,
-                            phone: _phoneController.text,
-                            birthDate: DateFormat('dd/MM/yyyy')
-                                .parse(_birthDateController.text),
-                          ),
-                        );
-
                         // toastification
-                        globalStateProvider.setLoading(false);
-                        // Navigator.pop(context);
-
-                        await loginProvider.refresh();
-
-                        showSuccessToast(context, message: "Dados atualizados");
                       }
                     },
                   ),
