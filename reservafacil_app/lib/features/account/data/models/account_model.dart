@@ -6,7 +6,7 @@ class AccountModel {
   String name;
   String email;
   String? phone;
-  String cpf;
+  String cpfCnpj;
   DateTime? birthDate;
   int? storeId;
   bool active;
@@ -19,7 +19,7 @@ class AccountModel {
     required this.name,
     required this.email,
     this.phone,
-    required this.cpf,
+    required this.cpfCnpj,
     this.birthDate,
     this.storeId,
     required this.active,
@@ -33,7 +33,7 @@ class AccountModel {
       id: 0,
       name: '',
       email: '',
-      cpf: '',
+      cpfCnpj: '',
       active: false,
       verified: false,
       verifiedAt: DateTime(1970),
@@ -45,7 +45,7 @@ class AccountModel {
     String? name,
     String? email,
     String? phone,
-    String? cpf,
+    String? cpfCnpj,
     DateTime? birthDate,
     int? storeId,
     bool? active,
@@ -58,7 +58,7 @@ class AccountModel {
       name: name ?? this.name,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      cpf: cpf ?? this.cpf,
+      cpfCnpj: cpfCnpj ?? this.cpfCnpj,
       birthDate: birthDate ?? this.birthDate,
       storeId: storeId ?? this.storeId,
       active: active ?? this.active,
@@ -74,7 +74,7 @@ class AccountModel {
       'name': name,
       'email': email,
       'phone': phone,
-      'cpf': cpf,
+      'cpfCnpj': cpfCnpj,
       'birthDate': birthDate?.toIso8601String(),
       'storeId': storeId,
       'active': active,
@@ -90,7 +90,7 @@ class AccountModel {
       name: map['name'] ?? "",
       email: map['email'] ?? "",
       phone: map['phone'] != null ? map['phone'] ?? "" : null,
-      cpf: map['cpf'] ?? "",
+      cpfCnpj: map['cpfCnpj'] ?? "",
       birthDate:
           map['birthDate'] != null ? DateTime.parse(map['birthDate']) : null,
       storeId: map['storeId'] != null ? map['storeId'] ?? 0 : null,
@@ -108,7 +108,7 @@ class AccountModel {
 
   @override
   String toString() {
-    return 'AccountModel(id: $id, name: $name, email: $email, phone: $phone, cpf: $cpf, birthDate: $birthDate, storeId: $storeId, active: $active, verified: $verified, verifiedAt: $verifiedAt, imageUrl: $imageUrl)';
+    return 'AccountModel(id: $id, name: $name, email: $email, phone: $phone, cpfCnpj: $cpfCnpj, birthDate: $birthDate, storeId: $storeId, active: $active, verified: $verified, verifiedAt: $verifiedAt, imageUrl: $imageUrl)';
   }
 
   @override
@@ -119,7 +119,7 @@ class AccountModel {
         other.name == name &&
         other.email == email &&
         other.phone == phone &&
-        other.cpf == cpf &&
+        other.cpfCnpj == cpfCnpj &&
         other.birthDate == birthDate &&
         other.storeId == storeId &&
         other.active == active &&
@@ -134,7 +134,7 @@ class AccountModel {
         name.hashCode ^
         email.hashCode ^
         phone.hashCode ^
-        cpf.hashCode ^
+        cpfCnpj.hashCode ^
         birthDate.hashCode ^
         storeId.hashCode ^
         active.hashCode ^

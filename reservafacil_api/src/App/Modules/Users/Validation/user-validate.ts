@@ -97,7 +97,7 @@ export const validateRemoveImage = (
   res: Response,
   next: NextFunction
 ) => {
-  const items = ["id", "filename"];
+  const items = ["userId", "filename"];
 
   const missingItems = items.filter((item) => !req.body[item]);
 
@@ -128,3 +128,58 @@ export const validateEmail = (
   }
   next();
 };
+export const ValidateUpdateUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const items = ["id","name","birthDate","phone"];
+
+  const missingItems = items.filter((item) => !req.body[item]);
+
+  if (missingItems.length) {
+    return ResponseService.sendError(
+      res,
+      `Missing required items: ${missingItems.join(", ")}`,
+      ApiExceptions.BAD_REQUEST
+    );
+  }
+  next();
+};
+export const ValidateUpdatePass = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const items = ["id","password"];
+
+  const missingItems = items.filter((item) => !req.body[item]);
+
+  if (missingItems.length) {
+    return ResponseService.sendError(
+      res,
+      `Missing required items: ${missingItems.join(", ")}`,
+      ApiExceptions.BAD_REQUEST
+    );
+  }
+  next();
+};
+
+export const validateDeleteUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id = req.params.id;
+
+
+  if (!id) {
+    return ResponseService.sendError(
+      res,
+      `Missing required items: id`,
+      ApiExceptions.BAD_REQUEST
+    );
+  }
+  next();
+};
+

@@ -27,6 +27,7 @@ android {
     namespace = "site.reservafacil.app.reservafacil_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    // compileSdkVersion 30
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

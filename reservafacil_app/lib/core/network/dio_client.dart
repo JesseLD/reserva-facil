@@ -74,9 +74,9 @@ class DioClient {
     }
   }
 
-  Future<Response> post(String path, {dynamic data}) async {
+  Future<Response> post(String path, {dynamic data, dynamic headers}) async {
     try {
-      return await _dio.post(path, data: data);
+      return await _dio.post(path, data: data, options: Options(headers: headers));
     } catch (e) {
       log("Erro ocorrido: $e");
       _handleError(e);

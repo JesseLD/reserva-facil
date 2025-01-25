@@ -7,6 +7,7 @@ import { mailService } from "../../../Services/Mail/MailService";
 import { CodeGen } from "../../../Services/CodeGen/CodeGen";
 import { UploadService } from "../../../Services/Upload/UploadService";
 import config from "../../../../Config/config";
+import { UpdateUser } from "../Entities/UpdateUser";
 // import { PasswordManager } from "../../../Services/PasswordManager/PasswordManager";
 export class UserController {
   // async getUsers(req: Request, res: Response) {
@@ -161,17 +162,69 @@ export class UserController {
   }
 
   async removeUserImage(req: Request, res: Response) {
-    const { id, filename } = req.body;
+    const { userId, filename } = req.body;
 
     const userModel = new UserModel();
 
     try {
-      await userModel.removeUserImage(parseInt(id));
+      await userModel.removeUserImage(parseInt(userId));
 
       await UploadService.removeImageFromUploadsFolder(filename);
 
       return ResponseService.sendResponse(res, "Image removed successfully!");
     } catch (e) {
+      return ResponseService.sendException(
+        res,
+        ApiExceptions.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async updateUser(req: Request, res: Response) {
+    const userModel = new UserModel();
+    const { id, name, birthDate, phone } = req.body;
+
+    const user = new UpdateUser(id, name, birthDate, phone);
+
+    try {
+      await userModel.updateUser(user);
+      return ResponseService.sendResponse(res, "User Updated Successfully!");
+    } catch (e: any) {
+      console.log(e);
+      return ResponseService.sendException(
+        res,
+        ApiExceptions.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async updatePassword(req: Request, res: Response) {
+    const userModel = new UserModel();
+    const { id, password } = req.body;
+
+    try {
+      await userModel.updatePassword(id, password);
+      return ResponseService.sendResponse(
+        res,
+        "Password Updated Successfully!"
+      );
+    } catch (e: any) {
+      console.log(e);
+      return ResponseService.sendException(
+        res,
+        ApiExceptions.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+  async deleteUser(req: Request, res: Response) {
+    const userModel = new UserModel();
+    const { id } = req.params;
+
+    try {
+      await userModel.deleteUser(parseInt(id));
+      return ResponseService.sendResponse(res, "User Deleted Successfully!");
+    } catch (e: any) {
+      console.log(e);
       return ResponseService.sendException(
         res,
         ApiExceptions.INTERNAL_SERVER_ERROR

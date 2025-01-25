@@ -1,14 +1,20 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
 import 'package:reservafacil_app/common/converters/contact_converter.dart';
+import 'package:reservafacil_app/common/converters/cpf_converter.dart';
 import 'package:reservafacil_app/common/converters/date_converter.dart';
+import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
+import 'package:reservafacil_app/common/utils/popups.dart';
+import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_app/common/widgets/custom_appbar.dart';
 import 'package:reservafacil_app/common/widgets/custom_circular_progress_indicator.dart';
@@ -16,6 +22,7 @@ import 'package:reservafacil_app/features/account/logic/providers/account_provid
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
+import 'package:toastification/toastification.dart';
 
 class AccountMobile extends StatefulWidget {
   const AccountMobile({super.key});
@@ -37,6 +44,10 @@ class _AccountMobileState extends State<AccountMobile> {
 
   final _birthDateController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _cpfController = TextEditingController();
+
+  XFile? _image;
+  // XFile? _croppedImage;
 
   final ImagePicker _picker = ImagePicker();
   @override
@@ -75,20 +86,51 @@ class _AccountMobileState extends State<AccountMobile> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
+      // final croppedImage = await ImageCropper().cropImage(
+      //   sourcePath: image.path,
+      //   aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      //   compressQuality: 80,
+      //   compressFormat: ImageCompressFormat.jpg,
+      //   maxHeight: 300,
+      //   maxWidth: 300,
+      // );
       // final accountProvider = Provider.of<AccountProvider>(context, listen: false);
       // await accountProvider.updateImage = image;
-      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+      // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
       // setState(() {
       //   loginProvider.loginModel.account.imageUrl = image.path;
       // });
+      // croppedImage.
+      // _croppedImage = croppedImage;
+      _image = image;
     }
+  }
+
+  Future<void> _uploadImage() async {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    final accountProvider =
+        Provider.of<AccountProvider>(context, listen: false);
+    await accountProvider.updateProfileImage(
+      loginProvider.loginModel.account.id,
+      _image,
+    );
+
+    loginProvider.refresh();
+
+    setState(() {});
   }
 
   Future<void> _removeImage() async {
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    setState(() {
-      loginProvider.loginModel.account.imageUrl = null;
-    });
+    final accountProvider =
+        Provider.of<AccountProvider>(context, listen: false);
+
+    await accountProvider.removeProfileImage(
+      loginProvider.loginModel.account.id,
+      loginProvider.loginModel.account.imageUrl!,
+    );
+
+    loginProvider.refresh();
   }
 
   void _openBottomDrawer(BuildContext context) {
@@ -110,7 +152,7 @@ class _AccountMobileState extends State<AccountMobile> {
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 10,
+                          radius: 20,
                           backgroundColor: Colors.white,
                           backgroundImage: NetworkImage(
                             loginProvider.loginModel.account.imageUrl ?? '',
@@ -148,7 +190,12 @@ class _AccountMobileState extends State<AccountMobile> {
                 // icon: ,
                 title: "Escolher foto",
                 onTap: () async {
-                  await _pickImage();
+                  await _pickImage().then((_) async {
+                    await _uploadImage().then((_) {
+                      Navigator.pop(context);
+                    });
+                  });
+
                   // Navigator.pushNamed(context, '/account');
                 },
                 trailingIcon: Icon(
@@ -174,6 +221,7 @@ class _AccountMobileState extends State<AccountMobile> {
                 ),
                 onTap: () async {
                   await _removeImage();
+                  showSuccessToast(context, message: "Foto removida");
                   // Navigator.pushNamed(context, '/account');
                 },
               ),
@@ -297,10 +345,31 @@ class _AccountMobileState extends State<AccountMobile> {
                   child: Text('Cancelar'),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey2.currentState!.validate()) {
-                      // Implement password update logic here
+                      final accountProvider =
+                          Provider.of<AccountProvider>(context, listen: false);
+
+                      final loginProvider =
+                          Provider.of<LoginProvider>(context, listen: false);
+
+                      final globalStateProvider =
+                          Provider.of<GlobalStateProvider>(context,
+                              listen: false);
+                      globalStateProvider.setLoading(true);
+
+                      await accountProvider.updatePassword(
+                        loginProvider.loginModel.account.id,
+                        _passwordController.text,
+                      );
+
+                      await loginProvider.refresh();
+
+                      globalStateProvider.setLoading(false);
                       Navigator.of(context).pop();
+
+                      showSuccessToast(context, message: "Senha atualizada");
+                      // Implement password update logic here
                     }
                   },
                   child: Text('Salvar'),
@@ -388,6 +457,18 @@ class _AccountMobileState extends State<AccountMobile> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    initialValue: CpfConverter.format(
+                        loginProvider.loginModel.account.cpfCnpj),
+                    decoration: AppInputStyles.primaryInput.copyWith(
+                      labelText: 'CPF',
+                    ),
+                    readOnly: true,
+                    style: TextStyle(
+                      color: AppColors.gray.withAlpha(130),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
                     controller: _birthDateController,
                     // initialValue:
                     //     loginProvider.loginModel.account.birthDate != null
@@ -449,7 +530,36 @@ class _AccountMobileState extends State<AccountMobile> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final accountProvider =
+                          Provider.of<AccountProvider>(context, listen: false);
+                      final globalStateProvider =
+                          Provider.of<GlobalStateProvider>(context,
+                              listen: false);
+                      if (_formKey.currentState!.validate()) {
+                        Logger.log("Validated");
+                        globalStateProvider.setLoading(true);
+
+                        // showLoadingPopup(context);
+
+                        await accountProvider.updateAccount(
+                          loginProvider.loginModel.account.copyWith(
+                            name: _nameController.text,
+                            phone: _phoneController.text,
+                            birthDate: DateFormat('dd/MM/yyyy')
+                                .parse(_birthDateController.text),
+                          ),
+                        );
+
+                        // toastification
+                        globalStateProvider.setLoading(false);
+                        // Navigator.pop(context);
+
+                        await loginProvider.refresh();
+
+                        showSuccessToast(context, message: "Dados atualizados");
+                      }
+                    },
                   ),
                 ],
               ),

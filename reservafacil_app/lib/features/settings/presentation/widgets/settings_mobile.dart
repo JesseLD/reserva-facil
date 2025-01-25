@@ -37,20 +37,27 @@ class _SettingsMobileState extends State<SettingsMobile> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 40,
+                  height: 56,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.white,
-                        child: Text(
-                          loginProvider.loginModel.account.name[0],
-                          style: AppTextStyles.title
-                              .copyWith(color: AppColors.gray),
+                        backgroundImage: NetworkImage(
+                          loginProvider.loginModel.account.imageUrl ?? '',
                         ),
+                        child: loginProvider.loginModel.account.imageUrl == null
+                            ? Text(
+                                loginProvider.loginModel.account.name[0],
+                                style: AppTextStyles.title.copyWith(
+                                  color: AppColors.gray,
+                                ),
+                              )
+                            : null,
                       ),
                     ),
                     Column(
@@ -60,7 +67,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                           'Olá,',
                           style: AppTextStyles.body.copyWith(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                         Text(
@@ -68,6 +75,13 @@ class _SettingsMobileState extends State<SettingsMobile> {
                           style: AppTextStyles.title.copyWith(
                             color: Colors.white,
                             fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          loginProvider.loginModel.account.email,
+                          style: AppTextStyles.body.copyWith(
+                            color: Colors.white,
+                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -80,32 +94,32 @@ class _SettingsMobileState extends State<SettingsMobile> {
               ],
             ),
           ),
-          if (!loginProvider.loginModel.account.verified)
-            InfoWidget(
-              type: InfoType.warning,
-              title: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: const Text(
-                  "Seu e-mail ainda não foi verificado. Verifique sua caixa de entrada ou reenvie o e-mail de confirmação. ",
-                  softWrap: true,
-                ),
-              ),
-            ),
-          if (!loginProvider.loginModel.account.verified)
-            InfoWidget(
-              type: InfoType.harmful,
-              title: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Text(
-                  "Verifique seu e-mail em até 6 dias para evitar que sua conta seja desativada.",
-                  softWrap: true,
-                  style: AppTextStyles.body.copyWith(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ),
+          // if (!loginProvider.loginModel.account.verified)
+          //   InfoWidget(
+          //     type: InfoType.warning,
+          //     title: SizedBox(
+          //       width: MediaQuery.of(context).size.width * 0.9,
+          //       child: const Text(
+          //         "Seu e-mail ainda não foi verificado. Verifique sua caixa de entrada ou reenvie o e-mail de confirmação. ",
+          //         softWrap: true,
+          //       ),
+          //     ),
+          //   ),
+          // if (!loginProvider.loginModel.account.verified)
+          //   InfoWidget(
+          //     type: InfoType.harmful,
+          //     title: SizedBox(
+          //       width: MediaQuery.of(context).size.width * 0.9,
+          //       child: Text(
+          //         "Verifique seu e-mail em até 6 dias para evitar que sua conta seja desativada.",
+          //         softWrap: true,
+          //         style: AppTextStyles.body.copyWith(
+          //           color: Colors.white,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
           const SizedBox(
             height: 24,
           ),
@@ -126,13 +140,13 @@ class _SettingsMobileState extends State<SettingsMobile> {
                   Navigator.pushNamed(context, '/account');
                 },
               ),
-              DrawerItem(
-                icon: Icons.notifications_outlined,
-                title: "Notificações",
-                onTap: () {
-                  Navigator.pushNamed(context, '/account');
-                },
-              ),
+              // DrawerItem(
+              //   icon: Icons.notifications_outlined,
+              //   title: "Notificações",
+              //   onTap: () {
+              //     Navigator.pushNamed(context, '/account');
+              //   },
+              // ),
               DrawerItem(
                 icon: Icons.logout_outlined,
                 title: "Sair",
