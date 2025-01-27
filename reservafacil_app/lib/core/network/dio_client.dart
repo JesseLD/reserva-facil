@@ -41,6 +41,8 @@ class DioClient {
     return {
       'Authorization': _getApiKey(),
       'Content-Type': 'application/json',
+      'x-token': _getAuthToken(),
+
     };
   }
 
@@ -60,6 +62,10 @@ class DioClient {
 
   static _getApiKey() {
     return "RFAPP_012025_DEV";
+  }
+
+  static _getAuthToken() {
+    return "RFAPP_012625_TKN";
   }
 
   Dio get dio => _dio;

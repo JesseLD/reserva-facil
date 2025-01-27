@@ -5,6 +5,9 @@ import { UserModel } from "../../Users/Model/UserModel";
 import { ApiExceptions } from "../../../Services/Exceptions/exceptions";
 import { PasswordManager } from "../../../Services/PasswordManager/PasswordManager";
 import config from "../../../../Config/config";
+import jwt,{ SignOptions } from "jsonwebtoken";
+import { AuthToken } from "../../../Services/AuthToken/AuthToken";
+
 
 export class LoginController {
   async login(req: Request, res: Response) {
@@ -36,6 +39,10 @@ export class LoginController {
 
       user[0].password = undefined;
       user[0].imageUrl = config.api_url + "uploads/" + user[0].imageUrl;
+
+      const token = AuthToken.generateToken(email);
+
+      user[0].token = token;
 
       payload.account = user[0];
       return ResponseService.sendResponse(
