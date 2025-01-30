@@ -42,7 +42,6 @@ class DioClient {
       'Authorization': _getApiKey(),
       'Content-Type': 'application/json',
       'x-token': _getAuthToken(),
-
     };
   }
 
@@ -50,8 +49,8 @@ class DioClient {
     // Change the return value to the URL of your API
 
     // return "http://localhost:3030/"; // URL Casa
-    // return "http://192.168.1.232:3030/"; // URL Casa
-    return "https://test-api.reservafacil.site/"; // URL Teste
+    return "http://192.168.1.232:3030/"; // URL Casa
+    // return "https://test-api.reservafacil.site/"; // URL Teste
     // return "http://172.20.73.96:3030/"; // URL Casa
     // return "https://api.reservafacil.site/"; // URL Produção
   }
@@ -83,7 +82,8 @@ class DioClient {
 
   Future<Response> post(String path, {dynamic data, dynamic headers}) async {
     try {
-      return await _dio.post(path, data: data, options: Options(headers: headers));
+      return await _dio.post(path,
+          data: data, options: Options(headers: headers));
     } catch (e) {
       log("Erro ocorrido: $e");
       _handleError(e);

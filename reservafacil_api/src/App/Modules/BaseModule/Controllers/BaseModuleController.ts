@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BaseModel } from "../Model/BaseModel";
+import { BaseModel } from "../Model/BaseModelModel";
 import { ResponseService } from "../../../Services/Response/ResponseService";
 export class BaseModuleController {
   

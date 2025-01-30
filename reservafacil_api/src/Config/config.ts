@@ -8,6 +8,9 @@ const config = {
   api_key: process.env.API_KEY || "123456",
   api_secret: process.env.API_SECRET || "123456",
   api_url: process.env.API_URL || "http://localhost:3000",
+  update: {
+    track: process.env.UPDATE_TRACK || "test",
+  },
   mobile: {
     skip_auth: process.env.MOBILE_APP_SKIP_AUTH|| false,
     auth_secret: process.env.MOBILE_APP_AUTH_SECRET || "123",

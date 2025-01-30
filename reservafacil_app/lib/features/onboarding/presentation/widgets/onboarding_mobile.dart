@@ -3,6 +3,8 @@ import 'package:reservafacil_app/common/constants/app_button_styles.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
+import 'package:reservafacil_app/core/version/version_provider.dart';
+import 'package:reservafacil_app/features/splash/presentation/pages/splash_page.dart';
 
 class OnboardingMobile extends StatefulWidget {
   const OnboardingMobile({super.key});
@@ -29,9 +31,15 @@ class _OnboardingMobileState extends State<OnboardingMobile> {
               padding: const EdgeInsets.symmetric(
                 vertical: 40,
               ),
-              child: Image.asset(
-                AppImages.logoMidUpW,
-                width: 240,
+              child: GestureDetector(
+                onTap: () {
+                  // Navigator.push(
+                  //     context, MaterialPageRoute(builder: (_) => SplashPage()));
+                },
+                child: Image.asset(
+                  AppImages.logoMidUpW,
+                  width: 240,
+                ),
               ),
             ),
             Container(
@@ -87,7 +95,11 @@ class _OnboardingMobileState extends State<OnboardingMobile> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    // Text()
                   ],
                 ),
               ),

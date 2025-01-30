@@ -4,8 +4,6 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:reservafacil_app/common/constants/app_button_styles.dart';
-import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/providers/global_state_provider.dart';

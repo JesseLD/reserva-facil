@@ -18,10 +18,10 @@ class _SlidesWidgetState extends State<SlidesWidget> {
   Timer? _autoPlayTimer;
 
   final List<String> _images = [
-    'https://images.pexels.com/photos/30154480/pexels-photo-30154480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/756086/pexels-photo-756086.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/30301745/pexels-photo-30301745/free-photo-of-deliciosos-palitos-de-queijo-e-poutine-na-mesa-de-madeira.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    'https://images.pexels.com/photos/30276995/pexels-photo-30276995/free-photo-of-cena-de-rua-chuvosa-de-paris-com-um-cafe.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'http://192.168.1.232:3030/uploads/SLIDE1.PNG',
+    'http://192.168.1.232:3030/uploads/SLIDE2.PNG',
+    'http://192.168.1.232:3030/uploads/SLIDE3.PNG',
+    'http://192.168.1.232:3030/uploads/SLIDE4.PNG',
   ];
 
   @override

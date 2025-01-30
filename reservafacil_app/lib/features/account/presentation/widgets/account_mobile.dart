@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
@@ -19,7 +22,6 @@ import 'package:reservafacil_app/common/widgets/custom_appbar.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
-import 'package:universal_io/io.dart';
 
 class AccountMobile extends StatefulWidget {
   const AccountMobile({super.key});
@@ -29,7 +31,7 @@ class AccountMobile extends StatefulWidget {
 }
 
 class _AccountMobileState extends State<AccountMobile> {
-  late Future<void> _future;
+  // late Future<void> _future;
 
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -41,7 +43,7 @@ class _AccountMobileState extends State<AccountMobile> {
 
   final _birthDateController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _cpfController = TextEditingController();
+  // final _cpfController = TextEditingController();
 
   XFile? _image;
   // XFile? _croppedImage;
@@ -73,11 +75,11 @@ class _AccountMobileState extends State<AccountMobile> {
     );
   }
 
-  Future<void> _refreshUserInfo() async {
-    // Certifique-se de que `listen: false` está sendo usado
-    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    await loginProvider.refresh();
-  }
+  // Future<void> _refreshUserInfo() async {
+  //   // Certifique-se de que `listen: false` está sendo usado
+  //   final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+  //   await loginProvider.refresh();
+  // }
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -176,17 +178,17 @@ class _AccountMobileState extends State<AccountMobile> {
                                     )
                                   : null,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
-                        Text(
+                        const Text(
                           'Editar foto de perfil',
                           style: AppTextStyles.button,
                         ),
                       ],
                     ),
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.close,
                         color: AppColors.gray,
                       ),
@@ -209,7 +211,7 @@ class _AccountMobileState extends State<AccountMobile> {
 
                   // Navigator.pushNamed(context, '/account');
                 },
-                trailingIcon: Icon(
+                trailingIcon: const Icon(
                   Icons.photo_outlined,
                   color: AppColors.gray,
                 ),
@@ -222,12 +224,12 @@ class _AccountMobileState extends State<AccountMobile> {
                 ),
               ),
               DrawerItem(
-                trailingIcon: Icon(
-                  Icons.delete_forever_outlined,
+                trailingIcon: const Icon(
+                  Ionicons.trash_outline,
                   color: AppColors.dangerRed,
                 ),
                 title: "Remover",
-                titleStyle: TextStyle(
+                titleStyle: const TextStyle(
                   color: AppColors.dangerRed,
                 ),
                 onTap: () async {
@@ -267,8 +269,8 @@ class _AccountMobileState extends State<AccountMobile> {
   }
 
   void _showUpdatePasswordPopup() async {
-    bool _obscurePassword = true;
-    bool _obscureConfirmPassword = true;
+    bool obscurePassword = true;
+    bool obscureConfirmPassword = true;
 
     showDialog(
       context: context,
@@ -276,7 +278,7 @@ class _AccountMobileState extends State<AccountMobile> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Alterar Senha'),
+              title: const Text('Alterar Senha'),
               content: Form(
                 key: _formKey2,
                 child: Column(
@@ -301,18 +303,18 @@ class _AccountMobileState extends State<AccountMobile> {
                         labelText: 'Nova Senha',
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword
+                            obscurePassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
-                              _obscurePassword = !_obscurePassword;
+                              obscurePassword = !obscurePassword;
                             });
                           },
                         ),
                       ),
-                      obscureText: _obscurePassword,
+                      obscureText: obscurePassword,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -337,19 +339,18 @@ class _AccountMobileState extends State<AccountMobile> {
                         labelText: 'Confirmar Senha',
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscureConfirmPassword
+                            obscureConfirmPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
-                              _obscureConfirmPassword =
-                                  !_obscureConfirmPassword;
+                              obscureConfirmPassword = !obscureConfirmPassword;
                             });
                           },
                         ),
                       ),
-                      obscureText: _obscureConfirmPassword,
+                      obscureText: obscureConfirmPassword,
                     ),
                   ],
                 ),
@@ -359,7 +360,7 @@ class _AccountMobileState extends State<AccountMobile> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Cancelar'),
+                  child: const Text('Cancelar'),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -396,7 +397,7 @@ class _AccountMobileState extends State<AccountMobile> {
                       // Implement password update logic here
                     }
                   },
-                  child: Text('Salvar'),
+                  child: const Text('Salvar'),
                 ),
               ],
             );
@@ -410,189 +411,195 @@ class _AccountMobileState extends State<AccountMobile> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Center(
-        child: Column(
-          children: [
-            CustomAppBar(
-              enableBackButton: true,
-              centerTitle: true,
-              simple: true,
-              title: const Text(
-                'Sua Conta',
-                style: AppTextStyles.button,
-              ),
-            ),
-            const SizedBox(height: 16),
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(
-                loginProvider.loginModel.account.imageUrl ?? '',
-              ),
-              child: loginProvider.loginModel.account.imageUrl == null
-                  ? Text(
-                      loginProvider.loginModel.account.name[0],
-                      style: AppTextStyles.title,
-                    )
-                  : null,
-            ),
-            const SizedBox(height: 8),
-            GestureDetector(
-              onTap: () {
-                _openBottomDrawer(context);
-              },
-              child: Text(
-                "Editar",
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.primaryAlternative,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            children: [
+              CustomAppBar(
+                enableBackButton: true,
+                centerTitle: true,
+                simple: true,
+                title: const Text(
+                  'Sua Conta',
+                  style: AppTextStyles.button,
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              loginProvider.loginModel.account.name,
-              style: AppTextStyles.title,
-            ),
-            const SizedBox(height: 24),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    // initialValue: loginProvider.loginModel.account.name,
-                    decoration: AppInputStyles.primaryInput.copyWith(
-                      labelText: 'Seu nome',
-                    ),
-                    readOnly: false,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    initialValue: loginProvider.loginModel.account.email,
-                    decoration: AppInputStyles.primaryInput.copyWith(
-                      labelText: 'Email',
-                    ),
-                    readOnly: true,
-                    style: TextStyle(
-                      color: AppColors.gray.withAlpha(130),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    initialValue: CpfConverter.format(
-                        loginProvider.loginModel.account.cpfCnpj),
-                    decoration: AppInputStyles.primaryInput.copyWith(
-                      labelText: 'CPF',
-                    ),
-                    readOnly: true,
-                    style: TextStyle(
-                      color: AppColors.gray.withAlpha(130),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _birthDateController,
-                    // initialValue:
-                    //     loginProvider.loginModel.account.birthDate != null
-                    //         ? DateConverter.toFormattedString(
-                    //             loginProvider.loginModel.account.birthDate!)
-                    //         : '',
-                    onTap: () {
-                      if (loginProvider.loginModel.account.birthDate != null)
-                        return;
-                      _showDatePicker();
-                    },
-                    decoration: AppInputStyles.primaryInput.copyWith(
-                      labelText: 'Data de nascimento',
-                    ),
-                    readOnly:
-                        loginProvider.loginModel.account.birthDate != null,
-                    style: TextStyle(
-                      color: loginProvider.loginModel.account.birthDate != null
-                          ? AppColors.gray.withAlpha(130)
-                          : null,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: AppInputStyles.primaryInput.copyWith(
-                      labelText: 'Telefone',
-                    ),
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      TelefoneInputFormatter(),
-                    ],
-                    readOnly: false,
-                  ),
-                  const SizedBox(height: 24),
-                  Divider(
-                    color: AppColors.gray.withAlpha(60),
-                    height: 1,
-                  ),
-                  const SizedBox(height: 24),
-                  ReactiveButton(
-                    alternateColor: true,
-                    child: Text(
-                      "Alterar Senha",
-                      style: AppTextStyles.button.copyWith(
-                        color: AppColors.primaryAlternative,
-                      ),
-                    ),
-                    onPressed: () {
-                      _showUpdatePasswordPopup();
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  ReactiveButton(
-                    child: Text(
-                      "Salvar",
-                      style: AppTextStyles.button.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () async {
-                      final accountProvider =
-                          Provider.of<AccountProvider>(context, listen: false);
-                      final globalStateProvider =
-                          Provider.of<GlobalStateProvider>(context,
-                              listen: false);
-                      if (_formKey.currentState!.validate()) {
-                        Logger.log("Validated");
-                        globalStateProvider.setLoading(true);
-
-                        try {
-                          await accountProvider.updateAccount(
-                            loginProvider.loginModel.account.copyWith(
-                              name: _nameController.text,
-                              phone: _phoneController.text,
-                              birthDate: DateFormat('dd/MM/yyyy')
-                                  .parse(_birthDateController.text),
-                            ),
-                          );
-
-                          globalStateProvider.setLoading(false);
-                          // Navigator.pop(context);
-
-                          await loginProvider.refresh();
-                        } catch (e) {
-                          globalStateProvider.setLoading(false);
-                          showErrorToast(context,
-                              message: "Erro ao atualizar dados");
-                        }
-                        // showLoadingPopup(context);
-
-                        // toastification
-                      }
-                    },
-                  ),
-                ],
+              const SizedBox(height: 16),
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(
+                  loginProvider.loginModel.account.imageUrl ?? '',
+                ),
+                child: loginProvider.loginModel.account.imageUrl == null
+                    ? Text(
+                        loginProvider.loginModel.account.name[0],
+                        style: AppTextStyles.title,
+                      )
+                    : null,
               ),
-            )
-          ],
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: () {
+                  _openBottomDrawer(context);
+                },
+                child: Text(
+                  "Editar",
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.primaryAlternative,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                loginProvider.loginModel.account.name,
+                style: AppTextStyles.title,
+              ),
+              const SizedBox(height: 24),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      // initialValue: loginProvider.loginModel.account.name,
+                      decoration: AppInputStyles.primaryInput.copyWith(
+                        labelText: 'Seu nome',
+                      ),
+                      readOnly: false,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      initialValue: loginProvider.loginModel.account.email,
+                      decoration: AppInputStyles.primaryInput.copyWith(
+                        labelText: 'Email',
+                      ),
+                      readOnly: true,
+                      style: TextStyle(
+                        color: AppColors.gray.withAlpha(130),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      initialValue: CpfConverter.format(
+                          loginProvider.loginModel.account.cpfCnpj),
+                      decoration: AppInputStyles.primaryInput.copyWith(
+                        labelText: 'CPF',
+                      ),
+                      readOnly: true,
+                      style: TextStyle(
+                        color: AppColors.gray.withAlpha(130),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _birthDateController,
+                      // initialValue:
+                      //     loginProvider.loginModel.account.birthDate != null
+                      //         ? DateConverter.toFormattedString(
+                      //             loginProvider.loginModel.account.birthDate!)
+                      //         : '',
+                      onTap: () {
+                        if (loginProvider.loginModel.account.birthDate !=
+                            null) {
+                          return;
+                        }
+                        _showDatePicker();
+                      },
+                      decoration: AppInputStyles.primaryInput.copyWith(
+                        labelText: 'Data de nascimento',
+                      ),
+                      readOnly:
+                          loginProvider.loginModel.account.birthDate != null,
+                      style: TextStyle(
+                        color:
+                            loginProvider.loginModel.account.birthDate != null
+                                ? AppColors.gray.withAlpha(130)
+                                : null,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _phoneController,
+                      decoration: AppInputStyles.primaryInput.copyWith(
+                        labelText: 'Telefone',
+                      ),
+                      keyboardType: TextInputType.phone,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        TelefoneInputFormatter(),
+                      ],
+                      readOnly: false,
+                    ),
+                    const SizedBox(height: 24),
+                    Divider(
+                      color: AppColors.gray.withAlpha(60),
+                      height: 1,
+                    ),
+                    const SizedBox(height: 24),
+                    ReactiveButton(
+                      alternateColor: true,
+                      child: Text(
+                        "Alterar Senha",
+                        style: AppTextStyles.button.copyWith(
+                          color: AppColors.primaryAlternative,
+                        ),
+                      ),
+                      onPressed: () {
+                        _showUpdatePasswordPopup();
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    ReactiveButton(
+                      child: Text(
+                        "Salvar",
+                        style: AppTextStyles.button.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () async {
+                        final accountProvider = Provider.of<AccountProvider>(
+                            context,
+                            listen: false);
+                        final globalStateProvider =
+                            Provider.of<GlobalStateProvider>(context,
+                                listen: false);
+                        if (_formKey.currentState!.validate()) {
+                          Logger.log("Validated");
+                          globalStateProvider.setLoading(true);
+
+                          try {
+                            await accountProvider.updateAccount(
+                              loginProvider.loginModel.account.copyWith(
+                                name: _nameController.text,
+                                phone: _phoneController.text,
+                                birthDate: DateFormat('dd/MM/yyyy')
+                                    .parse(_birthDateController.text),
+                              ),
+                            );
+
+                            globalStateProvider.setLoading(false);
+                            // Navigator.pop(context);
+
+                            await loginProvider.refresh();
+                          } catch (e) {
+                            globalStateProvider.setLoading(false);
+                            showErrorToast(context,
+                                message: "Erro ao atualizar dados");
+                          }
+                          // showLoadingPopup(context);
+
+                          // toastification
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

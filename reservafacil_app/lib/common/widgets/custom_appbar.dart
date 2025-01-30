@@ -11,14 +11,14 @@ class CustomAppBar extends StatefulWidget {
   bool centerTitle;
   bool simple;
   CustomAppBar({
-    Key? key,
+    super.key,
     this.enableBackButton = false,
     required this.title,
     this.leading,
     this.actions = const [],
     this.centerTitle = false,
     this.simple = false,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -41,7 +41,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   if (widget.enableBackButton)
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios,
                         color: AppColors.primaryAlternative,
                       ),
@@ -86,13 +86,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back_ios,
                       color: AppColors.primaryAlternative,
                     ),
                   ),
                   widget.title,
-                  SizedBox(
+                  const SizedBox(
                     width: 14,
                     height: 14,
                     // child: const Placeholder(),
