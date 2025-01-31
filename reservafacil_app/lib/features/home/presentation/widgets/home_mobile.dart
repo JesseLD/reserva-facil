@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/reservation/presentation/pages/reservation_page.dart';
 import 'package:reservafacil_app/features/restaurant/presentation/widgets/restaurant_mobile.dart';
+import 'package:reservafacil_app/features/search/presentation/pages/search_page.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/settings_mobile.dart';
 
 class HomeMobile extends StatefulWidget {
@@ -19,9 +21,9 @@ class _HomeMobileState extends State<HomeMobile> {
     // ignore: prefer_const_constructors
     RestaurantMobile(),
     // ignore: prefer_const_constructors
-    Container(),
+    SearchPage(),
     // ignore: prefer_const_constructors
-    Container(),
+    ReservationPage(),
     // ignore: prefer_const_constructors
     SettingsMobile(),
   ];

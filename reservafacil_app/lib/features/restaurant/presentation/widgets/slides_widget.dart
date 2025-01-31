@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
+import 'package:reservafacil_app/core/network/dio_client.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SlidesWidget extends StatefulWidget {
@@ -17,17 +18,34 @@ class _SlidesWidgetState extends State<SlidesWidget> {
 
   Timer? _autoPlayTimer;
 
-  final List<String> _images = [
-    'http://192.168.1.232:3030/uploads/SLIDE1.PNG',
-    'http://192.168.1.232:3030/uploads/SLIDE2.PNG',
-    'http://192.168.1.232:3030/uploads/SLIDE3.PNG',
-    'http://192.168.1.232:3030/uploads/SLIDE4.PNG',
-  ];
+  List<String> _images = [];
 
   @override
   void initState() {
     super.initState();
+    _handleImages();
+  }
+
+  void _handleImages() async {
+    await _loadImages();
     _startAutoPlay();
+  }
+
+  Future<void> _loadImages() async {
+    // final response = await _dioClient.get('/slides');
+    // if (response.statusCode == 200) {
+    //   final data = response.data;
+    //   final List<String> images = data['data'].map<String>((item) => item['image']).toList();
+    //   setState(() {
+    //     _images = images;
+    //   });
+    // }
+    _images = [
+      '${DioClient.apiUrl}uploads/BANNERS/SLIDE1.PNG',
+      '${DioClient.apiUrl}uploads/BANNERS/SLIDE2.PNG',
+      '${DioClient.apiUrl}uploads/BANNERS/SLIDE3.PNG',
+      '${DioClient.apiUrl}uploads/BANNERS/SLIDE4.PNG',
+    ];
   }
 
   void _startAutoPlay() {
@@ -87,7 +105,7 @@ class _SlidesWidgetState extends State<SlidesWidget> {
           count: _images.length,
           effect: const ExpandingDotsEffect(
             activeDotColor: AppColors.primaryAlternative,
-            dotColor: Colors.grey,
+            dotColor: AppColors.gray,
             dotHeight: 10,
             dotWidth: 10,
           ),

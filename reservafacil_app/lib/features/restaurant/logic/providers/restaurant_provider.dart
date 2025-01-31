@@ -5,6 +5,14 @@ import '../../data/models/restaurant_model.dart';
 class RestaurantProvider with ChangeNotifier {
   final RestaurantRepository _repository = RestaurantRepository();
 
+  List<String> categories = [
+    'Promoções',
+    'Lanches',
+    'Açaí',
+    'Restaurantes',
+    'Sushi',
+  ];
+
   final List<RestaurantModel> restaurants = [
     RestaurantModel(
         8,
@@ -46,7 +54,7 @@ class RestaurantProvider with ChangeNotifier {
       "Açaí",
       false,
       15.00,
-     25.00,
+      25.00,
       4,
     ),
     RestaurantModel(
@@ -58,7 +66,7 @@ class RestaurantProvider with ChangeNotifier {
       false,
       14.00,
       32.99,
-     4,
+      4,
     ),
     RestaurantModel(
       5,

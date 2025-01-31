@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 class DioClient {
   final Dio _dio;
+  static String apiUrl = "";
 
   DioClient()
       : _dio = Dio(
@@ -46,14 +47,33 @@ class DioClient {
   }
 
   static _getBaseURL() {
+    String url = "";
     // Change the return value to the URL of your API
 
-    // return "http://localhost:3030/"; // URL Casa
-    return "http://192.168.1.232:3030/"; // URL Casa
-    // return "https://test-api.reservafacil.site/"; // URL Teste
-    // return "http://172.20.73.96:3030/"; // URL Casa
-    // return "https://api.reservafacil.site/"; // URL Produção
+    // url = "http://localhost:3030/"; // URL Casa
+    url = "http://192.168.1.232:3030/"; // URL Casa
+    // url = "https://test-api.reservafacil.site/"; // URL Teste
+    // url = "http://172.20.73.96:3030/"; // URL Casa
+    // url = "https://api.reservafacil.site/"; // URL Produção
+
+    apiUrl = url;
+
+    return url;
   }
+  // static _getBaseURL() {
+  //   String url = "";
+  //   // Change the return value to the URL of your API
+
+  //   // return "http://localhost:3030/"; // URL Casa
+  //   url = "http://192.168.1.232:3030/"; // URL Casa
+  //   // return "https://test-api.reservafacil.site/"; // URL Teste
+  //   // return "http://172.20.73.96:3030/"; // URL Casa
+  //   // return "https://api.reservafacil.site/"; // URL Produção
+
+  //   apiUrl = url;
+
+  //   return url;
+  // }
 
   static getImageBaseURL() {
     return _getBaseURL() + "uploads/";
