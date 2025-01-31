@@ -1,35 +1,38 @@
-import Queue from "bull";
-import sharp from "sharp";
-import path from "path";
-import fs from "fs";
+import Bull from "bull"
+import { RedisOptions } from "ioredis"
+import config from "../../../Config/config";
 
-const uploadDir = path.join(__dirname, "uploads");
+const redisConfig: RedisOptions = {
+  host: config.redis.host,
+  port: Number.parseInt(config.redis.port as string),  // Porta padrão do Redis
+};
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
+export const reservationQueue = new Bull("reservation", { redis: redisConfig });
+
+async function addReservation(reservation: any) {
+  await reservationQueue.add(reservation);
+
 }
 
-export const imageQueue = new Queue("image processing");
+reservationQueue.process(async (job) => { 
+  const reservation = job.data;
+  console.log("Processing Reservation: ", job.data);
 
-imageQueue.process(async (job) => {
-  const { buffer, filename } = job.data;
-  const processedFilename = `${filename}-${Date.now()}.jpeg`;
 
-  const outputPath = path.join(uploadDir, processedFilename);
+  const success = await processReservation(reservation);
 
-  try {
-    console.log("Processing image:", filename);  // Log para verificar se o job chegou aqui
-    await sharp(buffer)
-      .resize(300, 300, {
-        fit: "cover",
-      })
-      .jpeg({ quality: 80 })
-      .toFile(outputPath);
-
-    console.log("Image processed and saved:", processedFilename);  // Log para confirmar que foi salvo
-    return processedFilename;
-  } catch (error) {
-    console.error("Error processing image:", error);  // Log para capturar o erro caso haja algum
-    throw error;
+  if (success) {
+    // return true;
+    console.log("Reservation processed successfully");
+  } else {
+    // return false;
+    console.log("Error processing reservation");
   }
-});
+
+})
+
+
+async function processReservation(reservation: any) {
+  // await addReservation(reservation);
+  return true
+}

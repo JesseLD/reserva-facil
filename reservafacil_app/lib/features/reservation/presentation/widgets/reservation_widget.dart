@@ -76,7 +76,7 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                 Icon(Ionicons.checkmark_circle, color: Colors.green, size: 16),
                 const SizedBox(width: 8),
                 Text(
-                  'Reserva Confirmada',
+                  'Reserva Concluída',
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontSize: 14,
