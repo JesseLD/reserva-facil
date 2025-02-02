@@ -3,7 +3,7 @@ import { QueueManager } from "./QueueManager";
 const queueManager = QueueManager.getInstance();
 const reservationQueue = queueManager.registerQueue("reservation");
 
-reservationQueue.process(async (reservation) => {
+reservationQueue.process(async (reservation: any) => {
   console.log("Processing reservation:", reservation);
 
   const success = await processReservation(reservation);
