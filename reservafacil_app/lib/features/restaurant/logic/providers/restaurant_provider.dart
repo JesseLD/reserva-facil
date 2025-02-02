@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/core/network/dio_client.dart';
 import '../../data/repositories/restaurant_repository.dart';
 import '../../data/models/restaurant_model.dart';
 
 class RestaurantProvider with ChangeNotifier {
   final RestaurantRepository _repository = RestaurantRepository();
+  final _dioClient = DioClient();
 
   List<String> categories = [
     'Promoções',
@@ -17,7 +19,7 @@ class RestaurantProvider with ChangeNotifier {
     RestaurantModel(
         8,
         "Luti's",
-        "http://192.168.1.232:3030/uploads/2025/01/logo-lutis.png",
+        "${DioClient.apiUrl}uploads/2025/01/logo-lutis.png",
         5.0,
         "Lanches",
         true,

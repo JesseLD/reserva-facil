@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reservafacil_app/core/network/dio_client.dart';
 import 'package:reservafacil_app/features/restaurant/data/models/restaurant_model.dart';
 import '../../data/repositories/reservation_repository.dart';
 import '../../data/models/reservation_model.dart';
@@ -48,7 +49,7 @@ class ReservationProvider with ChangeNotifier {
       restaurant: RestaurantModel(
           8,
           "Luti's",
-          "http://192.168.1.232:3030/uploads/2025/01/logo-lutis.png",
+          "${DioClient.apiUrl}uuploads/2025/01/logo-lutis.png",
           5.0,
           "Lanches",
           true,

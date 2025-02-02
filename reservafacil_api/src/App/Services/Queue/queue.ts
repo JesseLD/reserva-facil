@@ -7,7 +7,7 @@ const redisConfig: RedisOptions = {
   port: Number.parseInt(config.redis.port as string),  // Porta padrão do Redis
 };
 
-export class Queue {
+class Queue {
 
   private queue: Bull.Queue;
 
@@ -36,3 +36,5 @@ export class Queue {
     });
   }
 }
+
+export default Queue;
