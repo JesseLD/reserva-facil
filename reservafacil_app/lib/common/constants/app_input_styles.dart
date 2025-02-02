@@ -8,11 +8,11 @@ class AppInputStyles {
     hintStyle: TextStyle(color: Colors.grey),
     focusedBorder: OutlineInputBorder(
       borderRadius: AppSizing.borderRadiusSmall,
-      borderSide: BorderSide(color: AppColors.primary),
+      borderSide: BorderSide(color: AppColors.primaryAlternative),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: AppSizing.borderRadiusSmall,
-      borderSide: BorderSide(color: AppColors.primary),
+      borderSide: BorderSide(color: AppColors.primaryAlternative),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: AppSizing.borderRadiusSmall,

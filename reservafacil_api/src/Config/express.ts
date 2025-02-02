@@ -10,7 +10,7 @@ import http from "http";
 
 import { indexRouter } from "../App/Routes/index.routes";
 import { handleUpgrade } from "../App/Services/WebSocket/websocket";
-import { readQueue } from "../App/Services/Workers/simpleWorker";
+// import { readQueue } from "../App/Services/Workers/simpleWorker";
 
 export const app = express();
 
@@ -41,5 +41,5 @@ app.use(indexRouter);
 
 app.use(errorHandler);
 
-readQueue("Reservas")
-readQueue("Lembretes")
+// readQueue("Reservas")
+// readQueue("Lembretes")

@@ -6,6 +6,7 @@ import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/router/app_router.dart';
 import 'package:reservafacil_app/core/config/logic/providers/config_provider.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
+import 'package:reservafacil_app/features/address/logic/providers/address_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
@@ -43,6 +44,7 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (_) => ConfigProvider()),
         ChangeNotifierProvider(create: (_) => RestaurantProvider()),
         ChangeNotifierProvider(create: (_) => ReservationProvider()),
+        ChangeNotifierProvider(create: (_) => AddressProvider()),
       ],
       child: MaterialApp(
         title: "Reserva Fácil",

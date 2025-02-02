@@ -160,7 +160,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                 ),
                 // notification: 1,
                 onTap: () {
-                  Navigator.pushNamed(context, '/account');
+                  Navigator.pushNamed(context, '/address');
                 },
               ),
               // DrawerItem(

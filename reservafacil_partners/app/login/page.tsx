@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import cookie from "js-cookie";
-import { config } from "@/utils/config";
+// import { config } from "@/utils/config";
 
 export default function Page() {
 

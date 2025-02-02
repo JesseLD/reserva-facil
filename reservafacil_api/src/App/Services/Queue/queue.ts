@@ -1,5 +1,5 @@
-import Bull from "bull"
-import { RedisOptions } from "ioredis"
+import Bull from "bull";
+import { RedisOptions } from "ioredis";
 import config from "../../../Config/config";
 
 const redisConfig: RedisOptions = {
@@ -7,32 +7,32 @@ const redisConfig: RedisOptions = {
   port: Number.parseInt(config.redis.port as string),  // Porta padrão do Redis
 };
 
-export const reservationQueue = new Bull("reservation", { redis: redisConfig });
+export class Queue {
 
-async function addReservation(reservation: any) {
-  await reservationQueue.add(reservation);
+  private queue: Bull.Queue;
 
-}
-
-reservationQueue.process(async (job) => { 
-  const reservation = job.data;
-  console.log("Processing Reservation: ", job.data);
-
-
-  const success = await processReservation(reservation);
-
-  if (success) {
-    // return true;
-    console.log("Reservation processed successfully");
-  } else {
-    // return false;
-    console.log("Error processing reservation");
+  constructor(queueName: string) {
+    this.queue = new Bull(queueName, { redis: redisConfig });
   }
 
-})
+  // Adicionar um item à fila
+  public async add(jobData: any) {
+    await this.queue.add(jobData);
+  }
 
+  // Processar a fila
+  public process(processingFunction: (jobData: any) => Promise<boolean>) {
+    this.queue.process(async (job) => {
+      const jobData = job.data;
+      console.log(`Processing Job in ${this.queue.name}:`, jobData);
 
-async function processReservation(reservation: any) {
-  // await addReservation(reservation);
-  return true
+      const success = await processingFunction(jobData);
+
+      if (success) {
+        console.log(`${this.queue.name} processed successfully`);
+      } else {
+        console.log(`Error processing ${this.queue.name}`);
+      }
+    });
+  }
 }

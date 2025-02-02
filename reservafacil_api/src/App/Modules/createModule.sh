@@ -55,11 +55,13 @@ find . -type f -name "Entity.ts" | while read -r file; do
   mv "$file" "$new_file"
 done
 
-# Renomear 'BaseModel.ts' para o nome do módulo (ex: 'MyModel.ts')
-find . -type f -name "BaseModel.ts" | while read -r file; do
-  new_file=$(echo "$file" | sed "s/BaseModel/$moduleName/")
-  mv "$file" "$new_file"
+find . -type f -name "BaseModelModel.ts" | while read -r file; do
+  new_file=$(echo "$file" | sed "s/BaseModelModel/$moduleName/")  # Substitui 'BaseModel' pelo nome do módulo
+  new_file="${new_file%.ts}Model.ts"  # Adiciona 'Model' antes da extensão '.ts'
+  mv "$file" "$new_file"  # Renomeia o arquivo
 done
+
+
 
 # # Alterar nomes específicos, como 'user-validate.ts'
 # find . -type f -name "user-validate.ts" | while read -r file; do

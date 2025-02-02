@@ -21,11 +21,6 @@ const upload = multer({
   // },
 });
 
-uploadRouter.get(
-  "/status/:id",
-  validateJobId,
-  uploadController.getUploadStatus
-);
 
 uploadRouter.post(
   "/image",

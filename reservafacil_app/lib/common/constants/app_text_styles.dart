@@ -19,8 +19,16 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
 
+  static const TextStyle subtitleAlt = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
   static const TextStyle body = TextStyle(
     fontSize: AppSizing.fontRegular,
+  );
+  static const TextStyle bodyAlt = TextStyle(
+    fontSize: 14,
   );
 
   static const TextStyle caption = TextStyle(
