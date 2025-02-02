@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:reservafacil_app/common/constants/app_button_styles.dart';
-import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/widgets/custom_circular_progress_indicator.dart';
 

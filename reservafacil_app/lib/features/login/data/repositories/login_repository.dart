@@ -1,7 +1,6 @@
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/core/network/dio_client.dart';
 import 'package:reservafacil_app/features/login/data/models/login_model.dart';
-import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 
 class LoginRepository {
   final _dioClient = DioClient();

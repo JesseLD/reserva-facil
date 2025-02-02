@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/features/login/data/models/login_model.dart';
-import 'package:reservafacil_app/features/login/data/models/user_model.dart';
 import '../../data/repositories/login_repository.dart';
 
 class LoginProvider with ChangeNotifier {

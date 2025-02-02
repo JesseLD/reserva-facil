@@ -1,35 +1,38 @@
-import Queue from "bull";
-import sharp from "sharp";
-import path from "path";
-import fs from "fs";
+import Bull from "bull";
+import { RedisOptions } from "ioredis";
+import config from "../../../Config/config";
 
-const uploadDir = path.join(__dirname, "uploads");
+const redisConfig: RedisOptions = {
+  host: config.redis.host,
+  port: Number.parseInt(config.redis.port as string),  // Porta padrão do Redis
+};
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+export class Queue {
 
-export const imageQueue = new Queue("image processing");
+  private queue: Bull.Queue;
 
-imageQueue.process(async (job) => {
-  const { buffer, filename } = job.data;
-  const processedFilename = `${filename}-${Date.now()}.jpeg`;
-
-  const outputPath = path.join(uploadDir, processedFilename);
-
-  try {
-    console.log("Processing image:", filename);  // Log para verificar se o job chegou aqui
-    await sharp(buffer)
-      .resize(300, 300, {
-        fit: "cover",
-      })
-      .jpeg({ quality: 80 })
-      .toFile(outputPath);
-
-    console.log("Image processed and saved:", processedFilename);  // Log para confirmar que foi salvo
-    return processedFilename;
-  } catch (error) {
-    console.error("Error processing image:", error);  // Log para capturar o erro caso haja algum
-    throw error;
+  constructor(queueName: string) {
+    this.queue = new Bull(queueName, { redis: redisConfig });
   }
-});
+
+  // Adicionar um item à fila
+  public async add(jobData: any) {
+    await this.queue.add(jobData);
+  }
+
+  // Processar a fila
+  public process(processingFunction: (jobData: any) => Promise<boolean>) {
+    this.queue.process(async (job) => {
+      const jobData = job.data;
+      console.log(`Processing Job in ${this.queue.name}:`, jobData);
+
+      const success = await processingFunction(jobData);
+
+      if (success) {
+        console.log(`${this.queue.name} processed successfully`);
+      } else {
+        console.log(`Error processing ${this.queue.name}`);
+      }
+    });
+  }
+}

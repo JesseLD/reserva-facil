@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:reservafacil_app/common/constants/app_button_styles.dart';
-import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/providers/global_state_provider.dart';
@@ -44,27 +42,9 @@ class _LoginMobileState extends State<LoginMobile> {
     Logger.log("Local Login Saved");
   }
 
-  Future<void> _loadSaveLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    _saveLogin = prefs.getBool("saveLogin") ?? false;
-
-    if (_saveLogin) {
-      String? localEmail = prefs.getString("email");
-      String? localPassword = prefs.getString("password");
-
-      if (localEmail != null && localPassword != null) {
-        _emailController.text = localEmail;
-        _passwordController.text = localPassword;
-        Logger.log("Local Login Loaded");
-      } else {
-        Logger.log("Local Login Not Found");
-      }
-    }
-  }
-
   void _handleLogin() async {
-    final globalStateProvider = Provider.of<GlobalStateProvider>(context, listen: false);
+    final globalStateProvider =
+        Provider.of<GlobalStateProvider>(context, listen: false);
 
     if (globalStateProvider.isLoading) {
       return;
@@ -80,17 +60,16 @@ class _LoginMobileState extends State<LoginMobile> {
     }
 
     final loginProvider = Provider.of<LoginProvider>(context, listen: false);
-    final accountProvider =
-        Provider.of<AccountProvider>(context, listen: false);
+    Provider.of<AccountProvider>(context, listen: false);
 
     if (_saveLogin &&
         _emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
       try {
         await loginProvider.login(
-            email: _emailController.text,
-            password: _passwordController.text,
-            );
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
 
         // await accountProvider.getAccount(loginProvider.loginModel.account.id);
 
@@ -110,9 +89,9 @@ class _LoginMobileState extends State<LoginMobile> {
 
     try {
       await loginProvider.login(
-          email: _emailController.text,
-          password: _passwordController.text,
-         );
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
 
       // showSuccessToast(context, message: "Login Efetuado com sucesso!");
       globalStateProvider.setLoading(false);
@@ -232,9 +211,9 @@ class _LoginMobileState extends State<LoginMobile> {
                   if (value.length < 6) {
                     return 'Sua senha deve ter no mínimo 6 caracteres';
                   }
-                  if (!value.contains(RegExp(r'[0-9]'))) {
-                    return 'Sua senha deve conter números';
-                  }
+                  // if (!value.contains(RegExp(r'[0-9]'))) {
+                  //   return 'Sua senha deve conter números';
+                  // }
 
                   return null;
                 },

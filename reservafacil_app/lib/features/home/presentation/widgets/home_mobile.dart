@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
+import 'package:reservafacil_app/features/reservation/presentation/pages/reservation_page.dart';
 import 'package:reservafacil_app/features/restaurant/presentation/widgets/restaurant_mobile.dart';
+import 'package:reservafacil_app/features/search/presentation/pages/search_page.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/settings_mobile.dart';
 
 class HomeMobile extends StatefulWidget {
@@ -18,9 +21,9 @@ class _HomeMobileState extends State<HomeMobile> {
     // ignore: prefer_const_constructors
     RestaurantMobile(),
     // ignore: prefer_const_constructors
-    Placeholder(),
+    SearchPage(),
     // ignore: prefer_const_constructors
-    Placeholder(),
+    ReservationPage(),
     // ignore: prefer_const_constructors
     SettingsMobile(),
   ];
@@ -35,7 +38,8 @@ class _HomeMobileState extends State<HomeMobile> {
     return Scaffold(
       body: _pages[_index],
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
+        elevation: 20,
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppColors.primaryAlternative,
         currentIndex: _index,
@@ -46,29 +50,33 @@ class _HomeMobileState extends State<HomeMobile> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-                size: 28,
-              ),
-              label: ""),
+            icon: Icon(
+              Ionicons.home_outline,
+              size: 24,
+            ),
+            label: "",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-                size: 28,
-              ),
-              label: ""),
+            icon: Icon(
+              Ionicons.search,
+              size: 24,
+            ),
+            label: "",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.confirmation_num_outlined,
-                size: 28,
-              ),
-              label: ""),
+            icon: Icon(
+              Ionicons.ticket_outline,
+              size: 24,
+            ),
+            label: "",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.menu,
-                size: 28,
-              ),
-              label: ""),
+            icon: Icon(
+              Ionicons.menu,
+              size: 24,
+            ),
+            label: "",
+          ),
         ],
       ),
     );

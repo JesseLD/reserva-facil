@@ -69,7 +69,7 @@ class _ConfirmCodeState extends State<ConfirmCode> {
 
                 //runs when every textfield is filled
                 onSubmit: (String verificationCode) {
-                  Logger.log("Code ${verificationCode}");
+                  Logger.log("Code $verificationCode");
 
                   final intCode = int.parse(verificationCode);
 

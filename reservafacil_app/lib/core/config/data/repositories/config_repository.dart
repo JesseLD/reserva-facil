@@ -1,26 +1,17 @@
+import 'package:reservafacil_app/core/network/dio_client.dart';
 
 import '../models/config_model.dart';
 
 class ConfigRepository {
-  final List<ConfigModel> _items = [];
+  final _dioClient = DioClient();
 
-  List<ConfigModel> getAll() {
-    return _items;
-  }
+  Future<ConfigModel> getConfig() async {
+    final response = await _dioClient.get("v0/config");
 
-  ConfigModel getById(String id) {
-    return ConfigModel();
-  }
-
-  void create(ConfigModel item) {
-    _items.add(item);
-  }
-
-  void update(ConfigModel item) {
-    // Implement update logic here
-  }
-
-  void delete(String id) {
-    // Implement delete logic here
+    if (response.statusCode == 200) {
+      return ConfigModel.fromMap(response.data["data"]);
+    } else {
+      throw Exception("Erro ao buscar configurações");
+    }
   }
 }

@@ -51,7 +51,7 @@ class RecoverPasswordProvider with ChangeNotifier {
     required String email,
     required String password,
   }) async {
-    final response = await _recoverPasswordRepository.updatePassword(
+    await _recoverPasswordRepository.updatePassword(
       email: email,
       password: password,
     );

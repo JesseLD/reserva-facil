@@ -4,14 +4,15 @@ import 'package:reservafacil_app/common/constants/app_themes.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import 'package:reservafacil_app/common/router/app_router.dart';
-import 'package:reservafacil_app/common/utils/logger.dart';
-import 'package:reservafacil_app/common/utils/toasts.dart';
+import 'package:reservafacil_app/core/config/logic/providers/config_provider.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
+import 'package:reservafacil_app/features/address/logic/providers/address_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/recover_password_provider.dart';
-import 'package:reservafacil_app/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:reservafacil_app/features/reservation/logic/providers/reservation_provider.dart';
+import 'package:reservafacil_app/features/restaurant/logic/providers/restaurant_provider.dart';
+import 'package:reservafacil_app/features/splash/presentation/pages/splash_page.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -40,6 +41,10 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => RecoverPasswordProvider()),
         ChangeNotifierProvider(create: (_) => AccountProvider()),
+        ChangeNotifierProvider(create: (_) => ConfigProvider()),
+        ChangeNotifierProvider(create: (_) => RestaurantProvider()),
+        ChangeNotifierProvider(create: (_) => ReservationProvider()),
+        ChangeNotifierProvider(create: (_) => AddressProvider()),
       ],
       child: MaterialApp(
         title: "Reserva Fácil",
@@ -49,7 +54,7 @@ class _AppState extends State<App> {
         initialRoute: '/',
         onGenerateRoute: AppRouter.onGenerateRoute,
         debugShowCheckedModeBanner: false,
-        home: const OnboardingPage(),
+        home: const SplashPage(),
       ),
     );
   }

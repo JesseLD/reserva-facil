@@ -12,6 +12,6 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    return AppResponsive(mobile: AccountMobile());
+    return AppResponsive(mobile: const AccountMobile());
   }
 }

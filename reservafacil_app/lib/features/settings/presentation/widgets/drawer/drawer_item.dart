@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
@@ -12,6 +11,7 @@ class DrawerItem extends StatelessWidget {
   Function() onTap;
   int? notification;
   Icon? trailingIcon;
+  Widget? description;
 
   DrawerItem({
     super.key,
@@ -21,6 +21,7 @@ class DrawerItem extends StatelessWidget {
     this.notification,
     this.titleStyle,
     this.trailingIcon,
+    this.description,
   });
 
   @override
@@ -45,17 +46,28 @@ class DrawerItem extends StatelessWidget {
                   Icon(
                     icon,
                     color: AppColors.gray,
+                    size: 28,
                   ),
                 if (icon != null)
                   const SizedBox(
                     width: 16,
                   ),
-                Text(
-                  title,
-                  style: titleStyle ??
-                      AppTextStyles.button.copyWith(
-                        color: AppColors.gray,
-                      ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: titleStyle ??
+                          AppTextStyles.button.copyWith(
+                            color: AppColors.gray,
+                          ),
+                    ),
+                    // SizedBox(
+                    //   height: 4,
+                    // ),
+                    if (description != null) description!,
+                  ],
                 ),
                 if (notification != null)
                   const SizedBox(
@@ -64,7 +76,7 @@ class DrawerItem extends StatelessWidget {
                 if (notification != null)
                   Container(
                     padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.dangerRed,
                       shape: BoxShape.circle,
                     ),
@@ -81,6 +93,7 @@ class DrawerItem extends StatelessWidget {
             trailingIcon ??
                 Icon(
                   Icons.arrow_forward_ios,
+                  size: 12,
                   color: AppColors.gray.withAlpha(100),
                 ),
           ],

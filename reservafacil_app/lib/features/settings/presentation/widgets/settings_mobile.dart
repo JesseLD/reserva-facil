@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_group.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
-import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/info_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsMobile extends StatefulWidget {
@@ -133,11 +133,34 @@ class _SettingsMobileState extends State<SettingsMobile> {
             ),
             children: [
               DrawerItem(
-                icon: Icons.person_2_outlined,
+                icon: Ionicons.person_outline,
                 title: "Sua Conta",
-                notification: 1,
+                description: Text(
+                  'Informações da sua conta',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.gray.withAlpha(150),
+                    fontSize: 14,
+                  ),
+                ),
+                // notification: 1,
+
                 onTap: () {
                   Navigator.pushNamed(context, '/account');
+                },
+              ),
+              DrawerItem(
+                icon: Ionicons.location_outline,
+                title: "Endereços",
+                description: Text(
+                  'Seus endereços cadastrados',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.gray.withAlpha(150),
+                    fontSize: 14,
+                  ),
+                ),
+                // notification: 1,
+                onTap: () {
+                  Navigator.pushNamed(context, '/address');
                 },
               ),
               // DrawerItem(
@@ -148,12 +171,13 @@ class _SettingsMobileState extends State<SettingsMobile> {
               //   },
               // ),
               DrawerItem(
-                icon: Icons.logout_outlined,
+                icon: Ionicons.log_out_outline,
                 title: "Sair",
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
 
                   await prefs.clear();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     '/',
                     (route) => false,
@@ -161,7 +185,7 @@ class _SettingsMobileState extends State<SettingsMobile> {
                 },
               ),
               DrawerItem(
-                icon: Icons.delete_forever_outlined,
+                icon: Ionicons.trash_outline,
                 title: "Excluir Conta",
                 onTap: () {
                   Navigator.pushNamed(context, '/account');
@@ -182,14 +206,14 @@ class _SettingsMobileState extends State<SettingsMobile> {
             ),
             children: [
               DrawerItem(
-                icon: Icons.warning_amber_outlined,
+                icon: Ionicons.warning_outline,
                 title: "Reportar Problema",
                 onTap: () {
                   Navigator.pushNamed(context, '/account');
                 },
               ),
               DrawerItem(
-                icon: Icons.send_outlined,
+                icon: Ionicons.send_outline,
                 title: "Enviar Sugestão",
                 onTap: () {
                   Navigator.pushNamed(context, '/account');

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 class DioClient {
   final Dio _dio;
+  static String apiUrl = "";
 
   DioClient()
       : _dio = Dio(
@@ -41,18 +42,38 @@ class DioClient {
     return {
       'Authorization': _getApiKey(),
       'Content-Type': 'application/json',
+      'x-token': _getAuthToken(),
     };
   }
 
   static _getBaseURL() {
+    String url = "";
     // Change the return value to the URL of your API
 
-    // return "http://localhost:3030/"; // URL Casa
-    // return "http://192.168.1.232:3030/"; // URL Casa
-    return "https://test-api.reservafacil.site/"; // URL Teste
-    // return "http://172.20.73.96:3030/"; // URL Casa
-    // return "https://api.reservafacil.site/"; // URL Produção
+    // url = "http://localhost:3030/"; // URL Casa
+    url = "http://192.168.1.232:3030/"; // URL Casa
+    // url = "https://test-api.reservafacil.site/"; // URL Teste
+    // url = "http://172.20.73.96:3030/"; // URL Casa
+    // url = "https://api.reservafacil.site/"; // URL Produção
+
+    apiUrl = url;
+
+    return url;
   }
+  // static _getBaseURL() {
+  //   String url = "";
+  //   // Change the return value to the URL of your API
+
+  //   // return "http://localhost:3030/"; // URL Casa
+  //   url = "http://192.168.1.232:3030/"; // URL Casa
+  //   // return "https://test-api.reservafacil.site/"; // URL Teste
+  //   // return "http://172.20.73.96:3030/"; // URL Casa
+  //   // return "https://api.reservafacil.site/"; // URL Produção
+
+  //   apiUrl = url;
+
+  //   return url;
+  // }
 
   static getImageBaseURL() {
     return _getBaseURL() + "uploads/";
@@ -60,6 +81,10 @@ class DioClient {
 
   static _getApiKey() {
     return "RFAPP_012025_DEV";
+  }
+
+  static _getAuthToken() {
+    return "RFAPP_012625_TKN";
   }
 
   Dio get dio => _dio;
@@ -77,7 +102,8 @@ class DioClient {
 
   Future<Response> post(String path, {dynamic data, dynamic headers}) async {
     try {
-      return await _dio.post(path, data: data, options: Options(headers: headers));
+      return await _dio.post(path,
+          data: data, options: Options(headers: headers));
     } catch (e) {
       log("Erro ocorrido: $e");
       _handleError(e);

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/features/account/presentation/pages/account_page.dart';
+import 'package:reservafacil_app/features/address/presentation/pages/address_page.dart';
 import 'package:reservafacil_app/features/home/presentation/pages/home_page.dart';
 import 'package:reservafacil_app/features/login/presentation/pages/login_page.dart';
 import 'package:reservafacil_app/features/login/presentation/pages/recover_password.dart';
@@ -38,6 +39,10 @@ class AppRouter {
       case '/account':
         return MaterialPageRoute(
           builder: (_) => const AccountPage(),
+        );
+      case '/address':
+        return MaterialPageRoute(
+          builder: (_) => const AddressPage(),
         );
       default:
         return MaterialPageRoute(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:reservafacil_app/common/providers/global_state_provider.dart';
 import '../../data/repositories/register_repository.dart';
 import '../../data/models/register_model.dart';
 
