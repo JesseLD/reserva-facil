@@ -28,22 +28,22 @@ export default function Layout({ children }: LayoutProps) {
       icon: Home,
     },
     {
-      title: "Inbox",
+      title: "Pedidos",
       url: "#",
       icon: Inbox,
     },
     {
-      title: "Calendar",
+      title: "Cardápio",
       url: "#",
       icon: Calendar,
     },
+    // {
+    //   title: "Search",
+    //   url: "#",
+    //   icon: Search,
+    // },
     {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "Settings",
+      title: "Configurações",
       url: "#",
       icon: Settings,
     },
