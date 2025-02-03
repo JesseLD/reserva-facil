@@ -260,6 +260,7 @@ flutter:
     - assets/food.png
     - assets/logo_mid_up_w.png
     - assets/logo_mid_up.png
+    - assets/default-avatar.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

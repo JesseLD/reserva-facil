@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reservafacil_app/common/constants/app_colors.dart';
 
 import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
@@ -9,6 +10,7 @@ import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/common/utils/popups.dart';
 import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
+import 'package:reservafacil_app/core/version/version_provider.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/register/logic/providers/register_provider.dart';
@@ -26,6 +28,7 @@ class LoginMobile extends StatefulWidget {
 }
 
 class _LoginMobileState extends State<LoginMobile> {
+  String version = "";
   final _formKey = GlobalKey<FormState>();
 
   bool _saveLogin = false;
@@ -129,6 +132,15 @@ class _LoginMobileState extends State<LoginMobile> {
     // _loadSaveLogin().then((_) {
     //   _handleLogin();
     // });
+    _loadVersion();
+  }
+
+  void _loadVersion() async {
+    final versionProvider = VersionProvider();
+    final version = await versionProvider.getVersion();
+    setState(() {
+      this.version = version;
+    });
   }
 
   @override
@@ -349,6 +361,16 @@ class _LoginMobileState extends State<LoginMobile> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Versão $version",
+                style: TextStyle(
+                  color: AppColors.gray.withAlpha(150),
+                  fontSize: 12,
                 ),
               ),
             ],

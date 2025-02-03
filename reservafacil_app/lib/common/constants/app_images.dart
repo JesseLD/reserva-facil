@@ -6,4 +6,5 @@ class AppImages {
   static const String logoMidUp = "assets/logo_mid_up.png";
   static const String logoMidUpW = "assets/logo_mid_up_w.png";
   static const String food = "assets/food.png";
+  static const String defaultAvatar = "assets/default-avatar.jpg";
 }

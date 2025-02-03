@@ -49,7 +49,7 @@ class ReservationProvider with ChangeNotifier {
       restaurant: RestaurantModel(
           8,
           "Luti's",
-          "${DioClient.apiUrl}uuploads/2025/01/logo-lutis.png",
+          "${DioClient.apiUrl}uploads/2025/01/logo-lutis.png",
           5.0,
           "Lanches",
           true,

@@ -8,6 +8,8 @@ WORKDIR /usr/app
 
 COPY package*.json ./
 
+COPY uploads ./uploads
+
 RUN npm install
 
 # Bundle app source

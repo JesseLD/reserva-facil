@@ -40,7 +40,7 @@ class RestaurantProvider with ChangeNotifier {
     RestaurantModel(
       2,
       "Subway",
-      "https://portalbelohorizonte.com.br/sites/default/files/arquivos/comer-e-beber/2021-10/244141566_4376858042361392_2679925626410878642_n.jpg",
+      "${DioClient.apiUrl}uploads/2025/01/244141566_4376858042361392_2679925626410878642_n.jpg",
       5.0,
       "Lanches",
       false,
@@ -62,7 +62,7 @@ class RestaurantProvider with ChangeNotifier {
     RestaurantModel(
       4,
       "Açaíteria Mayo",
-      "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/stores/logo/16844697736466f80d01ee3_medium.png",
+      "${DioClient.apiUrl}uploads/2025/01/16844697736466f80d01ee3_medium.png",
       5.0,
       "Açaí",
       false,

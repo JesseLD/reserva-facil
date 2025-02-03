@@ -13,15 +13,14 @@ class HorizontalSelector extends StatefulWidget {
 
 class _HorizontalSelectorState extends State<HorizontalSelector> {
   int listIndex = 0;
-  List<String> _items = [
-    
-  ];
+  List<String> _items = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    final restaurantProvider = Provider.of<RestaurantProvider>(context, listen: false);
+    final restaurantProvider =
+        Provider.of<RestaurantProvider>(context, listen: false);
 
     _items = restaurantProvider.categories;
   }
@@ -30,6 +29,7 @@ class _HorizontalSelectorState extends State<HorizontalSelector> {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
+      // alignment: Alignment.center,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _items.length,
