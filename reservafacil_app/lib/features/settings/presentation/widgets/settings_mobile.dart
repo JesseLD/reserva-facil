@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
+import 'package:reservafacil_app/core/version/version_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_group.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
@@ -16,6 +17,22 @@ class SettingsMobile extends StatefulWidget {
 }
 
 class _SettingsMobileState extends State<SettingsMobile> {
+  String version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVersion();
+  }
+
+  void _loadVersion() async {
+    final versionProvider = VersionProvider();
+    final version = await versionProvider.getVersion();
+    setState(() {
+      this.version = version;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
@@ -218,6 +235,17 @@ class _SettingsMobileState extends State<SettingsMobile> {
                 onTap: () {
                   Navigator.pushNamed(context, '/account');
                 },
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Text("Versão $version" , style: TextStyle(
+                    color: AppColors.gray.withAlpha(150),
+                    fontSize: 12,
+                  ),),
+                ],
               ),
             ],
           )

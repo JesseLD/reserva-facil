@@ -26,8 +26,8 @@ class _RestaurantMobileState extends State<RestaurantMobile> {
             children: [
               DynamicSpacer(),
               SizedBox(
-                width: 400,
-                height: 260,
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: SlidesWidget(),
               ),
               SizedBox(

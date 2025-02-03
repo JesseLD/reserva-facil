@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
+import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/common/constants/app_input_styles.dart';
 import 'package:reservafacil_app/common/constants/app_text_styles.dart';
 import 'package:reservafacil_app/common/converters/contact_converter.dart';
@@ -19,6 +20,7 @@ import 'package:reservafacil_app/common/utils/logger.dart';
 import 'package:reservafacil_app/common/utils/toasts.dart';
 import 'package:reservafacil_app/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_app/common/widgets/custom_appbar.dart';
+import 'package:reservafacil_app/common/widgets/network_image_widget.dart';
 import 'package:reservafacil_app/features/account/logic/providers/account_provider.dart';
 import 'package:reservafacil_app/features/login/logic/providers/login_provider.dart';
 import 'package:reservafacil_app/features/settings/presentation/widgets/drawer/drawer_item.dart';
@@ -167,9 +169,10 @@ class _AccountMobileState extends State<AccountMobile> {
                         CircleAvatar(
                           radius: 20,
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
-                            loginProvider.loginModel.account.imageUrl ?? '',
-                          ),
+                          backgroundImage: getNetworkImage(
+                              imageUrl:
+                                  loginProvider.loginModel.account.imageUrl ??
+                                      ''),
                           child:
                               loginProvider.loginModel.account.imageUrl == null
                                   ? Text(

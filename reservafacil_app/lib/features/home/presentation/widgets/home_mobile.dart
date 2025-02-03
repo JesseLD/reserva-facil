@@ -42,6 +42,12 @@ class _HomeMobileState extends State<HomeMobile> {
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppColors.primaryAlternative,
+        selectedLabelStyle: TextStyle(
+          fontSize: 8,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 8,
+        ),
         currentIndex: _index,
         onTap: (value) {
           setState(() {
@@ -54,28 +60,28 @@ class _HomeMobileState extends State<HomeMobile> {
               Ionicons.home_outline,
               size: 24,
             ),
-            label: "",
+            label: "Início",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Ionicons.search,
               size: 24,
             ),
-            label: "",
+            label: "Busca",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Ionicons.ticket_outline,
               size: 24,
             ),
-            label: "",
+            label: "Reservas",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Ionicons.menu,
               size: 24,
             ),
-            label: "",
+            label: "Opções",
           ),
         ],
       ),
