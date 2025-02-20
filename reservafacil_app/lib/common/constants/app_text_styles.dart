@@ -27,6 +27,7 @@ class AppTextStyles {
   static const TextStyle body = TextStyle(
     fontSize: AppSizing.fontRegular,
   );
+  
   static const TextStyle bodyAlt = TextStyle(
     fontSize: 14,
   );

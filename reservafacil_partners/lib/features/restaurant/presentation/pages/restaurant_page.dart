@@ -1,0 +1,1 @@
+// Template for restaurant_page.dart
