@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../../Database/database";
 
 export class Config {
-  async getConfig(track: string) {
+  async getConfig(track: string, target: string | undefined) {
 
     // const payload = {
 
@@ -16,10 +16,12 @@ export class Config {
       FROM
         AppVersion
       WHERE	
-        AppVersion.track = ?
+        AppVersion.track = ? AND AppVersion.target = ?
+      ORDER BY
+        AppVersion.createdAt DESC
       LIMIT 
       1
-    `, [track]);
+    `, [track, target || 'all']);
     return version[0];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservafacil_partners/common/utils/logger.dart';
+import 'package:reservafacil_partners/features/register/data/models/state_city_model.dart';
 import 'package:reservafacil_partners/features/register/data/models/state_model.dart';
 import 'package:reservafacil_partners/features/register/data/models/store_category.dart';
 import '../../data/repositories/register_repository.dart';
@@ -10,6 +11,10 @@ class RegisterProvider with ChangeNotifier {
 
   List<StateModel> states = [];
   List<StoreCategory> categories = [];
+
+  StateCityModel stateCityModel = StateCityModel.empty();
+
+  StateModel selectedState = StateModel.empty();
 
   bool isLoading = false;
 
@@ -34,6 +39,8 @@ class RegisterProvider with ChangeNotifier {
   Future<void> getStates() async {
     try {
       states = await _repository.getStates();
+
+      selectedState = states.first;
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -50,15 +57,20 @@ class RegisterProvider with ChangeNotifier {
   }
 
   Future<bool> checkEmail(String email) async {
-     return await _repository.checkEmail(email);
-    
+    return await _repository.checkEmail(email);
   }
 
   Future<bool> checkCpfCnpj(String cpfCnpj) async {
-   return await _repository.checkCpfCnpj(cpfCnpj);
+    return await _repository.checkCpfCnpj(cpfCnpj);
   }
 
   Future<bool> checkPhone(String phone) async {
     return await _repository.checkPhone(phone);
+  }
+
+  Future<void> getStateCity(String cep) async {
+    stateCityModel = await _repository.getStateCity(cep);
+    notifyListeners();
+    // return stateCityModel;
   }
 }

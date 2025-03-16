@@ -11,6 +11,11 @@ class StateModel {
     required this.uf,
   });
 
+  StateModel.empty()
+    : id = 0,
+      name = '',
+      uf = '';
+      
   StateModel copyWith({
     int? id,
     String? name,

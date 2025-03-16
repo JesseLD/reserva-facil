@@ -57,6 +57,7 @@ dependencies:
   flutter_rating_stars: ^1.1.0
   smooth_page_indicator: ^1.2.0+3
   dropdown_search: ^5.0.6
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'package:reservafacil_partners/common/utils/sanitizer.dart';
+
 String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {
     return 'Por favor, digite seu e-mail';
@@ -5,7 +7,7 @@ String? validateEmail(String? value) {
   if (!value.contains('@') || !value.contains('.')) {
     return 'Por favor, digite um e-mail válido';
   }
-  if(!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)){
+  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
     return 'Por favor, digite um e-mail válido';
   }
   return null;
@@ -56,7 +58,8 @@ String? validateCEP(String? value) {
   if (value == null || value.isEmpty) {
     return 'Por favor, digite seu CEP';
   }
-  if (value.length < 8 || value.length > 9) {
+  final sanitizedValue = sanitizeNumbers(value);
+  if (sanitizedValue.length < 8 || sanitizedValue.length > 9) {
     return 'Por favor, digite um CEP válido';
   }
   return null;

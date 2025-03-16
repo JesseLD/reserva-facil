@@ -6,8 +6,10 @@ export class ConfigController {
   
   async getSettings(req: Request, res: Response) {
 
+    const target = req.query.target as string | 'all';
+
     const configModel = new Config();
-    const data = await configModel.getConfig(config.update.track);
+    const data = await configModel.getConfig(config.update.track, target);
 
     return ResponseService.sendResponse(res, "Config Fetch Success!", data);
   }

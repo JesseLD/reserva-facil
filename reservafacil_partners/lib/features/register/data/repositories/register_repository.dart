@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:reservafacil_partners/common/utils/logger.dart';
 import 'package:reservafacil_partners/core/network/dio_client.dart';
+import 'package:reservafacil_partners/features/register/data/models/state_city_model.dart';
 import 'package:reservafacil_partners/features/register/data/models/state_model.dart';
 import 'package:reservafacil_partners/features/register/data/models/store_category.dart';
 
@@ -30,6 +32,7 @@ class RegisterRepository {
     // Logger.log("States: $states");
 
     statesList = states.map<StateModel>((e) => StateModel.fromMap(e)).toList();
+
 
     return statesList;
   }
@@ -78,5 +81,13 @@ class RegisterRepository {
     } else {
       return true;
     }
+  }
+
+  Future<StateCityModel> getStateCity(String cep) async {
+    final response = await _dioClient.get('v0/localization/cep/$cep');
+
+    final stateCity = response.data['data'];
+
+    return StateCityModel.fromMap(stateCity);
   }
 }

@@ -43,6 +43,16 @@ export class StoreController {
 
     return ResponseService.sendResponse(res, "CpfCnpj Fetch Success!", cpfcnpj);
   }
+
+
+  async create(req: Request, res: Response) {
+    const store = new StoreModel();
+    const data = req.body;
+
+    const storeData = await store.create(data);
+
+    return ResponseService.sendResponse(res, "Store Created!", storeData);
+  }
 }
 
 export const storeController = new StoreController();

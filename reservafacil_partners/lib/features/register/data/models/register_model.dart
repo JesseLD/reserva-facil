@@ -1,48 +1,95 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:reservafacil_partners/features/register/data/models/state_model.dart';
+import 'package:reservafacil_partners/features/register/data/models/store_category.dart';
+
 class RegisterModel {
   String name;
+  String phone;
   String email;
-  String password;
   String cpfCnpj;
+  String password;
+  String cep;
+  StateModel state;
+  String city;
+  String address;
+  String storeName;
+  StoreCategory category;
   
   RegisterModel({
     required this.name,
+    required this.phone,
     required this.email,
-    required this.password,
     required this.cpfCnpj,
+    required this.password,
+    required this.cep,
+    required this.state,
+    required this.city,
+    required this.address,
+    required this.storeName,
+    required this.category,
   });
+
+  
 
   RegisterModel copyWith({
     String? name,
+    String? phone,
     String? email,
-    String? password,
     String? cpfCnpj,
+    String? password,
+    String? cep,
+    StateModel? state,
+    String? city,
+    String? address,
+    String? storeName,
+    StoreCategory? category,
   }) {
     return RegisterModel(
       name: name ?? this.name,
+      phone: phone ?? this.phone,
       email: email ?? this.email,
-      password: password ?? this.password,
       cpfCnpj: cpfCnpj ?? this.cpfCnpj,
+      password: password ?? this.password,
+      cep: cep ?? this.cep,
+      state: state ?? this.state,
+      city: city ?? this.city,
+      address: address ?? this.address,
+      storeName: storeName ?? this.storeName,
+      category: category ?? this.category,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
+      'phone': phone,
       'email': email,
-      'password': password,
       'cpfCnpj': cpfCnpj,
+      'password': password,
+      'cep': cep,
+      'state': state.toMap(),
+      'city': city,
+      'address': address,
+      'storeName': storeName,
+      'category': category.toMap(),
     };
   }
 
   factory RegisterModel.fromMap(Map<String, dynamic> map) {
     return RegisterModel(
       name: map['name'] as String,
+      phone: map['phone'] as String,
       email: map['email'] as String,
-      password: map['password'] as String,
       cpfCnpj: map['cpfCnpj'] as String,
+      password: map['password'] as String,
+      cep: map['cep'] as String,
+      state: StateModel.fromMap(map['state'] as Map<String,dynamic>),
+      city: map['city'] as String,
+      address: map['address'] as String,
+      storeName: map['storeName'] as String,
+      category: StoreCategory.fromMap(map['category'] as Map<String,dynamic>),
     );
   }
 
@@ -52,7 +99,7 @@ class RegisterModel {
 
   @override
   String toString() {
-    return 'RegisterModel(name: $name, email: $email, password: $password, cpfCnpj: $cpfCnpj)';
+    return 'RegisterModel(name: $name, phone: $phone, email: $email, cpfCnpj: $cpfCnpj, password: $password, cep: $cep, state: $state, city: $city, address: $address, storeName: $storeName, category: $category)';
   }
 
   @override
@@ -61,16 +108,30 @@ class RegisterModel {
   
     return 
       other.name == name &&
+      other.phone == phone &&
       other.email == email &&
+      other.cpfCnpj == cpfCnpj &&
       other.password == password &&
-      other.cpfCnpj == cpfCnpj;
+      other.cep == cep &&
+      other.state == state &&
+      other.city == city &&
+      other.address == address &&
+      other.storeName == storeName &&
+      other.category == category;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
+      phone.hashCode ^
       email.hashCode ^
+      cpfCnpj.hashCode ^
       password.hashCode ^
-      cpfCnpj.hashCode;
+      cep.hashCode ^
+      state.hashCode ^
+      city.hashCode ^
+      address.hashCode ^
+      storeName.hashCode ^
+      category.hashCode;
   }
 }

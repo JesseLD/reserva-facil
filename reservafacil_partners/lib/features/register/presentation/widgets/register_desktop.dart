@@ -16,6 +16,7 @@ import 'package:reservafacil_partners/common/providers/global_state_provider.dar
 import 'package:reservafacil_partners/common/utils/functions.dart';
 import 'package:reservafacil_partners/common/utils/logger.dart';
 import 'package:reservafacil_partners/common/utils/popups.dart';
+import 'package:reservafacil_partners/common/utils/sanitizer.dart';
 import 'package:reservafacil_partners/common/utils/toasts.dart';
 import 'package:reservafacil_partners/common/widgets/button/reactive_button.dart';
 import 'package:reservafacil_partners/common/widgets/custom_circular_progress_indicator.dart';
@@ -61,6 +62,8 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _storeNameController = TextEditingController();
+  final _storeCapacityController = TextEditingController();
+  final _storePartyController = TextEditingController();
 
   StateModel selectedState =
       StateModel(id: 0, name: "Selecione um estado", uf: "");
@@ -71,54 +74,54 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
 
   bool _obscureText = true;
   void _handleRegister() async {
-    final globalStateProvider =
-        Provider.of<GlobalStateProvider>(context, listen: false);
-    if (globalStateProvider.isLoading) return;
+    // final globalStateProvider =
+    //     Provider.of<GlobalStateProvider>(context, listen: false);
+    // if (globalStateProvider.isLoading) return;
 
-    globalStateProvider.setLoading(true);
+    // globalStateProvider.setLoading(true);
 
-    final registerProvider =
-        Provider.of<RegisterProvider>(context, listen: false);
-    // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    // final registerProvider =
+    //     Provider.of<RegisterProvider>(context, listen: false);
+    // // final loginProvider = Provider.of<LoginProvider>(context, listen: false);
 
-    RegisterModel registerModel = RegisterModel(
-      name: _nameController.text,
-      email: _emailController.text,
-      cpfCnpj: _cpfCnpjController.text.replaceAll(RegExp(r'[.\-]'), ""),
-      password: _passwordController.text,
-    );
+    // RegisterModel registerModel = RegisterModel(
+    //   name: _nameController.text,
+    //   email: _emailController.text,
+    //   cpfCnpj: _cpfCnpjController.text.replaceAll(RegExp(r'[.\-]'), ""),
+    //   password: _passwordController.text,
+    // );
 
-    try {
-      await registerProvider.register(registerModel, context);
+    // try {
+    //   await registerProvider.register(registerModel, context);
 
-      showSuccessToast(context,
-          message:
-              "Um e-mail de confirmação foi enviado para ${_emailController.text}. Verifique sua caixa de entrada e siga as instruções para ativar sua conta.");
+    //   showSuccessToast(context,
+    //       message:
+    //           "Um e-mail de confirmação foi enviado para ${_emailController.text}. Verifique sua caixa de entrada e siga as instruções para ativar sua conta.");
 
-      _nameController.clear();
-      _emailController.clear();
-      _cpfCnpjController.clear();
-      _passwordController.clear();
-      _confirmPasswordController.clear();
-      globalStateProvider.setLoading(false);
-      Navigator.pushNamed(context, '/login');
-    } catch (e) {
-      globalStateProvider.setLoading(false);
-      if (e.toString().contains("UserAlreadyExistsException")) {
-        showErrorPopup(
-          context,
-          message:
-              "O E-mail ou CPF informado já está cadastrado. Tente fazer login ou recuperar sua senha.",
-          title: "Erro ao realizar o registro",
-        );
-      } else {
-        showErrorPopup(
-          context,
-          message: "Erro ao realizar o registro. Tente novamente!",
-          title: "Erro ao realizar o registro",
-        );
-      }
-    }
+    //   _nameController.clear();
+    //   _emailController.clear();
+    //   _cpfCnpjController.clear();
+    //   _passwordController.clear();
+    //   _confirmPasswordController.clear();
+    //   globalStateProvider.setLoading(false);
+    //   Navigator.pushNamed(context, '/login');
+    // } catch (e) {
+    //   globalStateProvider.setLoading(false);
+    //   if (e.toString().contains("UserAlreadyExistsException")) {
+    //     showErrorPopup(
+    //       context,
+    //       message:
+    //           "O E-mail ou CPF informado já está cadastrado. Tente fazer login ou recuperar sua senha.",
+    //       title: "Erro ao realizar o registro",
+    //     );
+    //   } else {
+    //     showErrorPopup(
+    //       context,
+    //       message: "Erro ao realizar o registro. Tente novamente!",
+    //       title: "Erro ao realizar o registro",
+    //     );
+    //   }
+    // }
   }
 
   Future<void> _loadData() async {
@@ -326,6 +329,28 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
                               CepInputFormatter(),
                             ],
                             validator: validateCEP,
+                            onChanged: (value) async {
+                              String cep = sanitizeNumbers(value);
+
+                              if (cep.length == 8) {
+                                Logger.log("CEP: $cep");
+                                // showLoadingPopup(context);
+                                await registerProvider.getStateCity(cep);
+
+                                setState(() {
+                                  _cityController.text =
+                                      registerProvider.stateCityModel.city;
+
+                                  registerProvider.selectedState =
+                                      registerProvider.states.firstWhere(
+                                          (element) =>
+                                              element.uf ==
+                                              registerProvider
+                                                  .stateCityModel.uf);
+                                  // Navigator.pop(context);
+                                });
+                              }
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -335,7 +360,7 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
                           child: DropdownSearch<StateModel>(
                             // mode: Mode.custom,
 
-                            selectedItem: registerProvider.states.first,
+                            selectedItem: registerProvider.selectedState,
                             itemAsString: (StateModel item) => item.name,
                             compareFn: (item, selectedItem) =>
                                 item == selectedItem,
@@ -623,24 +648,7 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
                         }
                       },
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      decoration: AppInputStyles.primaryInputVariation.copyWith(
-                        label: const Text("Nome da Loja"),
-                        hintText: "Digite o nome da sua loja",
-                      ),
-                      controller: _storeNameController,
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            value.length < 3) {
-                          return 'Por favor, digite seu nome';
-                        }
-                        return null;
-                      },
-                    ),
+
                     const SizedBox(
                       height: 16,
                     ),
@@ -687,6 +695,64 @@ class _RegisterDesktopState extends State<RegisterDesktop> {
                     const SizedBox(
                       height: 16,
                     ),
+                    TextFormField(
+                      decoration: AppInputStyles.primaryInputVariation.copyWith(
+                        label: const Text("Nome da Loja"),
+                        hintText: "Digite o nome da sua loja",
+                      ),
+                      controller: _storeNameController,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.length < 3) {
+                          return 'Por favor, digite seu nome';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        TextFormField(
+                          decoration:
+                              AppInputStyles.primaryInputVariation.copyWith(
+                            label: const Text("Capacidade do Estabelecimento"),
+                            hintText:
+                                "Digite a capacidade do seu estabelecimento",
+                          ),
+                          controller: _storeCapacityController,
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, digite a capacidade do seu estabelecimento';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          decoration:
+                              AppInputStyles.primaryInputVariation.copyWith(
+                            label: const Text("Assentos por reserva"),
+                            hintText:
+                                "Digite a quantidade de assentos por reserva",
+                          ),
+                          controller: _storePartyController,
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, digite a quantidade de assentos por reserva';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+
                     TextFormField(
                       decoration: AppInputStyles.primaryInputVariation.copyWith(
                         label: const Text("Sua Senha"),
