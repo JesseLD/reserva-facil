@@ -38,7 +38,7 @@ export class UserModel {
     await queryRunner.startTransaction();
 
     try {
-      await AppDataSource.query(
+      await queryRunner.query(
         "INSERT INTO Users ( name, email, password, cpfCnpj, imageUrl ) VALUES ( ?, ?, ?, ?, ? )",
         [user.name, user.email, hashedPassword, user.cpfCnpj, this.defaultImage]
       );

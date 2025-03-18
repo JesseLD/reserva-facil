@@ -120,4 +120,9 @@ export const ApiExceptions: { [key: string]: ApiException } = {
     message: "Invalid Job",
     exception: "InvalidJobException",
   },
+  CEP_NOT_FOUND: {
+    status: 400,
+    message: "CEP Not Found",
+    exception: "CepNotFoundException",
+  },
 };

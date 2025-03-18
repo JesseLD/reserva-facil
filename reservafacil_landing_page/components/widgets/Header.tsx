@@ -21,22 +21,22 @@ export default function Header() {
     },
     {
       name: "Contato",
-      href: "/contato",
-      external: false,
+      href: "https://status.reservafacil.site",
+      external: true,
     },
     {
       name: "Para Empresas",
-      href: "https://google.com",
+      href: "https://status.reservafacil.site",
       external: true,
     },
     {
       name: "Sobre",
-      href: "/sobre",
-      external: false,
+      href: "https://status.reservafacil.site",
+      external: true,
     },
     {
       name: "Criar Conta",
-      href: "https://google.com",
+      href: "https://test-app.reservafacil.site",
       external: true,
     },
   ];
@@ -48,13 +48,15 @@ export default function Header() {
         {/* <header className="w-full py-4 shadow-md bg-white fixed top-0 z-50"> */}
         <div className="px-[10vw] flex justify-between items-center">
           <div>
-            <Image
-              src={Logo.src}
-              width={200}
-              height={Logo.height}
-              alt=""
-              className="pointer-events-none"
-            />
+            <Link href="/">
+              <Image
+                src={Logo.src}
+                width={200}
+                height={Logo.height}
+                alt=""
+                className="pointer-events-none"
+              />
+            </Link>
           </div>
           <nav className="hidden lg:block">
             <ul className="flex space-x-4 items-center">
@@ -76,7 +78,9 @@ export default function Header() {
               ))}
 
               <li>
-                <Button>Entrar</Button>
+                <Link href="https://test-app.reservafacil.site" passHref>
+                  <Button>Entrar</Button>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -109,7 +113,9 @@ export default function Header() {
                   ))}
 
                   <li>
-                    <Button>Entrar</Button>
+                    <Link href="https://test-app.reservafacil.site" passHref>
+                      <Button>Entrar</Button>
+                    </Link>
                   </li>
                 </ul>
               </div>
