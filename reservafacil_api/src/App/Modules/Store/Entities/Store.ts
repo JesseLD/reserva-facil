@@ -1,4 +1,4 @@
-class Store {
+export class Store {
   name: string;
   phone: string;
   email: string;
@@ -10,6 +10,8 @@ class Store {
   address: string;
   storeName: string;
   category: number;
+  reservationCapacity: number;
+  maxPartySize: number;
 
   constructor(
     name: string,
@@ -22,7 +24,9 @@ class Store {
     city: string,
     address: string,
     storeName: string,
-    category: number
+    category: number,
+    reservationCapacity: number,
+    maxPartySize: number
   ) {
     this.name = name;
     this.phone = phone;
@@ -35,5 +39,7 @@ class Store {
     this.address = address;
     this.storeName = storeName;
     this.category = category;
+    this.reservationCapacity = reservationCapacity;
+    this.maxPartySize = maxPartySize;
   }
 }

@@ -1,5 +1,7 @@
+import config from "../../../../Config/config";
 import { AppDataSource } from "../../../Database/database";
 import { PasswordManager } from "../../../Services/PasswordManager/PasswordManager";
+import { Store } from "../Entities/Store";
 
 export class StoreModel {
   async getCategories() {
@@ -22,52 +24,64 @@ export class StoreModel {
     ]);
   }
 
-  async create(store: Store) {
 
+  async getStoresByCep(cep: string) {
+    return await AppDataSource.query(`
+    SELECT
+        *
+    FROM
+        Store
+    JOIN
+      StoreLocalization ON StoreLocalization.storeId = Store.id
+    WHERE
+        StoreLocalization.cep = ?`, [
+          cep,
+    ]);
+  }
+
+  async create(store: Store) {
     const passwordManager = PasswordManager.getInstance();
     const hashedPassword = passwordManager.hashPassword(store.password);
-    const queryRunner = AppDataSource.createQueryRunner();
+    // const queryRunner = AppDataSource.createQueryRunner();
 
-    await queryRunner.startTransaction();
+    // await queryRunner.startTransaction();
+
+    const exists = await AppDataSource.query(
+      "SELECT * FROM Store WHERE email = ? OR phone = ? OR cpfCnpj = ?",
+      [store.email, store.phone, store.cpfCnpj]
+    );
+
+    if (exists.length) {
+      throw new Error("Email, phone or cpfCnpj already in use");
+    }
 
     try {
-      await queryRunner.query(
-        "INSERT INTO Store ( name, email, phone, password, cpfCnpj, imageUrl ) VALUES ( ?, ?, ?, ?, ?, ? )",
+      await AppDataSource.query(
+        "INSERT INTO Store ( name, email, phone, password, cpfCnpj, logoUrl, reservationCapacity, maxPartySize, categoryId ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )",
         [
           store.name,
           store.email,
           store.phone,
           hashedPassword,
           store.cpfCnpj,
-          "default-avatar.jpeg",
+          config.api_url + "/uploads" +  "/default-avatar.jpeg",
+          store.reservationCapacity,
+          store.maxPartySize,
+          store.category,
         ]
       );
 
-       await queryRunner.query(
-         "INSERT INTO Users ( name, email, phone, password, cpfCnpj, imageUrl ) VALUES ( ?, ?, ?, ?, ?, ? )",
-         [
-           store.name,
-           store.email,
-           store.phone,
-           hashedPassword,
-           store.cpfCnpj,
-           "default-avatar.jpeg",
-         ]
-       );
+      const result = await AppDataSource.query("SELECT LAST_INSERT_ID() as id");
+      const storeId = result[0].id;
 
-      const result = await queryRunner.query("SELECT LAST_INSERT_ID() as id");
-      const userId = result[0].id;
-
+      await AppDataSource.query(
+        "INSERT INTO StoreLocalization ( storeId, cep, stateId, city, address ) VALUES ( ?, ?, ?, ?, ? )",
+        [storeId, store.cep, store.state, store.city, store.address]
+      );
 
       // await queryRunner.commitTransaction();
-
-
-
     } catch (e) {
-      queryRunner.rollbackTransaction();
       throw e;
-    } finally {
-      await queryRunner.release();
     }
   }
 }

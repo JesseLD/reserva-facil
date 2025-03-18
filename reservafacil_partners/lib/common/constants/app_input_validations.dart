@@ -1,4 +1,55 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:reservafacil_partners/common/utils/sanitizer.dart';
+
+String? validateName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Campo obrigatório';
+  }
+  if (value.length < 3) {
+    return 'Campo deve ter no mínimo 3 caracteres';
+  }
+  return null;
+}
+
+
+String? validateGenericText(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Campo obrigatório';
+  }
+  if (value.length < 3) {
+    return 'Campo deve ter no mínimo 3 caracteres';
+  }
+  return null;
+}
+String? validateGenericNumber(String? value) {
+  if (value == null || value.isEmpty || value.toString() == '0') {
+    return 'Campo obrigatório';
+  }
+
+}
+
+
+String? validateCpfCnpj(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Campo obrigatório';
+  }
+  final cleanInput = sanitizeNumbers(value);
+  if (cleanInput.length < 11 || cleanInput.length > 14) {
+    return 'CPF/CNPJ inválido';
+  }
+
+  // if (cleanInput.length == 11) {
+  //   if (!CPFValidator.isValid(cleanInput)) {
+  //     return 'CPF inválido';
+  //   }
+  //   if (!CNPJValidator.isValid(cleanInput)) {
+  //     return 'CPF inválido';
+  //   }
+  //   return null;
+  // }
+
+  return null;
+}
 
 String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {

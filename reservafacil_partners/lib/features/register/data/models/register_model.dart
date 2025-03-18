@@ -5,7 +5,7 @@ import 'package:reservafacil_partners/features/register/data/models/state_model.
 import 'package:reservafacil_partners/features/register/data/models/store_category.dart';
 
 class RegisterModel {
-  String name;
+  String name; 
   String phone;
   String email;
   String cpfCnpj;
@@ -16,6 +16,8 @@ class RegisterModel {
   String address;
   String storeName;
   StoreCategory category;
+  int reservationCapacity;
+  int maxPartySize;
   
   RegisterModel({
     required this.name,
@@ -29,6 +31,8 @@ class RegisterModel {
     required this.address,
     required this.storeName,
     required this.category,
+    required this.reservationCapacity,
+    required this.maxPartySize,
   });
 
   
@@ -45,6 +49,8 @@ class RegisterModel {
     String? address,
     String? storeName,
     StoreCategory? category,
+    int? reservationCapacity,
+    int? maxPartySize,
   }) {
     return RegisterModel(
       name: name ?? this.name,
@@ -58,6 +64,8 @@ class RegisterModel {
       address: address ?? this.address,
       storeName: storeName ?? this.storeName,
       category: category ?? this.category,
+      reservationCapacity: reservationCapacity ?? this.reservationCapacity,
+      maxPartySize: maxPartySize ?? this.maxPartySize,
     );
   }
 
@@ -74,6 +82,8 @@ class RegisterModel {
       'address': address,
       'storeName': storeName,
       'category': category.toMap(),
+      'reservationCapacity': reservationCapacity,
+      'maxPartySize': maxPartySize,
     };
   }
 
@@ -90,6 +100,8 @@ class RegisterModel {
       address: map['address'] as String,
       storeName: map['storeName'] as String,
       category: StoreCategory.fromMap(map['category'] as Map<String,dynamic>),
+      reservationCapacity: map['reservationCapacity'] as int,
+      maxPartySize: map['maxPartySize'] as int,
     );
   }
 
@@ -99,7 +111,7 @@ class RegisterModel {
 
   @override
   String toString() {
-    return 'RegisterModel(name: $name, phone: $phone, email: $email, cpfCnpj: $cpfCnpj, password: $password, cep: $cep, state: $state, city: $city, address: $address, storeName: $storeName, category: $category)';
+    return 'RegisterModel(name: $name, phone: $phone, email: $email, cpfCnpj: $cpfCnpj, password: $password, cep: $cep, state: $state, city: $city, address: $address, storeName: $storeName, category: $category, reservationCapacity: $reservationCapacity, maxPartySize: $maxPartySize)';
   }
 
   @override
@@ -117,7 +129,9 @@ class RegisterModel {
       other.city == city &&
       other.address == address &&
       other.storeName == storeName &&
-      other.category == category;
+      other.category == category &&
+      other.reservationCapacity == reservationCapacity &&
+      other.maxPartySize == maxPartySize;
   }
 
   @override
@@ -132,6 +146,8 @@ class RegisterModel {
       city.hashCode ^
       address.hashCode ^
       storeName.hashCode ^
-      category.hashCode;
+      category.hashCode ^
+      reservationCapacity.hashCode ^
+      maxPartySize.hashCode;
   }
 }

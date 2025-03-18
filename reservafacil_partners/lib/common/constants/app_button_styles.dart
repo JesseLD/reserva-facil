@@ -15,7 +15,7 @@ class AppButtonStyles {
   static final ButtonStyle secondaryButtonStyle = ElevatedButton.styleFrom(
     padding: const EdgeInsets.symmetric(vertical: 12),
     elevation: 0,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
     shape: RoundedRectangleBorder(
       side: const BorderSide(
         color: AppColors.primaryAlternative,

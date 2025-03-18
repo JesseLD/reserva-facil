@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservafacil_partners/common/widgets/app_responsive.dart';
 import 'package:reservafacil_partners/features/register/presentation/widgets/register_desktop.dart';
-import 'package:reservafacil_partners/features/register/presentation/widgets/register_mobile.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

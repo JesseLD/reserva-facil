@@ -49,9 +49,23 @@ export class StoreController {
     const store = new StoreModel();
     const data = req.body;
 
-    const storeData = await store.create(data);
+    try{
 
-    return ResponseService.sendResponse(res, "Store Created!", storeData);
+      const storeData = await store.create(data);
+      return ResponseService.sendResponse(res, "Store Created!", storeData);
+    }catch(e) {
+      return ResponseService.sendException(res, ApiExceptions.USER_ALREADY_EXISTS);
+    }
+
+  }
+
+  async getStores(req: Request, res: Response) {
+    const store = new StoreModel();
+    const { cep } = req.query;
+
+    const storeData = await store.getStoresByCep(cep as string);
+
+    return ResponseService.sendResponse(res, "Getting Stores", storeData);
   }
 }
 
