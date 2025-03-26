@@ -8,6 +8,8 @@ class ConfigRepository {
   Future<ConfigModel> getConfig() async {
     final response = await _dioClient.get("v0/config");
 
+    print(response.data);
+
     if (response.statusCode == 200) {
       return ConfigModel.fromMap(response.data["data"]);
     } else {
