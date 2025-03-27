@@ -9,8 +9,8 @@ class LoginRepository {
     required String email,
     required String password,
   }) async {
-    // Logger.log("Fazendo login ${_dioClient.dio.options.baseUrl}");
-    final response = await _dioClient.post("v0/login", data: {
+    Logger.log("Fazendo login ${_dioClient.dio.options.baseUrl}/login");
+    final response = await _dioClient.post("login", data: {
       "email": email,
       "password": password,
     });

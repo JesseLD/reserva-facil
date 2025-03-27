@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:reservafacil_app/common/constants/app_colors.dart';
+import 'package:reservafacil_app/common/constants/app_images.dart';
 import 'package:reservafacil_app/core/network/dio_client.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -41,10 +42,10 @@ class _SlidesWidgetState extends State<SlidesWidget> {
     //   });
     // }
     _images = [
-      '${DioClient.apiUrl}uploads/BANNERS/SLIDE1.PNG',
-      '${DioClient.apiUrl}uploads/BANNERS/SLIDE2.PNG',
-      '${DioClient.apiUrl}uploads/BANNERS/SLIDE3.PNG',
-      '${DioClient.apiUrl}uploads/BANNERS/SLIDE4.PNG',
+      AppImages.SLIDE1,
+      AppImages.SLIDE2,
+      AppImages.SLIDE3,
+      AppImages.SLIDE4,
     ];
   }
 
@@ -90,7 +91,7 @@ class _SlidesWidgetState extends State<SlidesWidget> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
+                  child: Image.asset(
                     _images[index],
                     fit: BoxFit.cover,
                   ),

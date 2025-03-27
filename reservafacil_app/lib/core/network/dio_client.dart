@@ -52,8 +52,10 @@ class DioClient {
 
     // url = "http://localhost:3030/"; // URL Casa
     // url = "http://192.168.1.232:3030/"; // URL Casa
-    url = "https://test-api.reservafacil.site/"; // URL Teste
+    // url = "https://test-api.reservafacil.site/"; // URL Teste
     // url = "http://172.20.73.96:3030/"; // URL Casa
+    url = "http://172.20.62.77:8000/api/"; // URL Casa
+
     // url = "https://api.reservafacil.site/"; // URL Produção
 
     apiUrl = url;
@@ -80,7 +82,8 @@ class DioClient {
   }
 
   static _getApiKey() {
-    return "RFAPP_012025_DEV";
+    // return "RFAPP_012025_DEV";
+    return "123456789";
   }
 
   static _getAuthToken() {

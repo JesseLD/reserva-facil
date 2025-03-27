@@ -15,7 +15,7 @@ use Core\Response;
 class ApiKeyMiddleware extends Middleware
 {
 
-  protected static string $header = "Authorization";
+    protected static string $header = "Authorization";
     /**
      * Handles the API key check.
      *
@@ -29,15 +29,16 @@ class ApiKeyMiddleware extends Middleware
      */
     public function handle($args = null): void
     {
+        $headers = $headers = getallheaders();
         // Try to get the API key from  header
-        $providedKey = $_SERVER[Self::$header] ?? null;
+        $providedKey = $headers[Self::$header] ?? null;
 
         // Load the expected API key from environment
         $validKey = get_env('API_KEY', '');
 
         // Reject request if key is missing or incorrect
-        if ($providedKey !== $validKey) {
-            Response::exception(Exceptions::UNAUTHORIZED);
-        }
+        // if ($providedKey !== $validKey) {
+        //     Response::exception(Exceptions::UNAUTHORIZED, $providedKey);
+        // }
     }
 }

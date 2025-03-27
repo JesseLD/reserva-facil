@@ -70,5 +70,23 @@ class Exceptions
     'message' => 'Too many requests'
   ];
 
+  public const USER_ALREADY_EXISTS = [
+    'code' => 409,
+    'name' => 'UserAlreadyExistsException',
+    'message' => 'User already exists'
+  ];
+
+  public const USER_NOT_FOUND = [
+    'code' => 404,
+    'name' => 'UserNotFoundException',
+    'message' => 'User not found'
+  ];
+
+  public const INVALID_PASSWORD = [
+    'code' => 401,
+    'name' => 'InvalidPasswordException',
+    'message' => 'Invalid password'
+  ];
+
 
 }

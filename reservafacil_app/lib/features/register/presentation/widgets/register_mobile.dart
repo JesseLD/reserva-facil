@@ -30,6 +30,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
   final _confirmPasswordController = TextEditingController();
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
+  // final _cepController = TextEditingController();
 
   bool _obscureText = true;
   void _handleRegister() async {

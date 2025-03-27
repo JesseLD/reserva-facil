@@ -1,5 +1,6 @@
 <?php
 
+use Core\Auth;
 use Core\View; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,8 @@ use Core\View; ?>
 
 $success = get_success_flash();
 $error = get_error_flash();
+
+$storeName = Auth::user()['name'];
 
 ?>
 
@@ -30,17 +33,21 @@ $error = get_error_flash();
         <ion-icon class="mr-3" name="calendar-outline"></ion-icon> Reservas
 
       </a>
-      <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
+      <a href="/products" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
         <ion-icon class="mr-3" name="cube-outline"></ion-icon> Produtos
       </a>
-      <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
-        <ion-icon class="mr-3" name="settings-outline"></ion-icon> Configurações
-      </a>
-      <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
+
+      <a href="/settings/profile" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
         <ion-icon class="mr-3" name="person-outline"></ion-icon> Perfil
       </a>
-      <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
+      <a href="/reviews" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
+        <ion-icon class="mr-3" name="star-outline"></ion-icon> Avaliações
+      </a>
+      <!-- <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
         <ion-icon class="mr-3" name="stats-chart-outline"></ion-icon> Relatórios
+      </a> -->
+      <a href="/settings" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
+        <ion-icon class="mr-3" name="settings-outline"></ion-icon> Configurações
       </a>
       <a href="/logout" class="flex items-center px-3 py-2 rounded hover:bg-gray-100 transition">
         <ion-icon class="mr-3" name="log-out-outline"></ion-icon> Sair
@@ -52,7 +59,7 @@ $error = get_error_flash();
   <div class="flex-1">
     <header class="bg-orange-500 py-4 shadow-md">
       <div class="container mx-auto px-4">
-        <h1 class="text-white text-2xl font-semibold">Dashboard</h1>
+        <h1 class="text-white text-2xl font-semibold">Painel - <?= $storeName ?></h1>
       </div>
     </header>
 

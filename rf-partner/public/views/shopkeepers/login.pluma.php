@@ -19,14 +19,14 @@ set_title('Login');
       <div>
         <label class="block text-gray-700 mb-1" for="email">Email</label>
         <input type="email" id="email" name="email" required
-          class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500">
+          class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500 outline-none">
       </div>
 
       <!-- Password Input -->
       <div>
         <label class="block text-gray-700 mb-1" for="password">Senha</label>
         <input type="password" id="password" name="password" min="6" required
-          class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500">
+          class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500 outline-none">
       </div>
 
       <!-- Login Button -->

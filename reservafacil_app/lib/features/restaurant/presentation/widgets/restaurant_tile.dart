@@ -26,10 +26,10 @@ class _RestaurantTileState extends State<RestaurantTile> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(widget.restaurant.logoUrl),
-            radius: 24,
-          ),
+          // CircleAvatar(
+          //   backgroundImage: NetworkImage(widget.restaurant.logoUrl),
+          //   radius: 24,
+          // ),
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

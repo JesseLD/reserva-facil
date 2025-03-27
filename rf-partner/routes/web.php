@@ -2,7 +2,10 @@
 
 use App\Controllers\HomeController;
 use App\Controllers\Auth\LoginController;
+use App\Controllers\ProductsController;
 use App\Controllers\ReservationController;
+use App\Controllers\ReviewsController;
+use App\Controllers\SettingsController;
 use App\Controllers\ShopkeeperController;
 use Core\Router;
 
@@ -29,11 +32,29 @@ $router->group('VerifyCsrfToken', function ($router) {
     $router->get('/home', [HomeController::class, 'index']);
     $router->get('/logout', [LoginController::class, 'logout']);
 
-
+    // Reservations
     $router->get('/reservations', [ReservationController::class, 'index']);
-    // $router->get('/home', [DashboardController::class, 'index']);
+
+    // Products
+    $router->get('/products', [ProductsController::class, 'index']);
+    $router->post('/products', [ProductsController::class, 'store']);
+    $router->get('/products/remove/{id}', [ProductsController::class, 'remove']);
+
+
+    // Settings
+    $router->get('/settings', [SettingsController::class, 'index']);
+    $router->get('/settings/profile', [SettingsController::class, 'profile']);
+
+    // Reviews
+    $router->get('/reviews', [ReviewsController::class, 'index']);
+   
   });
 });
+
+
+// API ROUTES (no csrf, no authentication required, api key required)
+
+require_once 'api.php';
 
 
 

@@ -28,48 +28,85 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      // if (mounted) {
-      //   setState(() {});
-      // }
-      appSync();
-    });
-  }
-
-  void appSync() async {
-    await loadConfig();
-    await _checkUpdates();
-  }
-
-  Future<void> loadConfig() async {
-    final configProvider = Provider.of<ConfigProvider>(context, listen: false);
-    await configProvider.getConfig();
-  }
-
-  Future<void> _checkUpdates() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final configProvider = Provider.of<ConfigProvider>(context, listen: false);
-
-    final version = packageInfo.version;
-    final buildNumber = packageInfo.buildNumber;
-
-    if (version != configProvider.configModel.version ||
-        buildNumber != configProvider.configModel.buildNumber.toString()) {
-      Logger.log("Splash::Update Available");
-
-      return await showUpdatePopupWebTEMP(context,
-          currentVersion: "${version}b$buildNumber",
-          newVersion:
-              "${configProvider.configModel.version}b${configProvider.configModel.buildNumber}");
-    } else {
-      Logger.log("Splash::No Update Available");
+    // Future.delayed(const Duration(seconds: 2), () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Navigator.pushNamedAndRemoveUntil(
+      //   context,
+      //   "/onboarding",
+      //   (route) => false,
+      // );
       _handleAutoLogin();
-    }
+    });
+    //   // appSync();
+    // });
   }
+
+  // void appSync() async {
+  //   await loadConfig();
+  //   await _checkUpdates();
+  // }
+
+  // Future<void> loadConfig() async {
+  //   final configProvider = Provider.of<ConfigProvider>(context, listen: false);
+  //   await configProvider.getConfig();
+  // }
+
+  // Future<void> _checkUpdates() async {
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   final configProvider = Provider.of<ConfigProvider>(context, listen: false);
+
+  //   final version = packageInfo.version;
+  //   final buildNumber = packageInfo.buildNumber;
+
+  //   if (version != configProvider.configModel.version ||
+  //       buildNumber != configProvider.configModel.buildNumber.toString()) {
+  //     Logger.log("Splash::Update Available");
+
+  //     return await showUpdatePopupWebTEMP(context,
+  //         currentVersion: "${version}b$buildNumber",
+  //         newVersion:
+  //             "${configProvider.configModel.version}b${configProvider.configModel.buildNumber}");
+  //   } else {
+  //     Logger.log("Splash::No Update Available");
+  //     _handleAutoLogin();
+  //   }
+  // }
 
   void _handleAutoLogin() async {
+    // await loadConfig();
     await _loadSaveLogin();
-    await _autoLogin();
+
+    final globalStateProvider =
+        Provider.of<GlobalStateProvider>(context, listen: false);
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+    // final hasUpdate = await _hasUpdate();
+
+    // if (hasUpdate) {
+    //   await _showUpdateDialog();
+    //   return;
+    // }
+
+    if (!_saveLogin || email.isEmpty || password.isEmpty) {
+      Logger.log("Splash::Sem login salvo ou incompleto");
+      Navigator.pushNamedAndRemoveUntil(
+          context, "/onboarding", (route) => false);
+      return;
+    }
+
+    globalStateProvider.setLoading(true);
+
+    try {
+      await loginProvider.login(email: email, password: password);
+      showSuccessToast(context, message: "Login efetuado com sucesso!");
+      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+    } catch (e) {
+      Logger.log("Splash::Erro no auto login: $e");
+      Navigator.pushNamedAndRemoveUntil(
+          context, "/onboarding", (route) => false);
+    } finally {
+      globalStateProvider.setLoading(false);
+    }
   }
 
   Future<void> _loadSaveLogin() async {
@@ -133,6 +170,31 @@ class _SplashPageState extends State<SplashPage> {
       return;
     }
   }
+
+  // Future<bool> _hasUpdate() async {
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   final configProvider = Provider.of<ConfigProvider>(context, listen: false);
+
+  //   final version = packageInfo.version;
+  //   final buildNumber = packageInfo.buildNumber;
+
+  //   return version != configProvider.configModel.version ||
+  //       buildNumber != configProvider.configModel.buildNumber.toString();
+  // }
+
+  // Future<void> _showUpdateDialog() async {
+  //   Logger.log("Splash::Atualização disponível");
+
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   final configProvider = Provider.of<ConfigProvider>(context, listen: false);
+
+  //   await showUpdatePopupWebTEMP(
+  //     context,
+  //     currentVersion: "${packageInfo.version}b${packageInfo.buildNumber}",
+  //     newVersion:
+  //         "${configProvider.configModel.version}b${configProvider.configModel.buildNumber}",
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

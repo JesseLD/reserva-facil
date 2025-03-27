@@ -8,6 +8,7 @@ set_title('Home');
 
 $userName = Auth::user()['ownerName'];
 
+
 ?>
 
 <section class="mb-8">

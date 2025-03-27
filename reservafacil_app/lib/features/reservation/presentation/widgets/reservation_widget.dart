@@ -43,12 +43,12 @@ class _ReservationWidgetState extends State<ReservationWidget> {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          widget.reservationModel.restaurant.logoUrl),
-                      radius: 16,
-                    ),
-                    const SizedBox(width: 8),
+                    // CircleAvatar(
+                    //   backgroundImage: NetworkImage(
+                    //       widget.reservationModel.restaurant.logoUrl),
+                    //   radius: 16,
+                    // ),
+                    // const SizedBox(width: 8),
                     Text(
                       widget.reservationModel.restaurant.name,
                       style: const TextStyle(

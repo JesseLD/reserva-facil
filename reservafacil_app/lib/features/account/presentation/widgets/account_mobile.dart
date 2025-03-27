@@ -485,17 +485,17 @@ class _AccountMobileState extends State<AccountMobile> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      initialValue: CpfConverter.format(
-                          loginProvider.loginModel.account.cpfCnpj),
-                      decoration: AppInputStyles.primaryInput.copyWith(
-                        labelText: 'CPF',
-                      ),
-                      readOnly: true,
-                      style: TextStyle(
-                        color: AppColors.gray.withAlpha(130),
-                      ),
-                    ),
+                    // TextFormField(
+                    //   initialValue: CpfConverter.format(
+                    //       loginProvider.loginModel.account.cpfCnpj),
+                    //   decoration: AppInputStyles.primaryInput.copyWith(
+                    //     labelText: 'CPF',
+                    //   ),
+                    //   readOnly: true,
+                    //   style: TextStyle(
+                    //     color: AppColors.gray.withAlpha(130),
+                    //   ),
+                    // ),
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _birthDateController,

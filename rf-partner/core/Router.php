@@ -144,7 +144,9 @@ class Router
 
         // Convert {param} to regex (e.g. /user/{id} => /user/([^/]+))
         $pattern = preg_replace('/\{([\w]+)\}/', '([^/]+)', $uri);
-        $pattern = "#^{$pattern}$#";
+        // $pattern = "#^{$pattern}$#";
+        $pattern = "#^{$pattern}/?$#"; // Allow trailing slash
+
 
         $this->routes[] = [
             'method' => $method,
@@ -179,7 +181,8 @@ class Router
     {
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-
+        
+        
         foreach ($this->routes as $route) {
             if ($route['method'] !== $requestMethod) continue;
 
