@@ -596,3 +596,138 @@ Stack trace:
 [Wed Mar 26 12:56:30 2025] 127.0.0.1:35120 [500]: GET /register - Cannot redeclare static App\Models\BaseModel::$table as non static App\Models\StateModel::$table in /mnt/c/Users/jesse/Documents/projetos-ifba/reserva-facil/rf-partner/app/Models/StateModel.php on line 5
 [Wed Mar 26 12:56:30 2025] 127.0.0.1:35120 Closing
 [Wed Mar 26 12:56:30 2025] 127.0.0.1:35132 Accepted
+[Wed Mar 26 14:14:33 2025] PHP 8.4.3 Development Server (http://localhost:8000) started
+[Wed Mar 26 14:18:39 2025] [::1]:53867 Accepted
+[Wed Mar 26 14:18:39 2025] [::1]:53867 [404]: GET /home
+[Wed Mar 26 14:18:39 2025] [::1]:53867 Closing
+[Wed Mar 26 14:18:44 2025] [::1]:53871 Accepted
+[Wed Mar 26 14:18:44 2025] [::1]:53871 [404]: GET /home
+[Wed Mar 26 14:18:44 2025] [::1]:53871 Closing
+[Wed Mar 26 14:18:47 2025] [::1]:53872 Accepted
+[Wed Mar 26 14:18:47 2025] [::1]:53872 [302]: GET /
+[Wed Mar 26 14:18:47 2025] [::1]:53872 Closing
+[Wed Mar 26 14:18:47 2025] [::1]:53873 Accepted
+[Wed Mar 26 14:18:47 2025] [::1]:53873 [200]: GET /login
+[Wed Mar 26 14:18:47 2025] [::1]:53873 Closing
+[Wed Mar 26 14:20:08 2025] [::1]:53877 Accepted
+[Wed Mar 26 14:20:08 2025] [::1]:53877 [200]: GET /login
+[Wed Mar 26 14:20:08 2025] [::1]:53877 Closing
+[Wed Mar 26 14:20:08 2025] [::1]:53878 Accepted
+[Wed Mar 26 14:20:08 2025] [::1]:53878 [200]: GET /images/favicon.svg
+[Wed Mar 26 14:20:08 2025] [::1]:53878 Closing
+[Wed Mar 26 14:23:03 2025] [::1]:53888 Accepted
+[Wed Mar 26 14:23:03 2025] [::1]:53888 [500]: POST /login
+[Wed Mar 26 14:23:03 2025] [::1]:53888 Closing
+[Wed Mar 26 14:24:11 2025] [::1]:53907 Accepted
+[Wed Mar 26 14:24:11 2025] [::1]:53907 [200]: GET /login
+[Wed Mar 26 14:24:11 2025] [::1]:53907 Closing
+[Wed Mar 26 14:24:14 2025] [::1]:53908 Accepted
+[Wed Mar 26 14:24:15 2025] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbreservafacil_new.shopkeepers' doesn't exist in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php:28
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php(28): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\Auth\LoginController->login()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php on line 28
+[Wed Mar 26 14:24:15 2025] [::1]:53908 [200]: POST /login - Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbreservafacil_new.shopkeepers' doesn't exist in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php:28
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php(28): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\Auth\LoginController->login()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/Auth/LoginController.php on line 28
+[Wed Mar 26 14:24:15 2025] [::1]:53908 Closing
+[Wed Mar 26 14:24:38 2025] [::1]:53913 Accepted
+[Wed Mar 26 14:24:38 2025] [::1]:53913 [302]: POST /login
+[Wed Mar 26 14:24:38 2025] [::1]:53913 Closing
+[Wed Mar 26 14:24:38 2025] [::1]:53915 Accepted
+[Wed Mar 26 14:24:38 2025] [::1]:53915 [200]: GET /login
+[Wed Mar 26 14:24:38 2025] [::1]:53915 Closing
+[Wed Mar 26 14:24:38 2025] [::1]:53916 Accepted
+[Wed Mar 26 14:24:38 2025] [::1]:53916 [200]: GET /images/favicon.svg
+[Wed Mar 26 14:24:38 2025] [::1]:53916 Closing
+[Wed Mar 26 14:24:40 2025] [::1]:53917 Accepted
+[Wed Mar 26 14:24:40 2025] [::1]:53917 [302]: POST /login
+[Wed Mar 26 14:24:40 2025] [::1]:53917 Closing
+[Wed Mar 26 14:24:40 2025] [::1]:53919 Accepted
+[Wed Mar 26 14:24:40 2025] [::1]:53919 [200]: GET /login
+[Wed Mar 26 14:24:40 2025] [::1]:53919 Closing
+[Wed Mar 26 14:35:56 2025] [::1]:53991 Accepted
+[Wed Mar 26 14:35:57 2025] [::1]:53991 [404]: GET /assets
+[Wed Mar 26 14:35:57 2025] [::1]:53991 Closing
+[Wed Mar 26 14:36:00 2025] [::1]:53992 Accepted
+[Wed Mar 26 14:36:00 2025] [::1]:53992 [200]: GET /login
+[Wed Mar 26 14:36:00 2025] [::1]:53992 Closing
+[Wed Mar 26 14:52:02 2025] [::1]:54110 Accepted
+[Wed Mar 26 14:52:03 2025] [::1]:54110 [200]: GET /register
+[Wed Mar 26 14:52:03 2025] [::1]:54110 Closing
+[Wed Mar 26 15:05:13 2025] [::1]:54186 Accepted
+[Wed Mar 26 15:05:13 2025] [::1]:54186 [404]: POST /register
+[Wed Mar 26 15:05:13 2025] [::1]:54186 Closing
+[Wed Mar 26 15:06:31 2025] [::1]:54196 Accepted
+[Wed Mar 26 15:06:31 2025] PHP Warning:  Undefined array key "ownerName" in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 74
+[Wed Mar 26 15:06:31 2025] PHP Warning:  Undefined array key "name" in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 77
+[Wed Mar 26 15:06:31 2025] PHP Warning:  Undefined array key "category" in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 78
+[Wed Mar 26 15:06:31 2025] PHP Warning:  Undefined array key "maxPartySize" in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 80
+[Wed Mar 26 15:06:32 2025] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'capacity' in 'field list' in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php:73
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php(73): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\ShopkeeperController->store()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 73
+[Wed Mar 26 15:06:32 2025] [::1]:54196 [200]: POST /register - Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'capacity' in 'field list' in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php:73
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php(73): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\ShopkeeperController->store()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 73
+[Wed Mar 26 15:06:32 2025] [::1]:54196 Closing
+[Wed Mar 26 15:06:48 2025] [::1]:54198 Accepted
+[Wed Mar 26 15:06:49 2025] [::1]:54198 [200]: GET /register
+[Wed Mar 26 15:06:49 2025] [::1]:54198 Closing
+[Wed Mar 26 15:06:49 2025] [::1]:54202 Accepted
+[Wed Mar 26 15:06:49 2025] [::1]:54202 [200]: GET /images/favicon.svg
+[Wed Mar 26 15:06:49 2025] [::1]:54202 Closing
+[Wed Mar 26 15:07:15 2025] [::1]:54210 Accepted
+[Wed Mar 26 15:07:15 2025] [::1]:54210 [400]: POST /register
+[Wed Mar 26 15:07:15 2025] [::1]:54210 Closing
+[Wed Mar 26 15:08:41 2025] [::1]:54214 Accepted
+[Wed Mar 26 15:08:42 2025] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'capacity' in 'field list' in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php:73
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php(73): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\ShopkeeperController->store()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 73
+[Wed Mar 26 15:08:42 2025] [::1]:54214 [200]: POST /register - Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'capacity' in 'field list' in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php:73
+Stack trace:
+#0 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php(73): PDOStatement->execute(Array)
+#1 [internal function]: App\Controllers\ShopkeeperController->store()
+#2 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/core/Router.php(216): call_user_func_array(Array, Array)
+#3 /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/public/index.php(23): Core\Router->dispatch()
+#4 {main}
+  thrown in /Users/macbook-dev/Documents/jesse/reserva-facil/rf-partner/app/Controllers/ShopkeeperController.php on line 73
+[Wed Mar 26 15:08:42 2025] [::1]:54214 Closing
+[Wed Mar 26 15:09:06 2025] [::1]:54222 Accepted
+[Wed Mar 26 15:09:07 2025] [::1]:54222 [302]: POST /register
+[Wed Mar 26 15:09:07 2025] [::1]:54222 Closing
+[Wed Mar 26 15:09:07 2025] [::1]:54224 Accepted
+[Wed Mar 26 15:09:07 2025] [::1]:54224 [200]: GET /login
+[Wed Mar 26 15:09:07 2025] [::1]:54224 Closing
+[Wed Mar 26 15:09:07 2025] [::1]:54225 Accepted
+[Wed Mar 26 15:09:07 2025] [::1]:54225 [200]: GET /images/favicon.svg
+[Wed Mar 26 15:09:07 2025] [::1]:54225 Closing
+[Wed Mar 26 15:09:27 2025] [::1]:54226 Accepted
+[Wed Mar 26 15:09:28 2025] [::1]:54226 [200]: GET /register
+[Wed Mar 26 15:09:28 2025] [::1]:54226 Closing
+[Wed Mar 26 15:10:15 2025] [::1]:54230 Accepted
+[Wed Mar 26 15:10:40 2025] [::1]:54230 [500]: GET /register
+[Wed Mar 26 15:10:40 2025] [::1]:54230 Closing
+[Wed Mar 26 15:12:18 2025] PHP 8.4.3 Development Server (http://localhost:8000) started

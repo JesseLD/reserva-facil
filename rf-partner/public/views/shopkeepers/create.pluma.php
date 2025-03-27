@@ -14,7 +14,7 @@ set_title('Registro');
     <!-- Personal Data -->
     <div>
       <h2 class="text-lg font-semibold text-gray-900 mb-2">Dados Pessoais</h2>
-      <input type="text" name="owner_name" placeholder="Nome do Proprietário" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
+      <input type="text" name="ownerName" placeholder="Nome do Proprietário" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
       <input type="text" name="phone" placeholder="Telefone" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
       <input type="email" name="email" placeholder="E-mail" class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
     </div>
@@ -39,20 +39,20 @@ set_title('Registro');
     <div>
       <h2 class="text-lg font-semibold text-gray-900 mb-2">Informações da Loja</h2>
 
-      <select name="especialidade" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required>
+      <select name="category" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required>
         <option value="">Especialidade</option>
         <?php foreach ($categories as $category): ?>
           <option value="<?= $category->id ?>"><?= e($category->name) ?></option>
         <?php endforeach; ?>
       </select>
 
-      <input type="text" name="nome_loja" placeholder="Nome da Loja" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
+      <input type="text" name="name" placeholder="Nome da Loja" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
       <input type="number" name="capacity" placeholder="Capacidade de Pessoas" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
-      <input type="number" name="max_party_size" placeholder="Máximo de pessoas por mesa" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
-      <input type="text" name="cnpj" placeholder="CPF/CNPJ" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
+      <input type="number" name="maxPartySize" placeholder="Máximo de pessoas por mesa" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
+      <input type="text" name="cpfCnpj" placeholder="CPF/CNPJ" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
 
       <!-- Password -->
-      <input type="password" name="password" placeholder="Senha" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" required />
+      <input type="password" name="password" placeholder="Senha" class="w-full mb-2 rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500" min="6" required />
 
     </div>
 

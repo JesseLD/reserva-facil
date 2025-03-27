@@ -122,7 +122,7 @@ function render_section(string $name): void {
  * Escapes output for safe HTML rendering (XSS protection).
  */
 if (!function_exists('e')) {
-    function e(?string $value): string
+    function e(?string $value): ?string
     {
         return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
     }
@@ -201,6 +201,31 @@ function flash(string $key, ?string $value = null): void
 {
   Session::flash($key, $value);
 }
+
+function get_error_flash(): ?string
+{
+  $message = Session::get('error');
+  Session::remove('error'); 
+  return $message;
+}
+
+function get_success_flash(): ?string
+{
+  $message = Session::get('success');
+  Session::remove('success'); 
+  return $message;
+}
+
+function set_error_flash($message): void
+{
+  Session::flash('error', $message);
+}
+
+function set_success_flash($message): void
+{
+  Session::flash('success', $message);
+}
+
 
 
 /**

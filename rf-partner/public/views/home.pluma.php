@@ -1,50 +1,86 @@
 <?php
 
+use Core\Auth;
 
-extend('app');
+extend('auth');
 section('content');
-set_title('Welcome');
+set_title('Home');
+
+$userName = Auth::user()['ownerName'];
 
 ?>
 
+<section class="mb-8">
 
-<!-- Header -->
-<header class="bg-gradient-to-r from-orange-500 to-yellow-400 p-4 flex items-center justify-between">
-  <div class="flex items-center space-x-2">
-    <div class="bg-white text-orange-600 font-bold rounded-full w-8 h-8 flex items-center justify-center">R</div>
-    <span class="text-white text-lg font-semibold">Reserva Fácil</span>
-  </div>
-  <nav class="space-x-4">
-    <a href="#como-funciona" class="text-white hover:underline">Como Funciona</a>
-    <a href="#sobre" class="text-white hover:underline">Sobre</a>
-    <a href="/login" class="bg-white text-orange-600 px-4 py-1 rounded-lg font-medium hover:bg-orange-100">Entrar</a>
-  </nav>
-</header>
-
-<!-- Hero -->
-<section class="text-center py-12 px-4 bg-gray-100">
-  <h1 class="text-3xl md:text-4xl font-extrabold text-orange-600 mb-2">Descubra os melhores restaurantes em todo o Brasil.</h1>
-  <p class="text-gray-700 text-lg mb-6 max-w-2xl mx-auto">Mais de 1 milhão de pessoas já aproveitaram experiências de primeira em mais de 5 mil restaurantes espalhados por todo o Brasil!</p>
-
-  <div class="relative max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-lg">
-    <img src="/assets/banner-restaurante.jpg" alt="Restaurante" class="w-full h-64 object-cover opacity-90">
-    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center px-4">
-      <h2 class="text-2xl md:text-3xl font-bold">Encontre o restaurante ideal para você</h2>
-      <p class="mt-2 max-w-lg">Seja para um jantar romântico, um almoço de negócios ou um encontro com os amigos, o Reserva Fácil tem o lugar perfeito para você!</p>
-      <a href="/restaurantes" class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition">Conheça os Restaurantes</a>
-    </div>
+  <div class="bg-white shadow rounded-lg p-4">
+    <p>Bem Vindo 👋</p>
+    <h1 class="text-3xl font-semibold text-gray-800"><?= $userName ?></h1>
   </div>
 
-  <div class="mt-10">
-    <a href="/cadastro-restaurante" class="inline-block bg-white border-2 border-orange-500 text-orange-600 font-semibold px-6 py-3 rounded-lg hover:bg-orange-50 transition">
-      Cadastre seu Restaurante
-    </a>
-  </div>
 </section>
 
-<!-- Footer simples -->
-<footer class="text-center text-sm text-gray-500 py-6">
-  &copy; 2025 Reserva Fácil. Todos os direitos reservados.
-</footer>
+<!-- Dashboard Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h2 class="text-gray-500">Reservas Hoje</h2>
+    <p class="text-3xl font-bold text-gray-800">12</p>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h2 class="text-gray-500">Total de Reservas</h2>
+    <p class="text-3xl font-bold text-gray-800">220</p>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h2 class="text-gray-500">Ocupação Atual</h2>
+    <p class="text-3xl font-bold text-gray-800">65%</p>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h2 class="text-gray-500">Reservas Pendentes</h2>
+    <p class="text-3xl font-bold text-gray-800">3</p>
+  </div>
+
+</section>
+
+<!-- Recent Reservations Table -->
+<section class="bg-white shadow rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-4">Próximas Reservas</h2>
+
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr class="text-left">
+        <th class="py-2 px-3">Cliente</th>
+        <th class="py-2 px-3">Data/Hora</th>
+        <th class="py-2 px-3">Qtd. Pessoas</th>
+        <th class="py-2 px-3">Status</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr>
+        <td class="py-2 px-3">Ana Silva</td>
+        <td class="py-2 px-3">2025-03-27 19:00</td>
+        <td class="py-2 px-3">4</td>
+        <td class="py-2 px-3"><span class="bg-green-200 text-green-800 py-1 px-2 rounded">Confirmado</span></td>
+      </tr>
+      <tr>
+        <td class="py-2 px-3">Pedro Gomes</td>
+        <td class="py-2 px-3">2025-03-27 20:30</td>
+        <td class="py-2 px-3">2</td>
+        <td class="py-2 px-3"><span class="bg-yellow-200 text-yellow-800 py-1 px-2 rounded">Pendente</span></td>
+      </tr>
+      <tr>
+        <td class="py-2 px-3">Maria Lima</td>
+        <td class="py-2 px-3">2025-03-27 21:00</td>
+        <td class="py-2 px-3">6</td>
+        <td class="py-2 px-3"><span class="bg-green-200 text-green-800 py-1 px-2 rounded">Confirmado</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+
 
 <?php endSection(); ?>

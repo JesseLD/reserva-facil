@@ -25,7 +25,7 @@ set_title('Login');
       <!-- Password Input -->
       <div>
         <label class="block text-gray-700 mb-1" for="password">Senha</label>
-        <input type="password" id="password" name="password" required
+        <input type="password" id="password" name="password" min="6" required
           class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-orange-500 focus:border-orange-500">
       </div>
 

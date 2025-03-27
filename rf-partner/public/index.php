@@ -12,6 +12,9 @@ require_once __DIR__ . '/../core/helpers.php';
 require_once __DIR__ . '/../boot/app.php';
 
 use Core\Router;
+use Core\Session;
+
+Session::start();
 
 // Create a new router instance
 $router = new Router();

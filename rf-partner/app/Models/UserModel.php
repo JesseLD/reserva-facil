@@ -6,6 +6,6 @@ use PDO;
 
 class User extends BaseModel
 {
-    protected static string $table = 'users';
+    protected static string $table = 'Users';
     
 }

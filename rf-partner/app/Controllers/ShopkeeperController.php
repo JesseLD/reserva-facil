@@ -7,6 +7,8 @@ use App\Models\Shopkeeper;
 use App\Models\StateModel;
 use App\Models\StoreCategoryModel;
 use App\Requests\ShopkeeperRequest;
+use Core\Database;
+use Core\Request;
 use Core\Response;
 use Core\Validator;
 
@@ -30,60 +32,69 @@ class ShopkeeperController extends Controller
         ]);
     }
 
-    public function store($request)
+    public function store()
     {
         // Handle POST to create Shopkeeper
 
+        $request = Request::all();
+        $db = Database::connection();
+
         // Validate request data
-        $validator =  Validator::requireFields($request->all(), [
-            'owner_name',
+        $validator = Validator::requireFields($request, [
+            'ownerName',
             'phone',
             'email',
             'cep',
             'state',
             'city',
             'address',
-            'especialidade',
-            'nome_loja',
+            'category',
+            'name',
             'capacity',
-            'max_party_size',
-            'cnpj',
+            'maxPartySize',
+            'cpfCnpj',
             'password',
         ]);
 
-     
+        $exists = $db->prepare("SELECT * FROM Store WHERE email = ? OR cpfCnpj = ? or phone = ?");
+        $exists->execute([$request['email'], $request['cpfCnpj'], $request['phone']]);
+        $exists = $exists->fetch();
 
-        // Check if email already exists
-        if (StateModel::where('email', $request->email)->first()) {
-            return Response::redirect('/register');
+        if ($exists) {
+            set_error_flash("Loja já cadastrada!");
+            return redirect('/register');
         }
 
-        
 
-        echo $request;
-        exit;
+        $insertStoreStmt = $db->prepare("INSERT INTO Store 
+(ownerName, phone, email, name, categoryId, capacity, maxPartySize, cpfCnpj, password)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        ");
+        $insertStoreStmt->execute([
+            $request['ownerName'],
+            $request['phone'],
+            $request['email'],
+            $request['name'],
+            $request['category'],
+            $request['capacity'],
+            $request['maxPartySize'],
+            $request['cpfCnpj'],
+            password_hash($request['password'], PASSWORD_DEFAULT),
+        ]);
 
-        // // Save the user
-        // $user = new StateModel([
-        //     'owner_name'     => $request->owner_name,
-        //     'phone'          => $request->phone,
-        //     'email'          => $request->email,
-        //     'cep'            => $request->cep,
-        //     'state_id'       => $request->state,
-        //     'city'           => $request->city,
-        //     'address'        => $request->address,
-        //     'category_id'    => $request->especialidade,
-        //     'store_name'     => $request->nome_loja,
-        //     'capacity'       => $request->capacity,
-        //     'max_party_size' => $request->max_party_size,
-        //     'cnpj'           => $request->cnpj,
-        //     'password'       => password_hash($request->password, PASSWORD_DEFAULT),
-        // ]);
+        $insertStoreLocalizationStmt = $db->prepare("INSERT INTO StoreLocalization
+(cep, stateId, city, address, storeId) VALUES (?, ?, ?, ?, ?);
+        ");
+        $insertStoreLocalizationStmt->execute([
+            $request['cep'],
+            $request['state'],
+            $request['city'],
+            $request['address'],
+            $db->lastInsertId(),
+        ]);
 
-        // $user->save();
-
-        // // Redirect after successful registration
-        // return Response::redirect('/login')->with('success', 'Cadastro efetuado com sucesso!');
+        set_success_flash("Cadastro efetuado com sucesso!");
+        return redirect('/login');
     }
 
     public function show($id)

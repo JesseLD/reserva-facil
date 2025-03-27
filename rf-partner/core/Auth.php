@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use App\Models\User;
+use App\Models\Store;
 
 class Auth
 {
@@ -20,12 +20,12 @@ class Auth
      *     redirect('/dashboard');
      * }
      */
-    protected static string  $key = 'user_id';
+    protected static string  $key = 'store_id';
 
     public static function attempt(string $field, string $value, string $password): bool
     {
         // You must have a User model with a static "where" method
-        $user = User::where($field, $value)->first();
+        $user = Store::where($field, $value)->first();
 
         // If user not found or password doesn't match, return false
         if (!$user || !password_verify($password, $user->password)) {
@@ -40,12 +40,12 @@ class Auth
     /**
      * Returns the currently authenticated user (or null).
      */
-    public static function user(): ?User
+    public static function user()
     {
         $id = Session::get(Self::$key);
         if (!$id) return null;
 
-        return User::find($id);
+        return Session::get(Self::$key);
     }
 
     /**
@@ -64,7 +64,8 @@ class Auth
         Session::remove(Self::$key);
     }
 
-    public static function login($data) : void {
+    public static function login($data): void
+    {
         Session::set(Self::$key, $data);
     }
 

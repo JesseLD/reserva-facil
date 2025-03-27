@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use Core\Database;
+use Core\Session;
 
 /**
  * BaseModel provides shared ORM-like functionality for all models.
@@ -192,5 +193,11 @@ abstract class BaseModel
         $sql = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
         $stmt = static::getConnection()->prepare($sql);
         return $stmt->execute(['id' => $this->attributes[static::$primaryKey]]);
+    }
+
+
+    public static function has($key)
+    {
+        return Session::get($key);
     }
 }

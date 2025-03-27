@@ -4,7 +4,6 @@
   <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.4"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="shortcut icon" href="<?= asset("images/favicon.svg") ?>" type="image/x-icon">
 

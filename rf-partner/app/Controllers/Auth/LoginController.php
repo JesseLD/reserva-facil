@@ -24,7 +24,7 @@ class LoginController extends Controller
     $email = $request['email'];
     $password = $request['password'];
 
-    $stmt = $db->prepare("SELECT * FROM shopkeepers WHERE email = ?");
+    $stmt = $db->prepare("SELECT * FROM Store WHERE email = ?");
     $stmt->execute([$email]);
     $shopkeeper = $stmt->fetch();
 
@@ -32,7 +32,14 @@ class LoginController extends Controller
       Auth::login($shopkeeper);
       return $this->redirect('/home');
     } else {
-      return $this->redirect('/login');
+      set_error_flash("Credenciais inválidas!");
+      redirect('/login');
     }
+  }
+
+  public function logout()
+  {
+    Auth::logout();
+    redirect('/login');
   }
 }
